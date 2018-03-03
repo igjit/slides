@@ -283,7 +283,8 @@ expr
 <section class="slide level1">
 
 <p>Lispで書いた関数を</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>, <span class="kw">parent.frame</span>())</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>,
+                 <span class="kw">parent.frame</span>())</code></pre></div>
 <div class="fragment">
 <p>Rで使える</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">add2</span>(<span class="dv">40</span>)

@@ -290,7 +290,8 @@ lisprr::evaluate("(+ 1 2)")
 Lispで書いた関数を
 
 ```r
-lisprr::evaluate("(define add2 (lambda (x) (+ x 2)))", parent.frame())
+lisprr::evaluate("(define add2 (lambda (x) (+ x 2)))",
+                 parent.frame())
 ```
 
 <div class="fragment">
