@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="@igjit">
+  <title>(続 ((Rで) 書く (Lisp) インタプリタ))</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">(続 ((Rで) 書く (Lisp) インタプリタ))</h1>
+  <h2 class="author"><a href="https://twitter.com/igjit"><span class="citation" data-cites="igjit">@igjit</span></a></h2>
+</section>
+
+<section class="slide level1">
+
+<p>前回のTokyo.Rでこんな話をしました。</p>
+</section>
+<section class="slide level1">
+
+<p><a href="https://igjit.github.io/slides/2018/01/tiny_pipe/" class="uri">https://igjit.github.io/slides/2018/01/tiny_pipe/</a> <img src="images/ss_pipe.png" /></p>
+</section>
+<section class="slide level1">
+
+<p>言いたかったのは</p>
+</section>
+<section class="slide level1">
+
+<h2 id="rはすごく不思議な言語">Rはすごく不思議な言語</h2>
+</section>
+<section id="演算子" class="slide level1">
+<h1>演算子</h1>
+</section>
+<section class="slide level1">
+
+<p>中置演算子</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<p>関数呼び出し</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>実は</p>
+<h2 id="r内で起きることすべては関数呼び出しである">R内で起きることすべては関数呼び出しである。</h2>
+</section>
+<section class="slide level1">
+
+<p>これは</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="fragment">
+<p>これと等価</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>これは</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">10</span></code></pre></div>
+<div class="fragment">
+<p>これと等価</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>代入も</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="fragment">
+<p>関数呼び出し</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">&lt;-</span><span class="st">`</span>(x, <span class="dv">10</span>)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>制御構文も</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (x &lt;<span class="st"> </span><span class="dv">0</span>) -x else x</code></pre></div>
+<div class="fragment">
+<p>関数呼び出し</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">if</span><span class="st">`</span>(x &lt;<span class="st"> </span><span class="dv">0</span>, -x, x)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="section">!?</h2>
+</section>
+<section id="遅延評価" class="slide level1">
+<h1>遅延評価</h1>
+</section>
+<section class="slide level1">
+
+<p>Rの関数では</p>
+<h2 id="引数は遅延評価される">引数は遅延評価される</h2>
+<div class="fragment">
+<p>つまり</p>
+<h2 id="引数が使われた場合に初めて評価される">引数が使われた場合に初めて評価される</h2>
+</div>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span>function(a, b) {
+    if (a &gt;<span class="st"> </span><span class="dv">0</span>) b
+}</code></pre></div>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">1</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))
+<span class="co"># f(1, stop(&quot;This is an error!&quot;)) でエラー (#1 から) : This is an error!</span>
+
+<span class="kw">f</span>(<span class="dv">0</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))  <span class="co"># 何も起きない</span></code></pre></div>
+</div>
+</section>
+<section id="メタプログラミング" class="slide level1">
+<h1>メタプログラミング</h1>
+</section>
+<section class="slide level1">
+
+<p><code>quote()</code> は表現式を返す</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>)
+<span class="co"># 1 + 2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>表現式は</p>
+<h2 id="木構造">木構造</h2>
+<p>abstract syntax tree (AST) とも呼ばれる</p>
+</section>
+<section class="slide level1">
+
+<p><code>pryr::ast()</code> で木構造を見ることができる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ast</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span><span class="dv">3</span>)
+<span class="co"># \- ()</span>
+<span class="co">#   \- `+</span>
+<span class="co">#   \-  1</span>
+<span class="co">#   \- ()</span>
+<span class="co">#     \- `*</span>
+<span class="co">#     \-  2</span>
+<span class="co">#     \-  3 </span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="lispっぽい">Lispっぽい</h2>
+<figure>
+<img src="images/alien.png" style="box-shadow: none;">
+</figure>
+</section>
+<section class="slide level1">
+
+<p>表現式はlistのように扱える</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>)
+
+<span class="kw">as.list</span>(expr)
+<span class="co"># [[1]]</span>
+<span class="co"># `+`</span>
+<span class="co"># </span>
+<span class="co"># [[2]]</span>
+<span class="co"># [1] 1</span>
+<span class="co"># </span>
+<span class="co"># [[3]]</span>
+<span class="co"># [1] 2</span>
+
+expr[[<span class="dv">1</span>]]
+<span class="co"># `+`</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>表現式は修正できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>)
+expr[[<span class="dv">1</span>]] &lt;-<span class="st">  </span><span class="kw">quote</span>(<span class="st">`</span><span class="dt">*</span><span class="st">`</span>)
+
+expr
+<span class="co"># 1 * 2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>構文木を読み書きする</p>
+<h2 id="メタプログラミング-1">メタプログラミング</h2>
+</section>
+<section class="slide level1">
+
+<p>ところでだいぶ前のTokyo.Rでこんな話をしました。</p>
+</section>
+<section class="slide level1">
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/3HbfBlZBCllo4y" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+</iframe>
+</section>
+<section class="slide level1">
+
+<h2 id="メタプログラミングを使えばもっと簡単に書けるのでは">メタプログラミングを使えばもっと簡単に書けるのでは？</h2>
+</section>
+<section class="slide level1">
+
+<p>やってみた。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="lisprr">lisprr</h2>
+<p><a href="https://github.com/igjit/lisprr" class="uri">https://github.com/igjit/lisprr</a></p>
+</section>
+<section class="slide level1">
+
+<p>インストール</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;igjit/lisprr&quot;</span>)</code></pre></div>
+</section>
+<section id="あそびかた" class="slide level1">
+<h1>あそびかた</h1>
+</section>
+<section class="slide level1">
+
+<p>S式をRの表現式に変換する</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">translate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
+<span class="co">#&gt; 1 + 2</span></code></pre></div>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">translate</span>(<span class="st">&quot;(lambda (x) (+ x 2))&quot;</span>)
+<span class="co">#&gt; function(x = NULL) {</span>
+<span class="co">#&gt;     x + 2</span>
+<span class="co">#&gt; }</span></code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>S式を実行</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">evaluate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>Lispで書いた関数を</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>, <span class="kw">parent.frame</span>())</code></pre></div>
+<div class="fragment">
+<p>Rで使える</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">add2</span>(<span class="dv">40</span>)
+<span class="co">#&gt; [1] 42</span></code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>REPLを起動すると</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>lisprr::<span class="kw">repl</span>()</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>Rコンソール上でLispが動く</p>
+<pre class="lisp"><code>lisprr&gt; (+ 1 2)
+3
+lisprr&gt; (define add2 (lambda (x) (+ x 2)))
+#&lt;closure&gt;
+lisprr&gt; (add2 40)
+42</code></pre>
+</section>
+<section class="slide level1">
+
+<p>Rの関数も使える</p>
+<pre class="lisp"><code>lisprr&gt; (: 1 10)
+1 2 3 4 5 6 7 8 9 10
+lisprr&gt; (plot iris)</code></pre>
+</section>
+<section class="slide level1">
+
+<p><em>demo</em></p>
+</section>
+<section class="slide level1">
+
+<p>作ってみた感想</p>
+</section>
+<section class="slide level1">
+
+<h2 id="楽しい">楽しい！</h2>
+<figure>
+<img src="images/alien.png" style="box-shadow: none;">
+</figure>
+</section>
+<section class="slide level1">
+
+<blockquote class="twitter-tweet" data-lang="ja">
+<p lang="ja" dir="ltr">
+抽象構文木を操作してこその人生なのです
+</p>
+— igjit (<span class="citation" data-cites="igjit">@igjit</span>) <a href="https://twitter.com/igjit/status/968475819583594498?ref_src=twsrc%5Etfw">2018年2月27日</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+<section class="slide level1">
+
+<h2 id="lisprr-1">lisprr</h2>
+<p><a href="https://github.com/igjit/lisprr" class="uri">https://github.com/igjit/lisprr</a></p>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+<figure>
+<img src="images/alien.png" style="box-shadow: none;">
+</figure>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
