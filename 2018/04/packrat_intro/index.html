@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="@igjit">
+  <title>Packrat: パッケージ管理入門</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Packrat: パッケージ管理入門</h1>
+  <h2 class="author"><a href="https://twitter.com/igjit"><span class="citation" data-cites="igjit">@igjit</span></a></h2>
+</section>
+
+<section class="slide level1">
+
+<p>あなたの書いたRのコード</p>
+</section>
+<section class="slide level1">
+
+<h2 id="pc買い換えたら-動かなくなるかも">PC買い換えたら<br/>動かなくなるかも</h2>
+</section>
+<section class="slide level1">
+
+<h2 id="他の人のpcで実行したら-挙動が変わってしまうかも">他の人のPCで実行したら<br/>挙動が変わってしまうかも</h2>
+</section>
+<section class="slide level1">
+
+<p>原因はいろいろあるけど特に</p>
+<div class="fragment">
+<h2 id="パッケージ">パッケージ</h2>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="パッケージのバージョンは">パッケージのバージョンは?</h2>
+<div class="fragment">
+<p>install.packages をいつ実行したかでパッケージのバージョン変わる</p>
+</div>
+<div class="fragment">
+<p>非互換の変更があると挙動が変わったり動かなくなったりする可能性がある</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>Rのコードだけでなく</p>
+<div class="fragment">
+<p>パッケージのバージョンも<br/>管理しよう。</p>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="packrat"><a href="https://rstudio.github.io/packrat/">Packrat</a></h2>
+<p>RStudio製のパッケージ管理システム</p>
+</section>
+<section id="パッケージ管理を始める" class="slide level1">
+<h1>パッケージ管理を始める</h1>
+</section>
+<section class="slide level1">
+
+<p>Rのコードを書いたら</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+starwars %&gt;%
+<span class="st">    </span><span class="kw">mutate</span>(name, <span class="dt">bmi =</span> mass /<span class="st"> </span>((height /<span class="st"> </span><span class="dv">100</span>)  ^<span class="st"> </span><span class="dv">2</span>)) %&gt;%
+<span class="st">    </span><span class="kw">select</span>(name:mass, bmi)</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><code>packrat::init()</code> でPackratプロジェクトを初期化</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>packrat::<span class="kw">init</span>()</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>すると必要なパッケージが<strong>プロジェクト内</strong> (<code>packrat/lib/</code>) にインストールされて</p>
+</section>
+<section class="slide level1">
+
+<p>パッケージのバージョンが <code>packrat/packrat.lock</code> に記録される。</p>
+<pre><code>PackratFormat: 1.4
+PackratVersion: 0.4.9.1
+RVersion: 3.4.4
+Repos: CRAN=https://cran.ism.ac.jp
+
+(略)
+
+Package: dplyr
+Source: CRAN
+Version: 0.7.4
+Hash: cf677ec8dad7a45d1397dd7e72ef30c6
+Requires: BH, R6, Rcpp, assertthat, bindrcpp, glue, magrittr,
+    pkgconfig, plogr, rlang, tibble
+
+Package: glue
+Source: CRAN
+Version: 1.2.0
+Hash: 381e42baedecc633c0e547a0c7ca9de7
+
+(略)</code></pre>
+</section>
+<section class="slide level1">
+
+<p>以降は<strong>プロジェクト内</strong>にインストールされたライブラリを使うようになる。</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">.libPaths</span>()
+[<span class="dv">1</span>] <span class="st">&quot;/home/igjit/sample_proj/packrat/lib/x86_64-pc-linux-gnu/3.4.4&quot;</span>    
+[<span class="dv">2</span>] <span class="st">&quot;/home/igjit/sample_proj/packrat/lib-ext/x86_64-pc-linux-gnu/3.4.4&quot;</span>
+[<span class="dv">3</span>] <span class="st">&quot;/home/igjit/sample_proj/packrat/lib-R/x86_64-pc-linux-gnu/3.4.4&quot;</span>  </code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>パッケージを追加でインストール</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)
+ パッケージを ‘/home/igjit/sample_proj/packrat/lib/x86_64-pc-linux-gnu/<span class="fl">3.4.4</span>’ 中にインストールします 
+ (‘lib’ が指定されていないため) 
+ 依存対象 (dependency) ‘stringi’ もインストールします 
+
+ :</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><code>packrat::status()</code> で現状を確認</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>packrat::<span class="kw">status</span>()
+
+The following packages have been updated in your library, but have not been recorded in packrat:
+<span class="st">              </span>library   packrat
+    stringi     <span class="fl">1.1.7</span>        <span class="ot">NA</span>
+    stringr     <span class="fl">1.3.0</span>        <span class="ot">NA</span>
+
+Use packrat::<span class="kw">snapshot</span>() to record these packages in packrat.
+&gt;<span class="st"> </span></code></pre></div>
+<p>これらはまだPackratで管理されていない。</p>
+</section>
+<section class="slide level1">
+
+<p><code>packrat::snapshot()</code> でスナップショット取得</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>packrat::<span class="kw">snapshot</span>()
+
+Adding these packages to packrat:
+<span class="st">            </span>_      
+    stringi   <span class="fl">1.1.7</span>
+    stringr   <span class="fl">1.3.0</span>
+
+Snapshot written to <span class="st">&#39;/home/igjit/sample_proj/packrat/packrat.lock&#39;</span>
+&gt;<span class="st"> </span></code></pre></div>
+<p>プロジェクトで使うバージョンが固定される。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="簡単">簡単</h2>
+</section>
+<section id="パッケージの復元" class="slide level1">
+<h1>パッケージの復元</h1>
+</section>
+<section class="slide level1">
+
+<p>別の環境でパッケージを復元する</p>
+</section>
+<section class="slide level1">
+
+<p>別のPCにプロジェクトのディレクトリを持ってくる</p>
+<p>(gitを使っている場合)</p>
+<pre><code>$ git clone path/to/sample_proj</code></pre>
+</section>
+<section class="slide level1">
+
+<p>Rを起動するだけでPackratが自動でインストールされる</p>
+<pre><code>$ cd sample_proj/
+$ R -q
+Packrat is not installed in the local library -- attempting to bootstrap an installation...
+&gt; Installing packrat into project private library:
+- &#39;packrat/lib/x86_64-pc-linux-gnu/3.4.4&#39;
+* installing *source* package ‘packrat’ ...
+**  パッケージ ‘packrat’ の解凍および MD5 サムの検証に成功しました 
+** R
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (packrat)
+&gt; Attaching packrat
+&gt; Restoring library
+&gt; Packrat bootstrap successfully completed. Entering packrat mode...
+Packrat mode on. Using library in directory:
+- &quot;~/sample_proj/packrat/lib&quot;
+&gt; </code></pre>
+</section>
+<section class="slide level1">
+
+<p><code>packrat::restore()</code> で全く同じバージョンのパッケージがインストールされる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>packrat::<span class="kw">restore</span>()
+Installing <span class="kw">BH</span> (<span class="fl">1.66.0</span><span class="dv">-1</span>) ... 
+    <span class="kw">OK</span> (built source)
+ :
+Installing <span class="kw">tibble</span> (<span class="fl">1.4.2</span>) ... 
+    <span class="kw">OK</span> (built source)
+Installing <span class="kw">dplyr</span> (<span class="fl">0.7.4</span>) ... 
+    <span class="kw">OK</span> (built source)
+&gt;<span class="st"> </span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="簡単-1">簡単</h2>
+</section>
+<section id="rstudioで使う" class="slide level1">
+<h1>RStudioで使う</h1>
+</section>
+<section class="slide level1">
+
+<p>Tools &gt; Project Options</p>
+<figure>
+<img src="images/rs1.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>選択</p>
+<figure>
+<img src="images/rs2.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>Packages pane で Packrat &gt; Check Library Status</p>
+<figure>
+<img src="images/rs3.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>Snapshotを取得</p>
+<figure>
+<img src="images/rs4.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>プロジェクトで使うバージョンが固定される。</p>
+<figure>
+<img src="images/rs5.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="簡単-2">簡単</h2>
+</section>
+<section id="デプロイ" class="slide level1">
+<h1>デプロイ</h1>
+</section>
+<section class="slide level1">
+
+<p>Rコンソールを立ち上げずに非対話でパッケージを配置する方法</p>
+</section>
+<section class="slide level1">
+
+<p><code>.Rprofile</code> に CRANミラーを追記しておいて</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">repos =</span> <span class="kw">c</span>(<span class="dt">CRAN =</span> <span class="st">&quot;http://cloud.r-project.org/&quot;</span>))  <span class="co"># 追記</span>
+
+#### -- Packrat Autoloader (version 0.4.9-1) -- ####
+<span class="kw">source</span>(<span class="st">&quot;packrat/init.R&quot;</span>)
+#### -- End Packrat Autoloader -- ####</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>コマンド実行</p>
+<pre class="sh"><code>R --vanilla --slave -f .Rprofile --args --bootstrap-packrat &amp;&amp;
+  Rscript --no-save --no-restore --no-site-file --no-environ -e &#39;packrat::restore()&#39;</code></pre>
+</section>
+<section class="slide level1">
+
+<p>(もっと良いやり方あったら教えてください。)</p>
+</section>
+<section id="参考" class="slide level1">
+<h1>参考</h1>
+</section>
+<section class="slide level1">
+
+<p>公式ページ</p>
+<p><a href="https://rstudio.github.io/packrat/" class="uri">https://rstudio.github.io/packrat/</a></p>
+</section>
+<section id="まとめ" class="slide level1">
+<h1>まとめ</h1>
+</section>
+<section class="slide level1">
+
+<h2 id="パッケージ管理">パッケージ管理</h2>
+</section>
+<section class="slide level1">
+
+<p>いつどこで実行しても同じ結果になるように</p>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
