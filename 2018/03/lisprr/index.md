@@ -350,8 +350,12 @@ lisprr> (plot iris)
 
 ---
 
+<div style="display: inline-block">
+
 <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">抽象構文木を操作してこその人生なのです</p>&mdash; igjit (@igjit) <a href="https://twitter.com/igjit/status/968475819583594498?ref_src=twsrc%5Etfw">2018年2月27日</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
 
 ---
 
