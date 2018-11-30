@@ -8,3 +8,5 @@ REVEAL_OPTS = --slide-level=1 --highlight-style=zenburn
 
 %/index.html: %/index.md
 	pandoc -s -t revealjs $(REVEAL_OPTS) -o $@ $^
+
+.PHONY: all
