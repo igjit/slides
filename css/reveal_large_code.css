@@ -13,3 +13,5 @@
   font-size: 1.3em;
   line-height: 1.2;
 }
+.reveal .text-muted { color: #888; }
+.reveal .text-small { font-size: 0.6em; }

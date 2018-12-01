@@ -9,3 +9,5 @@
 .reveal section img {
   border: none;
 }
+.reveal .text-muted { color: #888; }
+.reveal .text-small { font-size: 0.6em; }
