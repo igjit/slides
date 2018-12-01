@@ -1,5 +1,6 @@
 # slides
 
+- [Rで書くRコンパイラ](https://igjit.github.io/slides/2018/12/nrc) ([Japan.R 2018](https://japanr.connpass.com/event/105802/) LT)
 - [Packrat: パッケージ管理入門](https://igjit.github.io/slides/2018/04/packrat_intro) ([Tokyo.R #69](https://atnd.org/events/96013) LT)
 - [(続 ((Rで) 書く (Lisp) インタプリタ))](https://igjit.github.io/slides/2018/03/lisprr) ([Tokyo.R #68](https://atnd.org/events/94785) LT)
 - [パイプ演算子自作入門](https://igjit.github.io/slides/2018/01/tiny_pipe) ([Tokyo.R #67](https://atnd.org/events/93829) 応用セッション)
