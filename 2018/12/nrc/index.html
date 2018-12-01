@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="@igjit">
+  <title>Rで書く Rコンパイラ</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Rで書く<br/>Rコンパイラ</h1>
+  <p class="author"><a href="https://twitter.com/igjit"><span class="citation" data-cites="igjit">@igjit</span></a></p>
+</section>
+
+<section class="slide level1">
+
+<p>きっかけ</p>
+</section>
+<section class="slide level1">
+
+<p class="text-small">
+<a href="https://www.sigbus.info/compilerbook/" class="uri">https://www.sigbus.info/compilerbook/</a>
+</p>
+<figure>
+<img src="images/ss_compilerbook.png" alt="低レイヤを知りたい人のためのCコンパイラ作成入門" /><figcaption>低レイヤを知りたい人のためのCコンパイラ作成入門</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<p>コンパイラ作るのってすごく難しそうなイメージだったけど</p>
+</section>
+<section class="slide level1">
+
+<p>Cのソースコードを</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> main() {
+  <span class="cf">return</span> <span class="dv">42</span>;
+}</code></pre></div>
+<div class="fragment">
+<p>x86-64アセンブリに変換する</p>
+<pre><code>.intel_syntax noprefix
+.global main
+main:
+        mov rax, 42
+        ret</code></pre>
+<p class="text-small">
+(アセンブリから実行ファイルの変換はGCCでやる)
+</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>文字列を読んで文字列を書ければコンパイラは作れる</p>
+</section>
+<section class="slide level1">
+
+<h2 id="じゃあrでもできるんじゃね">じゃあRでもできるんじゃね？</h2>
+</section>
+<section class="slide level1">
+
+<p>どの言語でどの言語のコンパイラを書いても良いはず</p>
+</section>
+<section class="slide level1">
+
+<p>ならば</p>
+<h2 id="rでrのコンパイラを書いてみよう">RでRのコンパイラを書いてみよう。</h2>
+</section>
+<section class="slide level1">
+
+<p>やってみた。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="nrc">nrc</h2>
+<p><a href="https://github.com/igjit/nrc" class="uri">https://github.com/igjit/nrc</a></p>
+</section>
+<section class="slide level1">
+
+<p>インストール</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;igjit/nrc&quot;</span>)</code></pre></div>
+<div class="text-small">
+<p>(現在Linuxにしか対応してないので他のOSの場合はDockerとか使ってください。)</p>
+</div>
+</section>
+<section id="あそびかた" class="slide level1">
+<h1>あそびかた</h1>
+</section>
+<section class="slide level1">
+
+<p>packageを読み込むと</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(nrc)</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>Rのコードをコンパイルできる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">compile</span>(<span class="st">&quot;1+2&quot;</span>)
+.intel_syntax noprefix
+.global main
+main<span class="op">:</span>
+<span class="st">  </span>push rbp
+  mov rbp, rsp
+  sub rsp, <span class="dv">208</span>
+  push <span class="dv">1</span>
+  push <span class="dv">2</span>
+  pop rdi
+  pop rax
+  add rax, rdi
+  push rax
+  pop rax
+  mov rsp, rbp
+  pop rbp
+  ret</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>コンパイルしてアセンブル</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">compile</span>(<span class="st">&quot;1+2&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>assemble
+[<span class="dv">1</span>] <span class="st">&quot;/tmp/RtmpW7m1KT/file760c7d79428b&quot;</span></code></pre></div>
+<p class="text-small">
+実行ファイルが出力される
+</p>
+</section>
+<section class="slide level1">
+
+<p>コンパイルしてアセンブルして実行</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">compile</span>(<span class="st">&quot;1+2&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>assemble <span class="op">%&gt;%</span><span class="st"> </span>execute
+[<span class="dv">1</span>] <span class="dv">3</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>変数も使える</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> &quot;a &lt;- 2; a + 40&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>compile <span class="op">%&gt;%</span><span class="st"> </span>assemble <span class="op">%&gt;%</span><span class="st"> </span>execute
+[<span class="dv">1</span>] <span class="dv">42</span></code></pre></div>
+<div class="fragment">
+<p>代入演算子は <code>&lt;-</code> (今のところ唯一のRっぽさ)</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>テキストの <a href="https://www.sigbus.info/compilerbook/#%E3%82%B9%E3%83%86%E3%83%83%E3%83%976-%E3%81%A8%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B">ステップ6: ==と!=を追加する</a> までは大体実装</p>
+</section>
+<section class="slide level1">
+
+<p>ここから先はCとRで乖離がありそう</p>
+<ul>
+<li>ファーストクラスの関数</li>
+<li>スコープ規則</li>
+</ul>
+</section>
+<section id="しくみ" class="slide level1">
+<h1>しくみ</h1>
+</section>
+<section class="slide level1">
+
+<p>コンパイルの流れ</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compile &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
+    s <span class="op">%&gt;%</span>
+<span class="st">        </span>tokenize <span class="op">%&gt;%</span>
+<span class="st">        </span>parse <span class="op">%&gt;%</span>
+<span class="st">        </span>generate
+}</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="tokenize">tokenize</h3>
+<p>単語に分割する</p>
+</section>
+<section class="slide level1">
+
+<p>正規表現を使って雑に実装</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; @import stringr</span>
+
+tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
+    s <span class="op">%&gt;%</span>
+<span class="st">        </span><span class="kw">str_replace_all</span>(<span class="st">&quot;(&lt;-|==|!=|[()+</span><span class="ch">\\</span><span class="st">-*/=;])&quot;</span>,
+                        <span class="st">&quot; </span><span class="ch">\\</span><span class="st">1 &quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">        </span>str_trim <span class="op">%&gt;%</span>
+<span class="st">        </span><span class="kw">str_split</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s+&quot;</span>)
+}</code></pre></div>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">tokenize</span>(<span class="st">&quot;a=2;a+40&quot;</span>)
+[[<span class="dv">1</span>]]
+[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>  <span class="st">&quot;=&quot;</span>  <span class="st">&quot;2&quot;</span>  <span class="st">&quot;;&quot;</span>  <span class="st">&quot;a&quot;</span>  <span class="st">&quot;+&quot;</span>  <span class="st">&quot;40&quot;</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="parse">parse</h3>
+<p>文法にそって解釈する</p>
+</section>
+<section class="slide level1">
+
+<p><code>(1 + 2) * 3</code></p>
+<figure>
+<img src="images/ast1.svg" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p><code>a = 40 + 2</code></p>
+<figure>
+<img src="images/ast2.svg" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>詳細は <a href="https://www.sigbus.info/compilerbook/#%E5%86%8D%E5%B8%B0%E4%B8%8B%E9%99%8D%E6%A7%8B%E6%96%87%E8%A7%A3%E6%9E%90">再帰下降構文解析</a> 参照</p>
+</section>
+<section class="slide level1">
+
+<h3 id="generate">generate</h3>
+<p>アセンブリを生成</p>
+</section>
+<section class="slide level1">
+
+<p>詳細は <a href="https://www.sigbus.info/compilerbook/#%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%B8%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB">スタックマシンへのコンパイル</a> 参照</p>
+</section>
+<section class="slide level1">
+
+<p>使ったパッケージ</p>
+</section>
+<section class="slide level1">
+
+<p>実装が捗るやつ</p>
+<section>
+<img src="images/logo/pipe.png" style="width:20%; box-shadow:none"> <img src="images/logo/purrr.png" style="width:20%; box-shadow:none"> <img src="images/logo/stringr.png" style="width:20%; box-shadow:none">
+</section>
+</section>
+<section class="slide level1">
+
+<p>パッケージ作成が捗るやつ</p>
+<section>
+<img src="images/logo/devtools.png" style="width:20%; box-shadow:none"> <img src="images/logo/usethis.png" style="width:20%; box-shadow:none">
+</section>
+</section>
+<section class="slide level1">
+
+<p>楽をするためにテストを書く</p>
+<section>
+<img src="images/logo/testthat.png" style="width:20%; box-shadow:none">
+</section>
+</section>
+<section class="slide level1">
+
+<p>感想</p>
+</section>
+<section id="楽しい" class="slide level1">
+<h1>楽しい！</h1>
+</section>
+<section class="slide level1">
+
+<p>コンパイラ作成は大変楽しい作業です。</p>
+<p class="text-small" style="padding: 0.5em">
+<a href="https://www.sigbus.info/compilerbook/#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">低レイヤを知りたい人のためのCコンパイラ作成入門</a>
+</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/ss_30compiler.png" style="width:120.0%" />
+</figure>
+<p class="text-small">
+<a href="https://docs.google.com/presentation/d/1p2iD4gRLFP_K0L7vUAhtP3NcSBhx-wK9v4R03oGyJSQ/edit">3(0)日でできる！ Cコンパイラ自作入門</a>
+</p>
+</section>
+<section id="まとめ" class="slide level1">
+<h1>まとめ</h1>
+</section>
+<section class="slide level1">
+
+<p>Rでもコンパイラを作れるし低レイヤを学べる。</p>
+</section>
+<section class="slide level1">
+
+<p>コンパイラを作るのは楽しい。</p>
+</section>
+<section class="slide level1">
+
+<p>なのでみなさんもコンパイラを作りましょう。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
