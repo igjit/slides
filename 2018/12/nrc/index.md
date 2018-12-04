@@ -1,6 +1,9 @@
 ---
-title: 'Rで書く<br/>Rコンパイラ'
-author: '<a href="https://twitter.com/igjit">@igjit</a>'
+title: |
+    Rで書く \
+    Rコンパイラ
+author: |
+    [\@igjit](https://twitter.com/igjit)
 theme: white
 revealjs-url: ../../../reveal.js
 css: ../../../css/reveal_large_code.css
