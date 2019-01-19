@@ -8,6 +8,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="(続 ((Rで) 書く (Lisp) インタプリタ))" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
   <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -68,7 +71,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 
 <section>
   <h1 class="title">(続 ((Rで) 書く (Lisp) インタプリタ))</h1>
-  <h2 class="author"><a href="https://twitter.com/igjit"><span class="citation" data-cites="igjit">@igjit</span></a></h2>
+  <p class="author"><a href="https://twitter.com/igjit"><span class="citation" data-cites="igjit">@igjit</span></a></p>
 </section>
 
 <section class="slide level1">
@@ -93,7 +96,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>中置演算子</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <p>関数呼び出し</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
 </section>
@@ -105,7 +108,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>これは</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <div class="fragment">
 <p>これと等価</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
@@ -114,7 +117,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>これは</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></code></pre></div>
 <div class="fragment">
 <p>これと等価</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</code></pre></div>
@@ -132,10 +135,10 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>制御構文も</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (x &lt;<span class="st"> </span><span class="dv">0</span>) -x else x</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">-</span>x <span class="cf">else</span> x</code></pre></div>
 <div class="fragment">
 <p>関数呼び出し</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">if</span><span class="st">`</span>(x &lt;<span class="st"> </span><span class="dv">0</span>, -x, x)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">if</span><span class="st">`</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>, <span class="op">-</span>x, x)</code></pre></div>
 </div>
 </section>
 <section class="slide level1">
@@ -156,8 +159,8 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section>
 <section class="slide level1">
 
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span>function(a, b) {
-    if (a &gt;<span class="st"> </span><span class="dv">0</span>) b
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {
+    <span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) b
 }</code></pre></div>
 <div class="fragment">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">1</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))
@@ -172,7 +175,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p><code>quote()</code> は表現式を返す</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
 <span class="co"># 1 + 2</span></code></pre></div>
 </section>
 <section class="slide level1">
@@ -184,7 +187,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p><code>pryr::ast()</code> で木構造を見ることができる</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ast</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span><span class="dv">3</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ast</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)
 <span class="co"># \- ()</span>
 <span class="co">#   \- `+</span>
 <span class="co">#   \-  1</span>
@@ -203,7 +206,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>表現式はlistのように扱える</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
 
 <span class="kw">as.list</span>(expr)
 <span class="co"># [[1]]</span>
@@ -221,7 +224,7 @@ expr[[<span class="dv">1</span>]]
 <section class="slide level1">
 
 <p>表現式は修正できる</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
 expr[[<span class="dv">1</span>]] &lt;-<span class="st">  </span><span class="kw">quote</span>(<span class="st">`</span><span class="dt">*</span><span class="st">`</span>)
 
 expr
@@ -257,7 +260,7 @@ expr
 <section class="slide level1">
 
 <p>インストール</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;igjit/lisprr&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;igjit/lisprr&quot;</span>)</code></pre></div>
 </section>
 <section id="あそびかた" class="slide level1">
 <h1>あそびかた</h1>
@@ -265,10 +268,10 @@ expr
 <section class="slide level1">
 
 <p>S式をRの表現式に変換する</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">translate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">translate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
 <span class="co">#&gt; 1 + 2</span></code></pre></div>
 <div class="fragment">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">translate</span>(<span class="st">&quot;(lambda (x) (+ x 2))&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">translate</span>(<span class="st">&quot;(lambda (x) (+ x 2))&quot;</span>)
 <span class="co">#&gt; function(x = NULL) {</span>
 <span class="co">#&gt;     x + 2</span>
 <span class="co">#&gt; }</span></code></pre></div>
@@ -277,13 +280,13 @@ expr
 <section class="slide level1">
 
 <p>S式を実行</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">evaluate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">evaluate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Lispで書いた関数を</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr::<span class="kw">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>,
                  <span class="kw">parent.frame</span>())</code></pre></div>
 <div class="fragment">
 <p>Rで使える</p>
@@ -294,24 +297,24 @@ expr
 <section class="slide level1">
 
 <p>REPLを起動すると</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>lisprr::<span class="kw">repl</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>lisprr<span class="op">::</span><span class="kw">repl</span>()</code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Rコンソール上でLispが動く</p>
-<pre class="lisp"><code>lisprr&gt; (+ 1 2)
-3
-lisprr&gt; (define add2 (lambda (x) (+ x 2)))
+<div class="sourceCode"><pre class="sourceCode lisp"><code class="sourceCode commonlisp">lisprr&gt; (<span class="op">+</span> <span class="dv">1</span> <span class="dv">2</span>)
+<span class="dv">3</span>
+lisprr&gt; (define add2 (<span class="kw">lambda</span> (x) (<span class="op">+</span> x <span class="dv">2</span>)))
 #&lt;closure&gt;
-lisprr&gt; (add2 40)
-42</code></pre>
+lisprr&gt; (add2 <span class="dv">40</span>)
+<span class="dv">42</span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Rの関数も使える</p>
-<pre class="lisp"><code>lisprr&gt; (: 1 10)
-1 2 3 4 5 6 7 8 9 10
-lisprr&gt; (plot iris)</code></pre>
+<div class="sourceCode"><pre class="sourceCode lisp"><code class="sourceCode commonlisp">lisprr&gt; (: <span class="dv">1</span> <span class="dv">10</span>)
+<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>
+lisprr&gt; (plot iris)</code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -374,7 +377,7 @@ lisprr&gt; (plot iris)</code></pre>
         dependencies: [
           { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
           { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-          { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
         ]
       });
     </script>
