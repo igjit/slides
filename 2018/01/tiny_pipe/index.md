@@ -1,4 +1,5 @@
 ---
+pagetitle: パイプ演算子自作入門
 title: パイプ演算子<br>自作入門
 author: '<a href="https://twitter.com/igjit">@igjit</a>'
 theme: white

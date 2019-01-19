@@ -1,4 +1,5 @@
 ---
+pagetitle: Rで書くRコンパイラ
 title: |
     Rで書く \
     Rコンパイラ
