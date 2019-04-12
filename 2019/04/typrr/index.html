@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Rがときめく型付けの魔法</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Rがときめく型付けの魔法" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title"><p>Rがときめく<br />
+型付けの魔法</p></h1>
+  <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/125793/">Tokyo.R #77</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit">@igjit</a></p></p>
+</section>
+
+<section class="slide level1">
+
+<div style="display: inline-block">
+<blockquote class="twitter-tweet" data-lang="ja">
+<p lang="en" dir="ltr">
+My new favorite meme <a href="https://t.co/s2ksKAvmKB">pic.twitter.com/s2ksKAvmKB</a>
+</p>
+— Gordon Shotwell (<span class="citation" data-cites="gshotwell">@gshotwell</span>) <a href="https://twitter.com/gshotwell/status/1100773100617121793?ref_src=twsrc%5Etfw">2019年2月27日</a>
+</blockquote>
+</div>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+<section class="slide level1">
+
+<h2 id="片づけ">片づけ</h2>
+</section>
+<section class="slide level1">
+
+<h2 id="片づけ-1"><del>片づけ</del></h2>
+</section>
+<section class="slide level1">
+
+<h2 id="型付け">型付け</h2>
+</section>
+<section class="slide level1">
+
+<p>Rの型検査を実装した話をします。</p>
+</section>
+<section class="slide level1">
+
+<p>Rは動的型付け言語</p>
+</section>
+<section class="slide level1">
+
+<p>型に関する間違いは<strong>実行時</strong>に見つかる</p>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">year &lt;-<span class="st"> &quot;2018&quot;</span>
+
+<span class="co"># すごく時間がかかる処理</span>
+<span class="kw">do_something</span>(year)
+
+year <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="fragment">
+<p>実行すると、すごく時間が経ってから</p>
+</div>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> year <span class="op">+</span><span class="st"> </span><span class="dv">1</span> でエラー<span class="op">:</span><span class="st">  </span>二項演算子の引数が数値ではありません</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>かなしい</p>
+</section>
+<section class="slide level1">
+
+<p>実行前に教えてほしい</p>
+</section>
+<section class="slide level1">
+
+<p>ところで最近こんな本を読んだ</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/copl.jpg" style="width:40.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>最後の章に型推論のアルゴリズムが書いてあった。</p>
+</section>
+<section class="slide level1">
+
+<p>Rで実装してみた。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="typrr">typrr</h2>
+<p><a href="https://github.com/igjit/typrr" class="uri">https://github.com/igjit/typrr</a></p>
+</section>
+<section class="slide level1">
+
+<p>インストール</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;igjit/typrr&quot;</span>)</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="あそびかた">あそびかた</h2>
+</section>
+<section class="slide level1">
+
+<p>Rのコードを</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># foo.R</span>
+n &lt;-<span class="st"> </span><span class="dv">1</span>
+n <span class="op">+</span><span class="st"> &quot;abc&quot;</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>静的型検査</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>typrr<span class="op">::</span><span class="kw">type_check</span>(<span class="st">&quot;foo.R&quot;</span>)
+<span class="op">$</span>line
+[<span class="dv">1</span>] <span class="dv">3</span>
+
+<span class="op">$</span>column
+[<span class="dv">1</span>] <span class="dv">1</span>
+
+<span class="op">$</span>message
+[<span class="dv">1</span>] <span class="st">&quot;type error&quot;</span></code></pre></div>
+<p>型エラーの箇所がわかる</p>
+</section>
+<section class="slide level1">
+
+<p>わかりづらいので</p>
+<p>Emacs(<a href="https://www.flycheck.org">Flycheck</a>)の拡張を<a href="https://github.com/igjit/typrr/blob/master/inst/emacs/flycheck-typrr.el">実装</a></p>
+<div class="fragment text-small" style="padding: 0.2em">
+<p>(ちなみに、RStudio以外だと<a href="https://ess.r-project.org/">ESS</a> (Emacs Speaks Statistics)が良いよ、って<a href="http://r-pkgs.had.co.nz/intro.html">Hadleyも言ってる。</a>)</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>コードを書いてる最中に型エラーがわかる</p>
+<figure>
+<img src="images/flycheck1.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>関数呼び出し時の型エラー</p>
+<figure>
+<img src="images/flycheck2.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>関数の戻り値に関する型エラー</p>
+<figure>
+<img src="images/flycheck3.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p><em>demo</em></p>
+</section>
+<section class="slide level1">
+
+<p>お詫び</p>
+</section>
+<section class="slide level1">
+
+<p>今のところ</p>
+<h2 id="実用性は全く無い">実用性は全く無い</h2>
+</section>
+<section class="slide level1">
+
+<p>対応している構文要素は少ない</p>
+<div style="padding: 0.2em">
+<ul>
+<li>基本型
+<ul>
+<li>integer, double, logical, character</li>
+</ul></li>
+<li>代入演算子</li>
+<li>関数定義
+<ul>
+<li>引数が1つのもののみ</li>
+</ul></li>
+<li>関数呼び出し</li>
+</ul>
+</div>
+</section>
+<section class="slide level1">
+
+<p>単に<strong>作るのが楽しいから</strong>作っている。</p>
+</section>
+<section class="slide level1">
+
+<p>人は、読むことではなく、することによって学習するのである。</p>
+<p class="text-small">
+<a href="https://www.oreilly.co.jp/books/9784873117157/">RStudioではじめるRプログラミング入門</a>
+</p>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
