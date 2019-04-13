@@ -1,5 +1,6 @@
 # slides
 
+- [Rがときめく型付けの魔法](https://igjit.github.io/slides/2019/04/typrr) ([Tokyo.R #77](https://tokyor.connpass.com/event/125793/) LT)
 - [LTを5分で終わらせる技術](https://igjit.github.io/slides/2019/01/lt-in-5minutes) (社内LT)
 - [Rで書くRコンパイラ](https://igjit.github.io/slides/2018/12/nrc) ([Japan.R 2018](https://japanr.connpass.com/event/105802/) LT)
 - [Packrat: パッケージ管理入門](https://igjit.github.io/slides/2018/04/packrat_intro) ([Tokyo.R #69](https://atnd.org/events/96013) LT)
