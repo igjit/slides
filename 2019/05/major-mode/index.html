@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>初めてのmajor-mode</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="初めてのmajor-mode" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title"><p>初めての<br />
+major-mode</p></h1>
+  <p class="subtitle"><p><a href="https://tokyo-emacs.connpass.com/event/128038/">東京Emacs勉強会 端午の節句</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit">@igjit</a></p></p>
+</section>
+
+<section class="slide level1">
+
+<figure>
+<img src="https://pbs.twimg.com/profile_images/378800000159013251/f5ddbed414eaafe0ef916e8619b58566.png" />
+</figure>
+<p><a href="https://twitter.com/igjit">@igjit</a></p>
+<ul>
+<li>Webアプリケーションエンジニア</li>
+<li><a href="https://igjit.github.io/slides/">Rで変なものを作るのが趣味</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>major-mode作ったことある人？</p>
+</section>
+<section class="slide level1">
+
+<p>最近、初めてmajor-modeを作りました。</p>
+</section>
+<section class="slide level1">
+
+<p class="text-small">
+<a href="https://igjit.github.io/posts/2019/04/emacs-lisp-for-copl/" class="uri">https://igjit.github.io/posts/2019/04/emacs-lisp-for-copl/</a>
+</p>
+<figure>
+<img src="images/ss-blog.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>そのときに参考になったものや、得られた知見を共有します。</p>
+<p>もっと良いやり方あったら教えてください。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="発端">発端</h2>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="../../04/typrr/images/copl.jpg" style="width:40.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>関数型言語MLの一種Objective Camlを題材としてプログラミング言語の意味論，型システム，プログラミング言語の基礎概念，これらの概念間の数学的な関連を学ぶ．<strong>オンライン演習システム</strong>を用いて，「証明」を解答とする演習問題の正誤をWeb上で自動判定することもできる．</p>
+<p><em><a href="http://www.saiensu.co.jp/?page=book_details&amp;ISBN=ISBN978-4-7819-1285-1">内容詳細</a></em></p>
+</section>
+<section class="slide level1">
+
+<p>オンライン演習システムで</p>
+<figure>
+<img src="images/ss-cgi1.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>回答があっているか確認</p>
+<figure>
+<img src="images/ss-cgi2.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>エディタの補助が欲しい</p>
+<ul>
+<li>シンタックスハイライト</li>
+<li>インデント</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>編集して送信、を繰り返すの面倒</p>
+</section>
+<section class="slide level1">
+
+<p>なんとかしよう</p>
+</section>
+<section class="slide level1">
+
+<p class="text-small">
+<a href="http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/" class="uri">http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/</a>
+</p>
+<figure>
+<img src="images/ss-new-language.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>を参考にしながら</p>
+</section>
+<section class="slide level1">
+
+<ul>
+<li>major-mode</li>
+<li>Flycheck拡張</li>
+</ul>
+<p>を実装</p>
+</section>
+<section class="slide level1">
+
+<h2 id="major-mode">major-mode</h2>
+</section>
+<section class="slide level1">
+
+<p><a href="https://github.com/igjit/copl-mode">igjit/copl-mode</a></p>
+<figure>
+<img src="images/copl-mode.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<ul>
+<li>シンタックスハイライト</li>
+<li>インデント (雑)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><code>define-derived-mode</code> で派生モードを作る</p>
+<div class="fragment" style="padding: 0.2em">
+<p><a href="https://github.com/syohex/emacs-hcl-mode">syohex/emacs-hcl-mode</a> などを参考にしながら実装</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>こういう複数行コメントの対応</p>
+<div class="sourceCode"><pre class="sourceCode ml"><code class="sourceCode ocaml"><span class="co">(* 複数行の</span>
+<span class="co"> * コメント *)</span></code></pre></div>
+<div class="fragment">
+<p><a href="http://emacs.rubikitch.com/syntax-table-beginner/" class="uri">http://emacs.rubikitch.com/syntax-table-beginner/</a> が参考になる</p>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="インデント">インデント</h2>
+</section>
+<section class="slide level1">
+
+<p>自前でインデント量を計算</p>
+<p>or</p>
+<p><a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/SMIE.html">SMIE</a>を使うべき</p>
+</section>
+<section class="slide level1">
+
+<p>(時間が無かったので<a href="https://github.com/igjit/copl-mode/blob/87d4633afd2232f1b2652d6dd03fb6dc7d4f28a1/copl-mode.el#L306">実装を諦めました</a>)</p>
+</section>
+<section class="slide level1">
+
+<h2 id="flycheck拡張">Flycheck拡張</h2>
+</section>
+<section class="slide level1">
+
+<p><a href="https://github.com/igjit/flycheck-copl">igjit/flycheck-copl</a></p>
+<figure>
+<img src="images/flycheck.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>書いてる最中にエラーがわかる</p>
+<figure>
+<img src="images/flycheck.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>仕組み</p>
+</section>
+<section class="slide level1">
+
+<p>著者の五十嵐先生が公開している<a href="https://github.com/aigarashi/copl-tools">copl-tools</a>をdockerで動かす</p>
+<p><a href="https://github.com/igjit/docker-copl-tools">igjit/docker-copl-tools</a></p>
+</section>
+<section class="slide level1">
+
+<p>構文チェッカーの標準出力を</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="bu">echo</span> <span class="st">&#39;Z plus Z is Z ?&#39;</span> <span class="kw">|</span> <span class="ex">docker</span> run --rm -i copl-tools checker -game Nat
+
+<span class="ex">line</span> 1, character 14 -- line 1, character 15
+<span class="ex">Incomplete</span> derivation</code></pre></div>
+<p>Flycheckでparseするだけ</p>
+</section>
+<section class="slide level1">
+
+<p>詳細は<a href="https://www.flycheck.org/en/latest/developer/developing.html">Developer’s Guide</a>に</p>
+</section>
+<section class="slide level1">
+
+<p>簡単なのでみんなもFlycheck拡張作ろう:</p>
+<p><a href="https://igjit.github.io/posts/2019/04/flycheck-in-shell/">できる Flycheck拡張 (shell scriptでチェッカーを実装する)</a></p>
+</section>
+<section class="slide level1">
+
+<p>最近作ったやつ:</p>
+<p><a href="https://igjit.github.io/slides/2019/04/typrr/#/20">Rの型チェッカー</a></p>
+</section>
+<section class="slide level1">
+
+<h2 id="結果">結果</h2>
+</section>
+<section class="slide level1">
+
+<p>Emacsで快適に演習問題を解けるようになった！</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/ss-rank1.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>問題たくさん解いた。(57 / 431 位)</p>
+<figure>
+<img src="images/ss-rank2.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>extensible, customizable</p>
+<figure>
+<img src="images/ss-gnu-emacs.png" />
+</figure>
+<p class="text-small">
+<a href="https://www.gnu.org/software/emacs/" class="uri">https://www.gnu.org/software/emacs/</a>
+</p>
+</section>
+<section class="slide level1">
+
+<h3 id="happy-hacking">Happy hacking!</h3>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
