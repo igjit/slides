@@ -1,5 +1,6 @@
 # slides
 
+- [初めてのmajor-mode](https://igjit.github.io/slides/2019/05/major-mode) ([東京Emacs勉強会 端午の節句](https://tokyo-emacs.connpass.com/event/128038/) LT)
 - [Rがときめく型付けの魔法](https://igjit.github.io/slides/2019/04/typrr) ([Tokyo.R #77](https://tokyor.connpass.com/event/125793/) LT)
 - [LTを5分で終わらせる技術](https://igjit.github.io/slides/2019/01/lt-in-5minutes) (社内LT)
 - [Rで書くRコンパイラ](https://igjit.github.io/slides/2018/12/nrc) ([Japan.R 2018](https://japanr.connpass.com/event/105802/) LT)
