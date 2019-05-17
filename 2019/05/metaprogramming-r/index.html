@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>初めてのRメタプログラミング</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="初めてのRメタプログラミング" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title"><div style="font-size: 0.9em">
+<p>初めての<br />
+Rメタプログラミング</p>
+</div></h1>
+  <p class="subtitle"><p><a href="https://sendair.connpass.com/event/123977/">Sendai.R #1</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit">@igjit</a></p></p>
+</section>
+
+<section class="slide level1">
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<figure>
+<img src="https://pbs.twimg.com/profile_images/378800000159013251/f5ddbed414eaafe0ef916e8619b58566.png" />
+</figure>
+<p><a href="https://twitter.com/igjit">@igjit</a></p>
+<ul>
+<li>東京から来ました</li>
+<li>Webアプリケーションエンジニア</li>
+<li><a href="https://igjit.github.io/slides/">Rで変なものを作るのが趣味</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>いくつかのプログラミング言語を使ってきたけど</p>
+</section>
+<section class="slide level1">
+
+<h2 id="rはすごく不思議な言語">Rはすごく不思議な言語</h2>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x
+<span class="co"># エラー:  オブジェクト &#39;x&#39; がありません</span>
+
+<span class="kw">log</span>(x)
+<span class="co"># エラー:  オブジェクト &#39;x&#39; がありません</span>
+
+<span class="kw">curve</span>(<span class="kw">log</span>(x))  <span class="co"># これはok</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>いくつかのプログラミング言語を使ってきたけど</p>
+</section>
+<section class="slide level1">
+
+<h2 id="rはすごく強力な言語">Rはすごく強力な言語</h2>
+</section>
+<section class="slide level1">
+
+<p><img src="../../../2018/12/nrc/images/logo/pipe.png" style="width:20%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p class="text-small">
+<a href="https://speakerdeck.com/kilometer/tokyo-dot-r-number-76-beginnersession-data-pipeline">Tokyo.R#76 BeginneRSession-data pipeline</a> by <a href="https://twitter.com/kilometer00">@kilometer00</a>
+</p>
+<figure>
+<img src="images/ss-pipe1.png" style="width:80.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p class="text-small">
+<a href="https://speakerdeck.com/kilometer/tokyo-dot-r-number-76-beginnersession-data-pipeline">Tokyo.R#76 BeginneRSession-data pipeline</a> by <a href="https://twitter.com/kilometer00">@kilometer00</a>
+</p>
+<figure>
+<img src="images/ss-pipe2.png" style="width:80.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="すごい">すごい。</h2>
+</section>
+<section class="slide level1">
+
+<p>何がすごいか</p>
+</section>
+<section class="slide level1">
+
+<p>渡した<strong>コードの意味</strong>が変わっている</p>
+<ul>
+<li>引数が先頭に追加される</li>
+<li>プレースホルダー (<code>.</code>)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>例えばJava​Script</p>
+</section>
+<section class="slide level1">
+
+<p style="font-size: 0.5em">
+<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Pipeline_operator" class="uri">https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Pipeline_operator</a>
+</p>
+<p><img src="images/ss-js-pipe1.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p><img src="images/ss-js-pipe2.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p><img src="images/ss-js-pipe3.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>Java​Scriptでパイプ演算子を使うには</p>
+<div class="fragment">
+<h3 id="言語の進化を待たなければならない">言語の進化を待たなければならない</h3>
+</div>
+</section>
+<section class="slide level1">
+
+<p>Rだと</p>
+</section>
+<section class="slide level1">
+
+<p><code>%&gt;%</code>は<a href="https://github.com/tidyverse/magrittr">magrittr</a> packageで定義された<strong>単なる演算子</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+
+<span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;%</span><span class="st"> </span>sum</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>自分で作ることもできる</p>
+<figure>
+<img src="images/ss-tiny-pipe.png" />
+</figure>
+<p class="text-small">
+<a href="https://igjit.github.io/slides/2018/01/tiny_pipe/#/" class="uri">https://igjit.github.io/slides/2018/01/tiny_pipe/#/</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>宇宙のできる前のR(1.0.0)に異世界転生しても<br />
+パイプ演算子を実装できる</p>
+<figure>
+<img src="images/ss-r1.png" style="width:70.0%" />
+</figure>
+<p class="text-small">
+<a href="https://github.com/8-u8/TokyoR/blob/master/20190119/R%E8%A8%80%E8%AA%9E%E8%B6%85%E5%85%A5%E9%96%80_opened.pdf">宇宙が生まれる前の話</a> by <a href="https://twitter.com/0_u0">@0_u0</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>このセッションの目標</p>
+</section>
+<section class="slide level1">
+
+<p>R言語について知る</p>
+<ul>
+<li>演算子</li>
+<li>遅延評価</li>
+<li>NSE</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>そしてメタプログラミングを使って</p>
+<h3 id="パイプ演算子を実装できるようになる">パイプ演算子を実装できるようになる</h3>
+</section>
+<section class="slide level1">
+
+<p class="text-small">
+※以降の内容は基本的に<a href="https://igjit.github.io/slides/2018/01/tiny_pipe/#/">パイプ演算子自作入門</a>を加筆修正したものになります。
+</p>
+</section>
+<section class="slide level1">
+
+<h2 id="演算子">1. 演算子</h2>
+</section>
+<section class="slide level1">
+
+<p>中置演算子</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<p>関数呼び出し</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>実は</p>
+<h2 id="r内で起きることすべては関数呼び出しである">R内で起きることすべては関数呼び出しである。</h2>
+</section>
+<section class="slide level1">
+
+<p>これは</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="fragment">
+<p>これと等価</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>これは</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></code></pre></div>
+<div class="fragment">
+<p>これと等価</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>なのでこれは</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">%&gt;%</span><span class="st"> </span>b</code></pre></div>
+<div class="fragment">
+<p>これと等価</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span>(a, b)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>演算子を定義する</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%add%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {
+  a <span class="op">+</span><span class="st"> </span>b
+}</code></pre></div>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">%add%</span><span class="st"> </span><span class="dv">2</span>
+<span class="co"># [1] 3</span></code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>ここまでの知識で</p>
+<h2 id="パイプ演算子を実装してみよう">パイプ演算子を実装してみよう</h2>
+</section>
+<section class="slide level1">
+
+<p>これは</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">%&gt;%</span><span class="st"> </span>b</code></pre></div>
+<div class="fragment">
+<p>こういうことなので</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">b</span>(a)</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>こう実装できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%pipe%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {
+  <span class="kw">b</span>(a)
+}</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>動いた</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe%</span><span class="st"> </span>sum
+<span class="co"># [1] 55</span></code></pre></div>
+<div class="fragment">
+<p>chainもできる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe%</span><span class="st"> </span>log <span class="op">%pipe%</span><span class="st"> </span>plot</code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<p>でも右辺が関数呼び出しだとだめ</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe%</span><span class="st"> </span><span class="kw">sum</span>()  <span class="co"># エラー</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>もう少し知識が必要</p>
+</section>
+<section class="slide level1">
+
+<h2 id="遅延評価">2. 遅延評価</h2>
+</section>
+<section class="slide level1">
+
+<p>Rの関数では</p>
+<h2 id="引数は遅延評価される">引数は遅延評価される</h2>
+<div class="fragment">
+<p>つまり</p>
+<h2 id="引数が使われた場合に初めて評価される">引数が使われた場合に初めて評価される</h2>
+</div>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {
+  <span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) b
+}</code></pre></div>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">1</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))
+<span class="co"># f(1, stop(&quot;This is an error!&quot;)) でエラー (#1 から) : This is an error!</span>
+
+<span class="kw">f</span>(<span class="dv">0</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))  <span class="co"># 何も起きない</span></code></pre></div>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="非標準評価">3. 非標準評価</h2>
+</section>
+<section class="slide level1">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(<span class="kw">log</span>(x))</code></pre></div>
+<figure>
+<img src="../../../2018/01/tiny_pipe/images/log_x_m.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>Rの関数は、引数の値だけでなく</p>
+<h2 id="引数を計算するコードを参照できる">引数を計算するコードを参照できる</h2>
+</section>
+<section class="slide level1">
+
+<p>この引数を計算するコードを利用する評価方法が</p>
+<h2 id="非標準評価-1">非標準評価</h2>
+<p>NSE (Non-standard evaluation)</p>
+</section>
+<section class="slide level1">
+
+<p><code>substitute()</code> で表現式を捕捉できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">substitute</span>(x)
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+<span class="co"># 1 + 2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><code>quote()</code> でも表現式を捕捉できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+<span class="co"># 1 + 2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>ただし関数内での挙動が違う</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">substitute</span>(x)
+}
+
+<span class="kw">f</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+<span class="co"># 1 + 2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">quote</span>(x)
+}
+
+<span class="kw">f</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+<span class="co"># x</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><code>eval()</code> で表現式を評価できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+<span class="co"># 1 + 2</span>
+
+<span class="kw">eval</span>(<span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>))
+<span class="co"># [1] 3</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><code>eval()</code> の第2引数で環境を指定できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">e &lt;-<span class="st"> </span><span class="kw">new.env</span>()
+e<span class="op">$</span>x &lt;-<span class="st"> </span><span class="dv">40</span>
+
+<span class="kw">eval</span>(<span class="kw">quote</span>(x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>), e)
+<span class="co"># [1] 42</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="メタプログラミング">4. メタプログラミング</h2>
+</section>
+<section class="slide level1">
+
+<p><code>quote()</code> は表現式を返す</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+<span class="co"># 1 + 2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>表現式は</p>
+<h2 id="木構造">木構造</h2>
+<p>abstract syntax tree (AST) とも呼ばれる</p>
+</section>
+<section class="slide level1">
+
+<p><code>pryr::ast()</code> で木構造を見ることができる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ast</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)
+<span class="co"># \- ()</span>
+<span class="co">#   \- `+</span>
+<span class="co">#   \-  1</span>
+<span class="co">#   \- ()</span>
+<span class="co">#     \- `*</span>
+<span class="co">#     \-  2</span>
+<span class="co">#     \-  3 </span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<div style="display: inline-block">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+うぉ、 <a href="https://t.co/kvC7vXpkbw">pic.twitter.com/kvC7vXpkbw</a>
+</p>
+— kilometer (<span class="citation" data-cites="kilometer00">@kilometer00</span>) <a href="https://twitter.com/kilometer00/status/1119434786047533056?ref_src=twsrc%5Etfw">April 20, 2019</a>
+</blockquote>
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+Lisp、お前だったのか。
+</p>
+— kilometer (<span class="citation" data-cites="kilometer00">@kilometer00</span>) <a href="https://twitter.com/kilometer00/status/1119435328886992897?ref_src=twsrc%5Etfw">April 20, 2019</a>
+</blockquote>
+</div>
+</section>
+<section class="slide level1">
+
+<p>表現式はlistのように扱える</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+
+<span class="kw">as.list</span>(expr)
+<span class="co"># [[1]]</span>
+<span class="co"># `+`</span>
+<span class="co"># </span>
+<span class="co"># [[2]]</span>
+<span class="co"># [1] 1</span>
+<span class="co"># </span>
+<span class="co"># [[3]]</span>
+<span class="co"># [1] 2</span>
+
+expr[[<span class="dv">1</span>]]
+<span class="co"># `+`</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>表現式は修正できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+expr[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="st">`</span><span class="dt">*</span><span class="st">`</span>)
+
+expr
+<span class="co"># 1 * 2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>ということは</p>
+</section>
+<section class="slide level1">
+
+<h3 id="コードの意味を変えることができる">コードの意味を変えることができる</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  expr &lt;-<span class="st"> </span><span class="kw">substitute</span>(x)
+  expr[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="st">`</span><span class="dt">*</span><span class="st">`</span>)  <span class="co"># 関数名を差し替える</span>
+  <span class="kw">eval</span>(expr)
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span>
+<span class="co"># [1] 7</span>
+
+<span class="kw">f</span>(<span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)
+<span class="co"># [1] 12</span>
+
+<span class="kw">f</span>(<span class="dv">3</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>)
+<span class="co"># [1] 12</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>構文木を読み書きする</p>
+<h2 id="メタプログラミング-1">メタプログラミング</h2>
+</section>
+<section class="slide level1">
+
+<p>もういちどパイプ演算子を実装してみよう</p>
+</section>
+<section class="slide level1">
+
+<p><code>x %&gt;% f(y)</code> が <code>f(x, y)</code> と等価</p>
+<p><code>f</code> の引数の先頭に <code>x</code> を追加すれば良い</p>
+</section>
+<section class="slide level1">
+
+<p>バージョン2</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%pipe2%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(lhs, rhs) {
+  env &lt;-<span class="st"> </span><span class="kw">parent.frame</span>()  <span class="co"># 関数の呼び出し環境</span>
+  expr &lt;-<span class="st"> </span><span class="kw">substitute</span>(rhs)
+  <span class="kw">eval</span>(<span class="kw">as.call</span>(<span class="kw">c</span>(expr[[<span class="dv">1</span>]],
+                 <span class="kw">substitute</span>(lhs),
+                 <span class="kw">as.list</span>(expr[<span class="op">-</span><span class="dv">1</span>]))),
+       env)
+}</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>動いた</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe2%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">3</span>)
+<span class="co"># [1] 1 2 3</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>でもプレースホルダー (<code>.</code>) に対応していない</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe2%</span><span class="st"> </span><span class="kw">head</span>(.)  <span class="co"># エラー</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>もう少しがんばる</p>
+</section>
+<section class="slide level1">
+
+<p>表現式がドットを含むかどうか確認する補助関数</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">has_dot &lt;-<span class="st"> </span><span class="cf">function</span>(expr) {
+  <span class="kw">any</span>(<span class="kw">vapply</span>(expr, identical, <span class="kw">logical</span>(<span class="dv">1</span>), <span class="kw">quote</span>(.)))
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">has_dot</span>(<span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>))
+<span class="co"># [1] FALSE</span>
+
+<span class="kw">has_dot</span>(<span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>.))
+<span class="co"># [1] TRUE</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>引数の先頭にドットを追加する補助関数</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">insert_dot &lt;-<span class="st"> </span><span class="cf">function</span>(expr) {
+  <span class="kw">as.call</span>(<span class="kw">c</span>(expr[[<span class="dv">1</span>]], <span class="kw">quote</span>(.), <span class="kw">as.list</span>(expr[<span class="op">-</span><span class="dv">1</span>])))
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">insert_dot</span>(<span class="kw">quote</span>(<span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">3</span>)))
+<span class="co"># head(., n = 3)</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>バージョン3</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%pipe3%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(lhs, rhs) {
+  env &lt;-<span class="st"> </span><span class="kw">parent.frame</span>()
+  expr &lt;-<span class="st"> </span><span class="kw">substitute</span>(rhs)
+  dotted &lt;-<span class="st"> </span><span class="cf">if</span> (<span class="kw">has_dot</span>(expr)) expr <span class="cf">else</span> <span class="kw">insert_dot</span>(expr)
+  <span class="kw">eval</span>(dotted, <span class="kw">list</span>(<span class="dt">. =</span> lhs), env)
+}</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>右辺にドットがあってもなくても動く</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe3%</span><span class="st"> </span><span class="kw">head</span>(.)
+<span class="co"># [1] 1 2 3 4 5 6</span>
+
+<span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%pipe3%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">3</span>)
+<span class="co"># [1] 1 2 3</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>追加情報</p>
+</section>
+<section class="slide level1">
+
+<div style="display: inline-block">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+あーほんとだ<br>右辺が関数名だと動かないですね😇<br>ありがとうございます!
+</p>
+— igjit (<span class="citation" data-cites="igjit">@igjit</span>) <a href="https://twitter.com/igjit/status/1128336965932204034?ref_src=twsrc%5Etfw">May 14, 2019</a>
+</blockquote>
+</div>
+</section>
+<section class="slide level1">
+
+<div style="display: inline-block">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+書いた。Thanks <a href="https://twitter.com/Atsushi776?ref_src=twsrc%5Etfw"><span class="citation" data-cites="Atsushi776">@Atsushi776</span></a><br>パイプ演算子自作入門のその後<a href="https://t.co/zU6G6ZTdU0">https://t.co/zU6G6ZTdU0</a>
+</p>
+— igjit (<span class="citation" data-cites="igjit">@igjit</span>) <a href="https://twitter.com/igjit/status/1129007901136150535?ref_src=twsrc%5Etfw">May 16, 2019</a>
+</blockquote>
+</div>
+</section>
+<section class="slide level1">
+
+<p>ちなみに本物のパイプ演算子を使いたい場合は</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><code>magrittr</code>のソースコード読むと楽しいよ。</p>
+<p class="text-small">
+<a href="https://github.com/tidyverse/magrittr" class="uri">https://github.com/tidyverse/magrittr</a>
+</p>
+</section>
+<section class="slide level1">
+
+<h2 id="参考文献">参考文献</h2>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg" height="600" />
+</figure>
+</section>
+<section class="slide level1">
+
+<ul>
+<li>私が今まで読んだ中で最高のRの本</li>
+<li>本当に徹底解説</li>
+<li>興味深い話題
+<ul>
+<li>環境オブジェクト</li>
+<li>関数型プログラミング</li>
+<li>DSL</li>
+<li>コードの最適化</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>追加情報</p>
+</section>
+<section class="slide level1">
+
+<p>原著 (Advanced R) の<a href="https://adv-r.hadley.nz/">2nd edition</a>では</p>
+<p><a href="https://github.com/r-lib/rlang">rlang</a>を使ったよりモダンなメタプログラミングを説明している。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="まとめ">まとめ</h2>
+</section>
+<section class="slide level1">
+
+<p>構文木を読み書きできる</p>
+<h3 id="メタプログラミング-2">メタプログラミング</h3>
+</section>
+<section class="slide level1">
+
+<p>偉大なる力</p>
+</section>
+<section class="slide level1">
+
+<p>使用例</p>
+<ul>
+<li>構文木の変換 (<a href="https://igjit.github.io/slides/2018/03/lisprr/#/31">(続 ((Rで) 書く (Lisp) インタプリタ))</a>)</li>
+<li>構文木を読んで型推論 (<a href="https://igjit.github.io/slides/2019/04/typrr/#/">Rがときめく型付けの魔法</a>)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<div style="display: inline-block">
+<blockquote class="twitter-tweet" data-lang="ja">
+<p lang="ja" dir="ltr">
+抽象構文木を操作してこその人生なのです
+</p>
+— igjit (<span class="citation" data-cites="igjit">@igjit</span>) <a href="https://twitter.com/igjit/status/968475819583594498?ref_src=twsrc%5Etfw">2018年2月27日</a>
+</blockquote>
+</div>
+</section>
+<section class="slide level1">
+
+<p>Rはすごく不思議な言語</p>
+<p>Rはすごく強力な言語</p>
+<p class="fragment">
+Rはすごく<strong>楽しい</strong>言語
+</p>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
