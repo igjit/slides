@@ -1,5 +1,6 @@
 # slides
 
+- [初めてのRメタプログラミング](https://igjit.github.io/slides/2019/05/metaprogramming-r/#/) ([Sendai.R #1](https://sendair.connpass.com/event/123977/) 応用セッション)
 - [初めてのmajor-mode](https://igjit.github.io/slides/2019/05/major-mode/#/) ([東京Emacs勉強会 端午の節句](https://tokyo-emacs.connpass.com/event/128038/) LT)
 - [Rがときめく型付けの魔法](https://igjit.github.io/slides/2019/04/typrr/#/) ([Tokyo.R #77](https://tokyor.connpass.com/event/125793/) LT)
 - [LTを5分で終わらせる技術](https://igjit.github.io/slides/2019/01/lt-in-5minutes/#/) (社内LT)
