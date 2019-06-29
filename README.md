@@ -1,5 +1,6 @@
 # slides
 
+- [Rでできる - ゼロから作るRAW現像](https://igjit.github.io/slides/2019/06/raw-processing-r/#/) ([Tokyo.R #79](https://tokyor.connpass.com/event/135622/) LT)
 - [初めてのRメタプログラミング](https://igjit.github.io/slides/2019/05/metaprogramming-r/#/) ([Sendai.R #1](https://sendair.connpass.com/event/123977/) 応用セッション)
 - [初めてのmajor-mode](https://igjit.github.io/slides/2019/05/major-mode/#/) ([東京Emacs勉強会 端午の節句](https://tokyo-emacs.connpass.com/event/128038/) LT)
 - [Rがときめく型付けの魔法](https://igjit.github.io/slides/2019/04/typrr/#/) ([Tokyo.R #77](https://tokyor.connpass.com/event/125793/) LT)
