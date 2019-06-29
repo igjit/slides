@@ -1,0 +1,12 @@
+digraph {
+        node [shape=box];
+        bayer画像 ->
+        ブラックレベル補正 ->
+        ホワイトバランス補正 ->
+        デモザイク ->
+        カラーマトリクス補正 ->
+        ガンマ補正 ->
+        フルカラー画像;
+        bayer画像 [shape=plaintext];
+        フルカラー画像 [shape=plaintext];
+}

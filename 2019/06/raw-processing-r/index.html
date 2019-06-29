@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Rでできる - ゼロから作るRAW現像</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Rでできる - ゼロから作るRAW現像" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title"><div style="font-size: 0.7em">
+<p>Rでできる<br />
+ゼロから作るRAW現像</p>
+</div></h1>
+  <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/135622/">Tokyo.R #79</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit">@igjit</a></p></p>
+</section>
+
+<section class="slide level1">
+
+<figure>
+<img src="https://pbs.twimg.com/profile_images/378800000159013251/f5ddbed414eaafe0ef916e8619b58566.png" />
+</figure>
+<p><a href="https://twitter.com/igjit">@igjit</a></p>
+<ul>
+<li>Webアプリケーションエンジニア</li>
+<li><a href="https://igjit.github.io/slides/">Rで変なものを作る</a>のが趣味</li>
+<li><a href="https://www.instagram.com/igjit1/">インスタ</a>始めました</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>最近こんな本を買いました</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/book.jpg" style="width:30.0%" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://moiz.booth.pm/items/1307327" class="uri">https://moiz.booth.pm/items/1307327</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p><strong>Python</strong>とColabでできる - ゼロから作るRAW現像</p>
+</section>
+<section class="slide level1">
+
+<p>ところでRAW現像とは</p>
+</section>
+<section class="slide level1">
+
+<p>デジカメは一般的にJPEG形式で画像を保存する</p>
+<div class="fragment">
+<p>それに対してカメラの光センサーの情報をそのまま保存したものがRAWデータ</p>
+</div>
+<div class="fragment">
+<p>RAWデータから画像を生成するのが<strong>RAW現像</strong></p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>JPEGよりも情報量が多いので柔軟に編集できる</p>
+<figure>
+<img src="images/ss-darktable.png" style="width:70.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>カメラ画像処理について</p>
+</section>
+<section class="slide level1">
+
+<p>画像処理パイプライン</p>
+<p><img src="images/pipeline.svg" style="width:24%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>えっ？</p>
+<p>パイプライン？</p>
+</section>
+<section class="slide level1">
+
+<p><img src="../../../2018/12/nrc/images/logo/pipe.png" style="width:20%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<h2 id="rでやれば良いのでは">Rでやれば良いのでは</h2>
+</section>
+<section class="slide level1">
+
+<p>やってみた</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/ss-gh-page.png" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://igjit.github.io/camera-raw-processing-r/" class="uri">https://igjit.github.io/camera-raw-processing-r/</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>インストール</p>
+</section>
+<section class="slide level1">
+
+<ul>
+<li>R
+<ul>
+<li><a href="https://github.com/dahtah/imager">imager</a> (画像処理ライブラリ)</li>
+<li><a href="https://rstudio.github.io/reticulate/">reticulate</a> (RからPython呼ぶやつ)</li>
+<li><a href="https://www.tidyverse.org/">tidyverse</a> (宇宙)</li>
+</ul></li>
+<li>Python
+<ul>
+<li><a href="https://pypi.org/project/rawpy/">rawpy</a> (RAW画像読み込むやつ)</li>
+</ul></li>
+</ul>
+<p class="text-small text-muted" style="padding: 0.5em">
+Rでできる、と言いつつRAW画像の読み込みにPythonを使う
+</p>
+</section>
+<section class="slide level1">
+
+<p>面倒くさい</p>
+</section>
+<section class="slide level1">
+
+<p>Docker imageを作った</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/ss-docker-hub.png" style="width:80.0%" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://hub.docker.com/r/igjit/r-raw-processing" class="uri">https://hub.docker.com/r/igjit/r-raw-processing</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>docker pullして実行すると</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker</span> pull igjit/r-raw-processing
+<span class="ex">docker</span> run --rm -p 8787:8787 -e PASSWORD=xxxx igjit/r-raw-processing</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>RStudioでRAW現像できる</p>
+<figure>
+<img src="images/ss-rstudio.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="あそびかた">あそびかた</h2>
+</section>
+<section class="slide level1">
+
+<p><a href="https://github.com/moizumi99/camera_raw_processing">原著者のGitHubリポジトリ</a>からRAWデータをダウンロード</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="fu">wget</span> https://github.com/moizumi99/camera_raw_processing/raw/master/chart.jpg</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>画像データをRの行列に読み込みこんで</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reticulate)
+<span class="kw">library</span>(imager)
+
+rawpy &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;rawpy&quot;</span>)
+
+raw_file &lt;-<span class="st"> &quot;chart.jpg&quot;</span>
+raw &lt;-<span class="st"> </span>rawpy<span class="op">$</span><span class="kw">imread</span>(raw_file)
+raw_array &lt;-<span class="st"> </span>raw<span class="op">$</span>raw_image</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>パイプで処理をつなぐ</p>
+<p><img src="../../../2018/12/nrc/images/logo/pipe.png" style="width:20%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>無加工で表示</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raw_array <span class="op">%&gt;%</span><span class="st"> </span>t <span class="op">%&gt;%</span><span class="st"> </span>as.cimg <span class="op">%&gt;%</span><span class="st"> </span>plot</code></pre></div>
+<figure>
+<img src="images/unnamed-chunk-5-1.png" style="width:50.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>デモザイクして表示</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raw_array <span class="op">%&gt;%</span>
+<span class="st">  </span>simple_demosaic <span class="op">%&gt;%</span>
+<span class="st">  </span>ta <span class="op">%&gt;%</span><span class="st"> </span>as.cimg <span class="op">%&gt;%</span><span class="st"> </span>plot</code></pre></div>
+<figure>
+<img src="images/unnamed-chunk-13-1.png" style="width:50.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>ホワイトバランス補正、デモザイクして表示</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raw_array <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">white_balance</span>(raw<span class="op">$</span>camera_whitebalance, raw<span class="op">$</span>raw_colors) <span class="op">%&gt;%</span>
+<span class="st">  </span>simple_demosaic <span class="op">%&gt;%</span>
+<span class="st">  </span>normalize <span class="op">%&gt;%</span>
+<span class="st">  </span>ta <span class="op">%&gt;%</span><span class="st"> </span>as.cimg <span class="op">%&gt;%</span><span class="st"> </span>plot</code></pre></div>
+<figure>
+<img src="images/unnamed-chunk-18-1.png" style="width:50.0%" />
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="楽しい">楽しい！</h2>
+</section>
+<section class="slide level1">
+
+<p><em>demo</em></p>
+</section>
+<section class="slide level1">
+
+<p>今後の更新にご期待下さい</p>
+<figure>
+<img src="images/ss-gh-page.png" style="width:80.0%" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://igjit.github.io/camera-raw-processing-r/" class="uri">https://igjit.github.io/camera-raw-processing-r/</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>ここをクリック↓</p>
+<figure>
+<img src="images/ss-repo2.png" style="width:60.0%" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://github.com/igjit/camera-raw-processing-r" class="uri">https://github.com/igjit/camera-raw-processing-r</a>
+</p>
+</section>
+<section class="slide level1">
+
+<h3 id="まとめ">まとめ</h3>
+</section>
+<section class="slide level1">
+
+<p>Rは統計専用の言語ではない。</p>
+</section>
+<section class="slide level1">
+
+<p>RでRAW現像できる。</p>
+</section>
+<section class="slide level1">
+
+<p>RでRAW現像すると楽しい。</p>
+<ul>
+<li>ベクトル演算</li>
+<li><code>%&gt;%</code></li>
+<li>NSE</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>あなたはRで何を作る？</p>
+</section>
+<section class="slide level1">
+
+<h3 id="enjoy">Enjoy!</h3>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
