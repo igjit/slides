@@ -17,7 +17,7 @@ transition: none
 history: true
 ---
 
-![](https://pbs.twimg.com/profile_images/378800000159013251/f5ddbed414eaafe0ef916e8619b58566.png)
+![](https://igjit.github.io/images/avatar.png){width=256}
 
 [\@igjit](https://twitter.com/igjit)
 
