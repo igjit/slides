@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Shinyで作る写真編集アプリ</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Shinyで作る写真編集アプリ" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title"><p>Shinyで作る<br />
+写真編集アプリ</p></h1>
+  <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/141318/">Tokyo.R #81</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit">@igjit</a></p></p>
+</section>
+
+<section class="slide level1">
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<figure>
+<img src="https://igjit.github.io/images/avatar.png" width="256" />
+</figure>
+<p><a href="https://twitter.com/igjit">@igjit</a></p>
+<ul>
+<li>Webアプリケーションエンジニア</li>
+<li><a href="https://igjit.github.io/slides/">Rで変なものを作る</a>のが趣味</li>
+<li><a href="https://twitter.com/search?q=%40igjit%20%E3%82%BF%E3%83%94%E3%82%AA%E3%82%AB&amp;f=live">山とタピオカと私</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>Tokyo.R #79で<a href="https://igjit.github.io/slides/2019/06/raw-processing-r/#/">紹介</a>した本</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="../../06/raw-processing-r/images/book.jpg" style="width:30.0%" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://moiz.booth.pm/items/1307327" class="uri">https://moiz.booth.pm/items/1307327</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>twitterで見かけた感想</p>
+</section>
+<section class="slide level1">
+
+<div style="display: inline-block">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">
+とりあえず pip install rawpy してみたけれど Lightroom のほうが楽だ（当たり前）
+</p>
+— Haruhiko Okumura (<span class="citation" data-cites="h_okumura">@h_okumura</span>) <a href="https://twitter.com/h_okumura/status/1144955614868590592?ref_src=twsrc%5Etfw">June 29, 2019</a>
+</blockquote>
+</div>
+</section>
+<section class="slide level1">
+
+<p>ですよね。</p>
+</section>
+<section class="slide level1">
+
+<p><a href="https://www.adobe.com/jp/products/photoshop-lightroom.html">Adobe Lightroom</a></p>
+<figure>
+<img src="images/lightroom.jpg" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>インタラクティブに写真編集</p>
+<figure>
+<img src="images/lightroom.jpg" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>えっ？</p>
+<p>インタラクティブなUI？</p>
+</section>
+<section class="slide level1">
+
+<h2 id="それshinyで作れるのでは">それShinyで作れるのでは</h2>
+</section>
+<section class="slide level1">
+
+<p>作ってみた</p>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/ss-shinyroom.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>Shinyで作ったLightroomっぽいアプリなので</p>
+<div class="fragment">
+<h2 id="shinyroom">shinyroom</h2>
+</div>
+</section>
+<section class="slide level1">
+
+<p>コードはこちら</p>
+<h3 id="igjitshinyroom"><a href="https://github.com/igjit/shinyroom">igjit/shinyroom</a></h3>
+</section>
+<section class="slide level1">
+
+<p>Herokuで動かしてるデモ</p>
+<p><a href="https://shinyroom.herokuapp.com/">shinyroom.herokuapp.com</a></p>
+<p class="text-small text-muted" style="padding: 0.5em">
+(めっちゃ遅い)
+</p>
+</section>
+<section class="slide level1">
+
+<p>手元で動かす場合は</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="fu">git</span> clone git@github.com:igjit/shinyroom.git
+<span class="bu">cd</span> shinyroom
+<span class="ex">docker</span> build -t shinyroom .
+<span class="ex">docker</span> run -it --rm -p 8000:8000 -e PORT=8000 shinyroom</code></pre></div>
+<p>して <a href="http://localhost:8000/">localhost:8000</a> にアクセス</p>
+</section>
+<section class="slide level1">
+
+<p><em>demo</em></p>
+</section>
+<section class="slide level1">
+
+<p>正直</p>
+<div class="fragment">
+<h3 id="今のところ実用性はない">今のところ実用性はない</h3>
+</div>
+</section>
+<section class="slide level1">
+
+<p>今後の開発にご期待ください</p>
+</section>
+<section class="slide level1">
+
+<h2 id="shinyroomを支える技術">shinyroomを支える技術</h2>
+</section>
+<section class="slide level1">
+
+<h2 id="imager"><a href="https://github.com/dahtah/imager">imager</a></h2>
+<p>画像処理ライブラリ</p>
+</section>
+<section class="slide level1">
+
+<h2 id="golem"><a href="https://github.com/ThinkR-open/golem">golem</a></h2>
+<p>頑強なShinyアプリを作るためのフレームワーク</p>
+<p>Rのパッケージ開発の経験があるならおすすめ</p>
+<p><a href="https://thinkr-open.github.io/building-shiny-apps-workflow/">Building Big Shiny Apps</a>を読むと良い</p>
+</section>
+<section class="slide level1">
+
+<h2 id="shinythemes"><a href="https://github.com/rstudio/shinythemes">shinythemes</a></h2>
+<p>Shinyアプリの見た目を簡単に変えられる</p>
+</section>
+<section class="slide level1">
+
+<p>これが</p>
+<figure>
+<img src="images/ss-shinyroom-w.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>よりLightroomっぽく</p>
+<figure>
+<img src="images/ss-shinyroom.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="テストを書く">テストを書く</h3>
+<ul>
+<li><a href="https://github.com/rstudio/shinytest">shinytest</a></li>
+<li><a href="https://github.com/r-lib/testthat">testthat</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="細かすぎて伝わらないshinyの挙動">細かすぎて伝わらないShinyの挙動</h3>
+</section>
+<section class="slide level1">
+
+<p>サーバーが処理中であることを示すために</p>
+<figure>
+<img src="images/ss-hist1.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>outputの色が薄くなる</p>
+<figure>
+<img src="images/ss-hist2.png" />
+</figure>
+</section>
+<section class="slide level1">
+
+<p>問題は</p>
+</section>
+<section class="slide level1">
+
+<p>画像処理の結果を待っているときに</p>
+<p><img src="images/ss-image1.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>こうなるのですごくうざい</p>
+<p><img src="images/ss-image2.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>なんとかするためにパッケージ作った</p>
+</section>
+<section class="slide level1">
+
+<h3 id="igjitshinyloadermessage"><a href="https://github.com/igjit/shinyloadermessage">igjit/shinyloadermessage</a></h3>
+</section>
+<section class="slide level1">
+
+<p>処理中に</p>
+<p><img src="images/ss-image1.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>メッセージをかぶせる</p>
+<p><img src="images/ss-image3.png" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>使い方は簡単 (<a href="https://github.com/andrewsali/shinycssloaders">shinycssloaders</a>と同様)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shinyloadermessage)
+
+<span class="co"># ...</span>
+
+<span class="kw">withLoaderMessage</span>(<span class="kw">plotOutput</span>(<span class="st">&quot;distPlot&quot;</span>))</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="まとめ">まとめ</h3>
+</section>
+<section class="slide level1">
+
+<p>作ってみた感想</p>
+</section>
+<section class="slide level1">
+
+<h2 id="楽しい">楽しい!</h2>
+</section>
+<section class="slide level1">
+
+<p>Rだけで簡単にインタラクティブなwebアプリケーションを作れる</p>
+</section>
+<section class="slide level1">
+
+<p>便利なパッケージたくさん</p>
+</section>
+<section class="slide level1">
+
+<p>動くものを作るの楽しい</p>
+</section>
+<section class="slide level1">
+
+<p>どんどん作ろう。</p>
+<div class="fragment">
+<p>作ったら共有しよう。</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>次はあなたの番！</p>
+</section>
+<section class="slide level1">
+
+<h3 id="enjoy">Enjoy!</h3>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
