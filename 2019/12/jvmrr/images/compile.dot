@@ -1,0 +1,8 @@
+digraph {
+        node [shape=box];
+        コンパイル [shape=ellipse,style=filled,color=lightgray];
+        Javaソースコード [shape=note];
+        Javaソースコード ->
+        コンパイル ->
+        Javaクラスファイル
+}

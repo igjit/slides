@@ -1,0 +1,6 @@
+digraph {
+        rankdir=LR;
+        node [shape=record];
+        a [label="Javaクラスファイル|自作Java VM|R|OS"];
+        a
+}
