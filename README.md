@@ -1,5 +1,6 @@
 # slides
 
+- [Rで書くJava VM](https://igjit.github.io/slides/2019/12/jvmrr/#/) ([Japan.R 2019](https://japanr.connpass.com/event/154070/) LT)
 - [Shinyで作る写真編集アプリ](https://igjit.github.io/slides/2019/09/shinyroom/#/) ([Tokyo.R #81](https://tokyor.connpass.com/event/141318/) LT)
 - [Rでできる - ゼロから作るRAW現像](https://igjit.github.io/slides/2019/06/raw-processing-r/#/) ([Tokyo.R #79](https://tokyor.connpass.com/event/135622/) LT)
 - [初めてのRメタプログラミング](https://igjit.github.io/slides/2019/05/metaprogramming-r/#/) ([Sendai.R #1](https://sendair.connpass.com/event/123977/) 応用セッション)
