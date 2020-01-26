@@ -1,5 +1,6 @@
 # slides
 
+- [Schemeをknitする](https://igjit.github.io/slides/2020/01/knitscm/#/) ([Tokyo.R #83](https://tokyor.connpass.com/event/161709/) LT)
 - [Rで書くJava VM](https://igjit.github.io/slides/2019/12/jvmrr/#/) ([Japan.R 2019](https://japanr.connpass.com/event/154070/) LT)
 - [Shinyで作る写真編集アプリ](https://igjit.github.io/slides/2019/09/shinyroom/#/) ([Tokyo.R #81](https://tokyor.connpass.com/event/141318/) LT)
 - [Rでできる - ゼロから作るRAW現像](https://igjit.github.io/slides/2019/06/raw-processing-r/#/) ([Tokyo.R #79](https://tokyor.connpass.com/event/135622/) LT)
