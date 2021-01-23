@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>nand2tetris in R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="nand2tetris in R" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title"><p>nand2tetris in R</p></h1>
+  <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/200591/">Tokyo.R #89</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p></p>
+</section>
+
+<section class="slide level1">
+
+<style type="text/css" rel="stylesheet">
+.reveal .bordered-table table td { border: 1px solid; }
+.reveal .bordered-table table tbody tr:last-child td { border: 1px solid; }
+.reveal .hidden-del del { visibility: hidden; }
+</style>
+<figure>
+<img src="https://igjit.github.io/images/avatar.png" width="256" />
+</figure>
+<p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p>
+<ul>
+<li>Webアプリケーションエンジニア</li>
+<li><a href="https://igjit.github.io/slides/">Rで変なものを作る</a> 人</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>質問</p>
+</section>
+<section class="slide level1">
+
+<p>プログラムが動く仕組みを説明できますか？</p>
+</section>
+<section class="slide level1">
+
+<p>あなたの書いたコードは単なる文字に過ぎない</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">40</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>どういう仕組みで解釈され、計算されるのか</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">40</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<figure>
+<img src="images/nand2tetris.jpg" style="width:40.0%" />
+</figure>
+<p class="text-small" style="margin-top:0">
+<a href="https://www.oreilly.co.jp/books/9784873117126/" class="uri">https://www.oreilly.co.jp/books/9784873117126/</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>「コンピュータを理解するための最善の方法はゼロからコンピュータを作ることです。」</p>
+</section>
+<section class="slide level1">
+
+<p>コンピュータシステムの理論と実装</p>
+<p>通称 <a href="https://www.nand2tetris.org/">nand2tetris</a> (Nand to Tetris)</p>
+</section>
+<section class="slide level1">
+
+<p>コンピュータの構成要素</p>
+<ul>
+<li>ハードウェア</li>
+<li>ソフトウェア</li>
+<li>コンパイラ</li>
+<li>OS</li>
+</ul>
+<p>をひとつずつ実装していく</p>
+</section>
+<section class="slide level1">
+
+<p><a href="https://ja.wikipedia.org/wiki/NAND%E3%82%B2%E3%83%BC%E3%83%88">NANDゲート</a>から始まって</p>
+<p><img src="images/nand-symbol.png" style="width:25%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>最終的にゲームが動くようになるよ</p>
+<p><img src="images/pong.gif" style="width:65%"></p>
+<div class="fragment">
+<p class="text-muted">
+(Nand to Tetrisと言いつつテトリスではない)
+</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>本に登場する階層のうち</p>
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">アプリケーション</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">OS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">コンパイラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">バーチャルマシン</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">アセンブラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">機械語</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ハードウェア</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<p>これらをRで実装</p>
+<div class="bordered-table hidden-del" style="font-size: 0.7em; margin-top:2em">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><del>アプリケーション</del></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><del>OS</del></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">コンパイラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">バーチャルマシン</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">アセンブラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><del>機械語</del></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><del>ハードウェア</del></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<p>順に紹介します。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="アセンブラ">1. アセンブラ</h2>
+</section>
+<section class="slide level1">
+
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">アプリケーション</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">OS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">コンパイラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">バーチャルマシン</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>アセンブラ</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">機械語</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ハードウェア</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<h3 id="アセンブラ-1">アセンブラ</h3>
+<p>アセンブリ言語をバイナリに変換する</p>
+</section>
+<section class="slide level1">
+
+<p>アセンブリ言語を</p>
+<pre><code>@2
+D=A
+@3
+D=D+A
+@0
+M=D</code></pre>
+</section>
+<section class="slide level1">
+
+<p>バイナリに変換</p>
+<pre><code>0000000000000010
+1110110000010000
+0000000000000011
+1110000010010000
+0000000000000000
+1110001100001000</code></pre>
+</section>
+<section class="slide level1">
+
+<p>ハードウェアに対する命令なので低水準</p>
+<pre><code>@2
+D=A
+@3
+D=D+A
+@0
+M=D</code></pre>
+<div class="fragment">
+<p>ちなみにこれは <code>2 + 3</code> を計算するコード</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>Rによるアセンブラの実装</p>
+<p><a href="https://github.com/igjit/nand2tetris/tree/master/r/assembler">assembler</a></p>
+</section>
+<section class="slide level1">
+
+<h2 id="バーチャルマシン">2. バーチャルマシン</h2>
+</section>
+<section class="slide level1">
+
+<p>Virtual Machine (VM)</p>
+<p>抽象化されたコンピュータ</p>
+</section>
+<section class="slide level1">
+
+<p>この本で作るのはVM変換器 (VM translator)</p>
+</section>
+<section class="slide level1">
+
+<p>VMコードをアセンブリコードに変換する</p>
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">アプリケーション</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">OS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">コンパイラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>バーチャルマシン</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">アセンブラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">機械語</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ハードウェア</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<p><code>2 + 3</code> を計算するVMコード</p>
+<pre><code>push constant 2
+push constant 3
+add</code></pre>
+<div class="fragment">
+<p>アセンブリより読みやすい</p>
+</div>
+</section>
+<section class="slide level1">
+
+<h3 id="スタックマシン-stack-machine"><a href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%83%9E%E3%82%B7%E3%83%B3">スタックマシン</a> (stack machine)</h3>
+<p>という計算モデル</p>
+</section>
+<section class="slide level1">
+
+<p>RによるVM変換器の実装</p>
+<p><a href="https://github.com/igjit/nand2tetris/tree/master/r/vmtranslator">vmtranslator</a></p>
+</section>
+<section class="slide level1">
+
+<h2 id="コンパイラ">3. コンパイラ</h2>
+</section>
+<section class="slide level1">
+
+<div class="fragment">
+<p>高級言語をVMコードに変換する</p>
+</div>
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">アプリケーション</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">OS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>コンパイラ</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">バーチャルマシン</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">アセンブラ</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">機械語</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ハードウェア</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<p>Jack言語のコード</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">class</span> Main {
+   function <span class="dt">void</span> <span class="fu">main</span>() {
+      <span class="kw">do</span> Output.<span class="fu">printString</span>(<span class="st">&quot;Hello world!&quot;</span>);
+      <span class="kw">do</span> Output.<span class="fu">println</span>();
+      <span class="kw">return</span>;
+   }
+}</code></pre></div>
+<div class="fragment">
+<p>普通に読める</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>コンパイルの流れ</p>
+<ul>
+<li>字句解析</li>
+<li>構文解析</li>
+<li>コード生成</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="字句解析">字句解析</h3>
+<p>トークンに分割する</p>
+</section>
+<section class="slide level1">
+
+<p><code>a = 40 + 2</code> をトークンに分割</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>jackanalyzer<span class="op">::</span><span class="kw">tokenize</span>(<span class="st">&quot;a = 40 + 2&quot;</span>)
+[[<span class="dv">1</span>]]
+<span class="op">$</span>identifier
+[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
+
+<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;identifier_token&quot;</span> <span class="st">&quot;token&quot;</span>           
+
+[[<span class="dv">2</span>]]
+<span class="op">$</span>symbol
+[<span class="dv">1</span>] <span class="st">&quot;=&quot;</span>
+
+<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;symbol_token&quot;</span> <span class="st">&quot;token&quot;</span>       
+
+[[<span class="dv">3</span>]]
+<span class="op">$</span>int_val
+[<span class="dv">1</span>] <span class="dv">40</span>
+
+<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;int_const_token&quot;</span> <span class="st">&quot;token&quot;</span>          
+
+[[<span class="dv">4</span>]]
+<span class="op">$</span>symbol
+[<span class="dv">1</span>] <span class="st">&quot;+&quot;</span>
+
+<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;symbol_token&quot;</span> <span class="st">&quot;token&quot;</span>       
+
+[[<span class="dv">5</span>]]
+<span class="op">$</span>int_val
+[<span class="dv">1</span>] <span class="dv">2</span>
+
+<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;int_const_token&quot;</span> <span class="st">&quot;token&quot;</span>          </code></pre></div>
+</section>
+<section class="slide level1">
+
+<h3 id="構文解析">構文解析</h3>
+<p>文法にそって解釈する</p>
+</section>
+<section class="slide level1">
+
+<p><code>a = 40 + 2</code> の構文木</p>
+<p><img src="../../../2018/12/nrc/images/ast2.svg" style="box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<h3 id="コード生成">コード生成</h3>
+<p>ターゲット言語のコードを生成する</p>
+</section>
+<section class="slide level1">
+
+<p class="text-muted">
+(時間がないので詳細は略)
+<p/>
+</section>
+<section class="slide level1">
+
+<p>RによるJackコンパイラの実装</p>
+<p><a href="https://github.com/igjit/nand2tetris/tree/master/r/jackanalyzer">jackanalyzer</a></p>
+</section>
+<section class="slide level1">
+
+<p>コンパイル結果のVMコードは、<a href="https://www.nand2tetris.org/">公式サイト</a>で公開されているVMエミュレータで実行できる</p>
+<p><img src="images/ss-vm-emulator.png" style="width:60%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p><em>demo</em></p>
+</section>
+<section class="slide level1">
+
+<p>実装にかかった行数</p>
+<div class="fragment" style="font-size: 0.8em; margin-top:2em">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">行数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">アセンブラ</td>
+<td style="text-align: right;">206</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VM変換器</td>
+<td style="text-align: right;">323</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">コンパイラ</td>
+<td style="text-align: right;">788</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<p>強力な抽象は実装が大変</p>
+<div style="font-size: 0.8em; margin-top:2em">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">行数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">アセンブラ</td>
+<td style="text-align: right;">206</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VM変換器</td>
+<td style="text-align: right;">323</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">コンパイラ</td>
+<td style="text-align: right;">788</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="実装のこつ">実装のこつ</h2>
+</section>
+<section class="slide level1">
+
+<h3 id="テストを書こう">テストを書こう</h3>
+<p><img src="../../../2018/12/nrc/images/logo/testthat.png" style="width:25%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>楽をするためにテストを書く</p>
+<div class="fragment">
+<p>一度テストを書けばいつでもプロジェクト全体をテストできる</p>
+</div>
+<div class="fragment">
+<p>常に自分の変更に自信が持てるようになる</p>
+</div>
+</section>
+<section class="slide level1">
+
+<h3 id="パッケージを作ろう">パッケージを作ろう</h3>
+<p><img src="../../../2018/12/nrc/images/logo/devtools.png" style="width:25%; box-shadow:none"> <img src="../../../2018/12/nrc/images/logo/usethis.png" style="width:25%; box-shadow:none"></p>
+</section>
+<section class="slide level1">
+
+<p>パッケージにすればコードを楽に再利用できる</p>
+<div class="fragment">
+<p>自分しか使わないとしてもパッケージにする価値はある</p>
+</div>
+<div class="fragment">
+<p><a href="https://devtools.r-lib.org/">devtools</a>でコードのリロード、テスト実行が簡単</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>namespaceを分離できる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assembler<span class="op">::</span><span class="kw">parse</span>()
+vmtranslator<span class="op">::</span><span class="kw">parse</span>()
+jackanalyzer<span class="op">::</span><span class="kw">parse</span>()</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p><a href="https://www.oreilly.co.jp/books/9784873117591/">Rパッケージ開発入門</a>を読もう。</p>
+<p>原著の第2版が<a href="https://r-pkgs.org/index.html">webで読めるよ</a>。</p>
+</section>
+<section class="slide level1">
+
+<h2 id="まとめ">まとめ</h2>
+</section>
+<section class="slide level1">
+
+<p>アセンブラ、VM、コンパイラをRで実装した。</p>
+</section>
+<section class="slide level1">
+
+<p>自分で作ることで</p>
+<p>その仕組みを深く理解できる。</p>
+</section>
+<section class="slide level1">
+
+<p>作る</p>
+<div class="fragment">
+<p>動かす</p>
+</div>
+<div class="fragment">
+<p>理解する</p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>プログラミングは楽しい！</p>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
