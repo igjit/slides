@@ -12,10 +12,12 @@ REVEAL_OPTS = --slide-level=1 --highlight-style=zenburn
 
 DOT_OPTS = -Tsvg -Nfontname=sans-serif -Nfontsize=22
 
+PANDOC = docker-compose run --rm app pandoc
+
 %.svg: %.dot
 	dot $(DOT_OPTS) $^ -o $@
 
 %/index.html: %/index.md
-	pandoc -s -t revealjs $(PANDOC_OPTS) $(REVEAL_OPTS) -o $@ $^
+	$(PANDOC) -s -t revealjs $(PANDOC_OPTS) $(REVEAL_OPTS) -o $@ $^
 
 .PHONY: all
