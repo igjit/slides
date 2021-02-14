@@ -3,7 +3,9 @@ title: (続 ((Rで) 書く (Lisp) インタプリタ))
 author: '<a href="https://twitter.com/igjit">@igjit</a>'
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal_large_code.css
+css:
+  - ../../../css/reveal_large_code.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true

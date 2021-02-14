@@ -8,7 +8,9 @@ author: |
   <a href="https://twitter.com/igjit" class="name">@igjit</a>
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal_large_code.css
+css:
+  - ../../../css/reveal_large_code.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true

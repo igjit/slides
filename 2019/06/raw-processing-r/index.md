@@ -11,7 +11,9 @@ author: |
   [\@igjit](https://twitter.com/igjit)
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal.css
+css:
+  - ../../../css/reveal_large_code.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true
