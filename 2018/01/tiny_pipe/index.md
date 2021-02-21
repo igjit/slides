@@ -10,6 +10,10 @@ transition: none
 history: true
 ---
 
+<style>
+.reveal pre code { font-size: 1em; }
+</style>
+
 ![](https://igjit.github.io/images/avatar.png){width=256}
 
 [\@igjit](https://twitter.com/igjit)

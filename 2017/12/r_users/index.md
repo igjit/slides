@@ -10,6 +10,10 @@ transition: none
 
 # 私の仕事
 
+<style>
+.reveal pre code { font-size: 1em; }
+</style>
+
 ---
 
 Webアプリケーションエンジニア

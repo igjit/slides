@@ -10,7 +10,7 @@ author: |
 theme: white
 revealjs-url: ../../../reveal.js
 css:
-  - ../../../css/reveal_large_code.css
+  - ../../../css/reveal.css
   - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
