@@ -16,7 +16,7 @@ history: true
 ---
 
 <https://igjit.github.io/slides/2018/01/tiny_pipe/>
-![](images/ss_pipe.png)
+![](images/ss_pipe.png){.img-shadow}
 
 ---
 
@@ -187,7 +187,7 @@ ast(1 + 2 * 3)
 
 ## Lispっぽい
 
-<figure><img src="images/alien.png" style="box-shadow: none;"></figure>
+![](images/alien.png)
 
 ---
 
@@ -348,7 +348,7 @@ lisprr> (plot iris)
 
 ## 楽しい！
 
-<figure><img src="images/alien.png" style="box-shadow: none;"></figure>
+![](images/alien.png)
 
 ---
 
@@ -369,4 +369,4 @@ lisprr> (plot iris)
 
 ## Enjoy!
 
-<figure><img src="images/alien.png" style="box-shadow: none;"></figure>
+![](images/alien.png)

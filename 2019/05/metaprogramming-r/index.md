@@ -59,7 +59,7 @@ curve(log(x))  # これはok
 
 ---
 
-<img src="../../../2018/12/nrc/images/logo/pipe.png" style="width:20%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/pipe.png){width=20%}
 
 ---
 
@@ -68,7 +68,7 @@ curve(log(x))  # これはok
 by [\@kilometer00](https://twitter.com/kilometer00)
 </p>
 
-![](images/ss-pipe1.png){width=80%}
+![](images/ss-pipe1.png){.img-shadow width=80%}
 
 ---
 
@@ -77,7 +77,7 @@ by [\@kilometer00](https://twitter.com/kilometer00)
 by [\@kilometer00](https://twitter.com/kilometer00)
 </p>
 
-![](images/ss-pipe2.png){width=80%}
+![](images/ss-pipe2.png){.img-shadow width=80%}
 
 ---
 
@@ -104,15 +104,15 @@ by [\@kilometer00](https://twitter.com/kilometer00)
 <https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Pipeline_operator>
 </p>
 
-<img src="images/ss-js-pipe1.png" style="box-shadow:none">
+![](images/ss-js-pipe1.png)
 
 ---
 
-<img src="images/ss-js-pipe2.png" style="box-shadow:none">
+![](images/ss-js-pipe2.png)
 
 ---
 
-<img src="images/ss-js-pipe3.png" style="box-shadow:none">
+![](images/ss-js-pipe3.png)
 
 ---
 
@@ -140,7 +140,7 @@ library(magrittr)
 
 自分で作ることもできる
 
-![](images/ss-tiny-pipe.png)
+![](images/ss-tiny-pipe.png){.img-shadow}
 
 <p class="text-small">
 <https://igjit.github.io/slides/2018/01/tiny_pipe/#/>
@@ -151,7 +151,7 @@ library(magrittr)
 宇宙のできる前のR(1.0.0)に異世界転生しても \
 パイプ演算子を実装できる
 
-![](images/ss-r1.png){width=70%}
+![](images/ss-r1.png){.img-shadow width=70%}
 
 <p class="text-small">
 [宇宙が生まれる前の話](https://github.com/8-u8/TokyoR/blob/master/20190119/R%E8%A8%80%E8%AA%9E%E8%B6%85%E5%85%A5%E9%96%80_opened.pdf) by [\@0_u0](https://twitter.com/0_u0)
@@ -709,7 +709,7 @@ library(magrittr)
 
 ---
 
-![](https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg){height="600px"}
+![](https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg){.img-shadow height=600px}
 
 ---
 

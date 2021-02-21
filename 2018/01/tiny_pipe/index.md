@@ -604,7 +604,7 @@ library(magrittr)
 
 ---
 
-![](https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg){height="600px"}
+![](https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg){.img-shadow height=600px}
 
 ---
 

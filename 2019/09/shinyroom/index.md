@@ -205,13 +205,13 @@ outputの色が薄くなる
 
 画像処理の結果を待っているときに
 
-<img src="images/ss-image1.png" style="box-shadow:none">
+![](images/ss-image1.png)
 
 ---
 
 こうなるのですごくうざい
 
-<img src="images/ss-image2.png" style="box-shadow:none">
+![](images/ss-image2.png)
 
 ---
 
@@ -226,13 +226,13 @@ outputの色が薄くなる
 
 処理中に
 
-<img src="images/ss-image1.png" style="box-shadow:none">
+![](images/ss-image1.png)
 
 ---
 
 メッセージをかぶせる
 
-<img src="images/ss-image3.png" style="box-shadow:none">
+![](images/ss-image3.png)
 
 ---
 

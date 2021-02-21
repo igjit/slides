@@ -16,3 +16,4 @@
 .reveal .text-muted { color: #888; }
 .reveal .text-small { font-size: 0.6em; }
 .reveal .name { font-weight: bold; font-family: Helvetica,Arial,sans-serif; }
+.reveal .img-shadow { box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }

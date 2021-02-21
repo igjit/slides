@@ -89,7 +89,7 @@ LTを5分に収めるのはその良い練習だと思う。
 
 ---
 
-![](images/ss_draft.png){style="box-shadow:none"}
+![](images/ss_draft.png)
 
 ---
 

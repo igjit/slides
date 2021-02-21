@@ -44,7 +44,7 @@ Java仮想マシン
 
 Javaのソースコードは<br>Javaクラスファイルにコンパイルされる
 
-<img src="images/compile.svg" style="box-shadow:none">
+![](images/compile.svg)
 
 ---
 
@@ -98,25 +98,25 @@ public class Hello {
 
 JavaクラスファイルはJava VM上で実行される
 
-<img src="images/vm1.svg" style="box-shadow:none">
+![](images/vm1.svg)
 
 ---
 
 Java VMがあればJavaはどこでも動く
 
-<img src="images/vm2.svg" style="box-shadow:none">
+![](images/vm2.svg)
 
 ---
 
 Java VMがあればJavaはどこでも動く
 
-<img src="images/vm3.svg" style="box-shadow:none">
+![](images/vm3.svg)
 
 ---
 
 Java VMがあればJavaはどこでも動く
 
-<img src="images/vm4.svg" style="box-shadow:none">
+![](images/vm4.svg)
 
 ---
 
@@ -148,13 +148,13 @@ Rも動的型付けの汎用スクリプト言語
 
 これを
 
-<img src="images/vm5.svg" style="box-shadow:none">
+![](images/vm5.svg)
 
 ---
 
 こうする
 
-<img src="images/vm6.svg" style="box-shadow:none">
+![](images/vm6.svg)
 
 ---
 
@@ -296,7 +296,7 @@ Buzz
 
 ---
 
-<img src="../../../2018/12/nrc/images/logo/purrr.png" style="width:25%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/purrr.png){width=25%}
 
 ---
 
@@ -341,7 +341,7 @@ list(iadd = `+`,
 
 ---
 
-<img src="images/rlang.png" style="width:25%; box-shadow:none">
+![](images/rlang.png){width=25%}
 
 ---
 
@@ -379,7 +379,7 @@ Java VMはスタックマシンなので素直にstackを使う
 
 ---
 
-<img src="../../../2018/12/nrc/images/logo/testthat.png" style="width:25%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/testthat.png){width=25%}
 
 ---
 

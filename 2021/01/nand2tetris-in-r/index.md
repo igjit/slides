@@ -86,13 +86,13 @@ a = 40 + 2
 
 [NANDゲート](https://ja.wikipedia.org/wiki/NAND%E3%82%B2%E3%83%BC%E3%83%88)から始まって
 
-<img src="images/nand-symbol.png" style="width:25%; box-shadow:none">
+![](images/nand-symbol.png){width=25%}
 
 ---
 
 最終的にゲームが動くようになるよ
 
-<img src="images/pong.gif" style="width:65%">
+![](images/pong.gif){width=65%}
 
 <div class="fragment">
 <p class="text-muted">
@@ -383,7 +383,7 @@ attr(,"class")
 `a = 40 + 2` の構文木
 
 
-<img src="../../../2018/12/nrc/images/ast2.svg" style="box-shadow:none">
+![](../../../2018/12/nrc/images/ast2.svg)
 
 ---
 
@@ -407,7 +407,7 @@ RによるJackコンパイラの実装
 
 コンパイル結果のVMコードは、[公式サイト](https://www.nand2tetris.org/)で公開されているVMエミュレータで実行できる
 
-<img src="images/ss-vm-emulator.png" style="width:60%; box-shadow:none">
+![](images/ss-vm-emulator.png){width=60%}
 
 ---
 
@@ -445,7 +445,7 @@ RによるJackコンパイラの実装
 
 ### テストを書こう
 
-<img src="../../../2018/12/nrc/images/logo/testthat.png" style="width:25%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/testthat.png){width=25%}
 
 ---
 
@@ -463,8 +463,8 @@ RによるJackコンパイラの実装
 
 ### パッケージを作ろう
 
-<img src="../../../2018/12/nrc/images/logo/devtools.png" style="width:25%; box-shadow:none">
-<img src="../../../2018/12/nrc/images/logo/usethis.png" style="width:25%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/devtools.png){width=25%}
+![](../../../2018/12/nrc/images/logo/usethis.png){width=25%}
 
 ---
 

@@ -29,7 +29,7 @@ history: true
 
 ---
 
-![](images/adv-r-j.jpg){width="40%"}
+![](images/adv-r-j.jpg){.img-shadow width=40%}
 
 ---
 
@@ -104,7 +104,7 @@ Rで変なものを作るために再帰が必要
 
 ---
 
-<img src="images/rmarkdown.png" style="width:25%; box-shadow:none">
+![](images/rmarkdown.png){width=25%}
 
 ---
 
@@ -268,7 +268,7 @@ chunkをまたいで実行できる
 
 Scheme手習いを写経してGFMで[共有](https://github.com/igjit/sandbox/tree/master/little-schemer)できるように
 
-<img src="images/ss-gfm.png" style="width:80%; box-shadow:none">
+![](images/ss-gfm.png){width=80%}
 
 ---
 

@@ -38,7 +38,7 @@ major-mode作ったことある人？
 <https://igjit.github.io/posts/2019/04/emacs-lisp-for-copl/>
 </p>
 
-![](images/ss-blog.png)
+![](images/ss-blog.png){.img-shadow}
 
 ---
 
@@ -93,7 +93,7 @@ major-mode作ったことある人？
 <http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/>
 </p>
 
-![](images/ss-new-language.png)
+![](images/ss-new-language.png){.img-shadow}
 
 ---
 

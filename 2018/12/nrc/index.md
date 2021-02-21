@@ -23,7 +23,7 @@ history: true
 <https://www.sigbus.info/compilerbook/>
 </p>
 
-![低レイヤを知りたい人のためのCコンパイラ作成入門](images/ss_compilerbook.png)
+![低レイヤを知りたい人のためのCコンパイラ作成入門](images/ss_compilerbook.png){.img-shadow}
 
 ---
 
@@ -264,22 +264,22 @@ tokenize <- function(s) {
 
 実装が捗るやつ
 
-<img src="images/logo/pipe.png" style="width:20%; box-shadow:none">
-<img src="images/logo/purrr.png" style="width:20%; box-shadow:none">
-<img src="images/logo/stringr.png" style="width:20%; box-shadow:none">
+![](images/logo/pipe.png){width=20%}
+![](images/logo/purrr.png){width=20%}
+![](images/logo/stringr.png){width=20%}
 
 ----
 
 パッケージ作成が捗るやつ
 
-<img src="images/logo/devtools.png" style="width:20%; box-shadow:none">
-<img src="images/logo/usethis.png" style="width:20%; box-shadow:none">
+![](images/logo/devtools.png){width=20%}
+![](images/logo/usethis.png){width=20%}
 
 ---
 
 楽をするためにテストを書く
 
-<img src="images/logo/testthat.png" style="width:20%; box-shadow:none">
+![](images/logo/testthat.png){width=20%}
 
 ---
 
@@ -299,7 +299,7 @@ tokenize <- function(s) {
 
 ---
 
-![](images/ss_30compiler.png){width="120%"}
+![](images/ss_30compiler.png){.img-shadow width=120%}
 
 <p class="text-small">
 [3(0)日でできる！ Cコンパイラ自作入門](https://docs.google.com/presentation/d/1p2iD4gRLFP_K0L7vUAhtP3NcSBhx-wK9v4R03oGyJSQ/edit)

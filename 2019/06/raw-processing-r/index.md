@@ -73,7 +73,7 @@ JPEGよりも情報量が多いので柔軟に編集できる
 
 画像処理パイプライン
 
-<img src="images/pipeline.svg" style="width:24%; box-shadow:none">
+![](images/pipeline.svg){width=24%}
 
 ---
 
@@ -83,7 +83,7 @@ JPEGよりも情報量が多いので柔軟に編集できる
 
 ---
 
-<img src="../../../2018/12/nrc/images/logo/pipe.png" style="width:20%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/pipe.png){width=20%}
 
 ---
 
@@ -95,7 +95,7 @@ JPEGよりも情報量が多いので柔軟に編集できる
 
 ---
 
-![](images/ss-gh-page.png)
+![](images/ss-gh-page.png){.img-shadow}
 
 <p class="text-small" style="margin-top:0">
 <https://igjit.github.io/camera-raw-processing-r/>
@@ -128,7 +128,7 @@ Docker imageを作った
 
 ---
 
-![](images/ss-docker-hub.png){width="80%"}
+![](images/ss-docker-hub.png){.img-shadow width=80%}
 
 <p class="text-small" style="margin-top:0">
 <https://hub.docker.com/r/igjit/r-raw-processing>
@@ -180,7 +180,7 @@ raw_array <- raw$raw_image
 
 パイプで処理をつなぐ
 
-<img src="../../../2018/12/nrc/images/logo/pipe.png" style="width:20%; box-shadow:none">
+![](../../../2018/12/nrc/images/logo/pipe.png){width=20%}
 
 ---
 
@@ -229,7 +229,7 @@ raw_array %>%
 
 今後の更新にご期待下さい
 
-![](images/ss-gh-page.png){width="80%"}
+![](images/ss-gh-page.png){.img-shadow width=80%}
 
 <p class="text-small" style="margin-top:0">
 <https://igjit.github.io/camera-raw-processing-r/>
