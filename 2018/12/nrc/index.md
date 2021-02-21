@@ -264,28 +264,22 @@ tokenize <- function(s) {
 
 実装が捗るやつ
 
-<section>
 <img src="images/logo/pipe.png" style="width:20%; box-shadow:none">
 <img src="images/logo/purrr.png" style="width:20%; box-shadow:none">
 <img src="images/logo/stringr.png" style="width:20%; box-shadow:none">
-</section>
 
 ----
 
 パッケージ作成が捗るやつ
 
-<section>
 <img src="images/logo/devtools.png" style="width:20%; box-shadow:none">
 <img src="images/logo/usethis.png" style="width:20%; box-shadow:none">
-</section>
 
 ---
 
 楽をするためにテストを書く
 
-<section>
 <img src="images/logo/testthat.png" style="width:20%; box-shadow:none">
-</section>
 
 ---
 
