@@ -88,7 +88,7 @@ twitterで見かけた感想
 Shinyで作ったLightroomっぽいアプリなので
 
 <div class="fragment">
-## shinyroom
+[shinyroom]{.h2}
 </div>
 
 ---
@@ -129,7 +129,7 @@ docker run -it --rm -p 8000:8000 -e PORT=8000 shinyroom
 正直
 
 <div class="fragment">
-### 今のところ実用性はない
+[今のところ実用性はない]{.h3}
 </div>
 
 ---

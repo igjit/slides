@@ -26,7 +26,7 @@ history: true
 原因はいろいろあるけど特に
 
 <div class="fragment">
-## パッケージ
+[パッケージ]{.h2}
 </div>
 
 ---

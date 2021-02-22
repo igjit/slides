@@ -119,7 +119,7 @@ by [\@kilometer00](https://twitter.com/kilometer00)
 Java​Scriptでパイプ演算子を使うには
 
 <div class="fragment">
-### 言語の進化を待たなければならない
+[言語の進化を待たなければならない]{.h3}
 </div>
 
 ---
@@ -343,7 +343,7 @@ Rの関数では
 <div class="fragment">
 つまり
 
-## 引数が使われた場合に初めて評価される
+[引数が使われた場合に初めて評価される]{.h2}
 </div>
 
 ---
