@@ -97,7 +97,7 @@ devtools::install_github("igjit/nrc")
 
 ---
 
-# あそびかた
+## あそびかた
 
 ---
 
@@ -179,7 +179,7 @@ main:
 
 ---
 
-# しくみ
+## しくみ
 
 ---
 
@@ -287,7 +287,7 @@ tokenize <- function(s) {
 
 ---
 
-# 楽しい！
+## 楽しい！
 
 ---
 
@@ -307,7 +307,7 @@ tokenize <- function(s) {
 
 ---
 
-# まとめ
+## まとめ
 
 ---
 

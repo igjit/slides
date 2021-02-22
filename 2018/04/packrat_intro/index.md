@@ -55,7 +55,9 @@ Rのコードだけでなく
 
 RStudio製のパッケージ管理システム
 
-# パッケージ管理を始める
+---
+
+## パッケージ管理を始める
 
 ---
 
@@ -172,7 +174,9 @@ Snapshot written to '/home/igjit/sample_proj/packrat/packrat.lock'
 
 ## 簡単
 
-# パッケージの復元
+---
+
+## パッケージの復元
 
 ---
 
@@ -236,7 +240,9 @@ Installing dplyr (0.7.4) ...
 
 ## 簡単
 
-# RStudioで使う
+---
+
+## RStudioで使う
 
 ---
 
@@ -272,7 +278,9 @@ Snapshotを取得
 
 ## 簡単
 
-# デプロイ
+---
+
+## デプロイ
 
 ---
 
@@ -305,7 +313,7 @@ R --vanilla --slave -f .Rprofile --args --bootstrap-packrat &&
 
 ---
 
-# 参考
+## 参考
 
 ---
 
@@ -315,7 +323,7 @@ R --vanilla --slave -f .Rprofile --args --bootstrap-packrat &&
 
 ---
 
-# まとめ
+## まとめ
 
 ---
 
