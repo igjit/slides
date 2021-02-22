@@ -7,7 +7,9 @@ author: |
     [\@igjit](https://twitter.com/igjit)
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal_large_code.css
+css:
+  - ../../../css/reveal.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true
@@ -43,7 +45,7 @@ LTを5分に収めるのはその良い練習だと思う。
 
 ---
 
-# 1. 練習
+## 1. 練習
 
 ---
 
@@ -65,7 +67,7 @@ LTを5分に収めるのはその良い練習だと思う。
 
 ---
 
-# 2. 設計
+## 2. 設計
 
 ---
 
@@ -87,7 +89,7 @@ LTを5分に収めるのはその良い練習だと思う。
 
 ---
 
-![](images/ss_draft.png){style="box-shadow:none"}
+![](images/ss_draft.png)
 
 ---
 
@@ -111,7 +113,7 @@ LTを5分に収めるのはその良い練習だと思う。
 
 ---
 
-# 3. 調整
+## 3. 調整
 
 ---
 
@@ -139,7 +141,7 @@ LTを5分に収めるのはその良い練習だと思う。
 
 ---
 
-# まとめ
+## まとめ
 
 ---
 

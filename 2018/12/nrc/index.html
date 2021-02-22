@@ -10,65 +10,88 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Rで書くRコンパイラ" />
   <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
-  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
-td.sourceCode { padding-left: 5px; }
-pre, code { color: #cccccc; background-color: #303030; }
-code > span.kw { color: #f0dfaf; } /* Keyword */
-code > span.dt { color: #dfdfbf; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
-code > span.bn { color: #dca3a3; } /* BaseN */
-code > span.fl { color: #c0bed1; } /* Float */
-code > span.ch { color: #dca3a3; } /* Char */
-code > span.st { color: #cc9393; } /* String */
-code > span.co { color: #7f9f7f; } /* Comment */
-code > span.ot { color: #efef8f; } /* Other */
-code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
-code > span.er { color: #c3bf9f; } /* Error */
-code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code > span.sc { color: #dca3a3; } /* SpecialChar */
-code > span.vs { color: #cc9393; } /* VerbatimString */
-code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
-code > span.op { color: #f0efd0; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code > span.at { } /* Attribute */
-code > span.do { color: #7f9f7f; } /* Documentation */
-code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  <link rel="stylesheet" href="../../../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
-  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="../../../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <link rel="stylesheet" href="../../../css/fix_highlight_zenburn.css"/>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-<section>
+<section id="title-slide">
   <h1 class="title"><p>Rで書く<br />
 Rコンパイラ</p></h1>
   <p class="author"><p><a href="https://twitter.com/igjit">@igjit</a></p></p>
@@ -84,7 +107,7 @@ Rコンパイラ</p></h1>
 <a href="https://www.sigbus.info/compilerbook/" class="uri">https://www.sigbus.info/compilerbook/</a>
 </p>
 <figure>
-<img src="images/ss_compilerbook.png" alt="低レイヤを知りたい人のためのCコンパイラ作成入門" /><figcaption>低レイヤを知りたい人のためのCコンパイラ作成入門</figcaption>
+<img data-src="images/ss_compilerbook.png" class="img-shadow" alt="低レイヤを知りたい人のためのCコンパイラ作成入門" /><figcaption aria-hidden="true">低レイヤを知りたい人のためのCコンパイラ作成入門</figcaption>
 </figure>
 </section>
 <section class="slide level1">
@@ -94,9 +117,9 @@ Rコンパイラ</p></h1>
 <section class="slide level1">
 
 <p>Cのソースコードを</p>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> main() {
-  <span class="cf">return</span> <span class="dv">42</span>;
-}</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">42</span>;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="fragment">
 <p>x86-64アセンブリに変換する</p>
 <pre><code>.intel_syntax noprefix
@@ -138,45 +161,46 @@ main:
 <section class="slide level1">
 
 <p>インストール</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;igjit/nrc&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;igjit/nrc&quot;</span>)</span></code></pre></div>
 <div class="text-small">
 <p>(現在Linuxにしか対応してないので他のOSの場合はDockerとか使ってください。)</p>
 </div>
 </section>
-<section id="あそびかた" class="slide level1">
-<h1>あそびかた</h1>
+<section class="slide level1">
+
+<h2 id="あそびかた">あそびかた</h2>
 </section>
 <section class="slide level1">
 
 <p>packageを読み込むと</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(nrc)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(nrc)</span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Rのコードをコンパイルできる</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">compile</span>(<span class="st">&quot;1+2&quot;</span>)
-.intel_syntax noprefix
-.global main
-main<span class="op">:</span>
-<span class="st">  </span>push rbp
-  mov rbp, rsp
-  sub rsp, <span class="dv">208</span>
-  push <span class="dv">1</span>
-  push <span class="dv">2</span>
-  pop rdi
-  pop rax
-  add rax, rdi
-  push rax
-  pop rax
-  mov rsp, rbp
-  pop rbp
-  ret</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">compile</span>(<span class="st">&quot;1+2&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>.intel_syntax noprefix</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>.global main</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>main<span class="sc">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  push rbp</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  mov rbp, rsp</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  sub rsp, <span class="dv">208</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  push <span class="dv">1</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  push <span class="dv">2</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  pop rdi</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  pop rax</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  add rax, rdi</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  push rax</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  pop rax</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  mov rsp, rbp</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  pop rbp</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  ret</span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>コンパイルしてアセンブル</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">compile</span>(<span class="st">&quot;1+2&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>assemble
-[<span class="dv">1</span>] <span class="st">&quot;/tmp/RtmpW7m1KT/file760c7d79428b&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">compile</span>(<span class="st">&quot;1+2&quot;</span>) <span class="sc">%&gt;%</span> assemble</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;/tmp/RtmpW7m1KT/file760c7d79428b&quot;</span></span></code></pre></div>
 <p class="text-small">
 実行ファイルが出力される
 </p>
@@ -184,14 +208,14 @@ main<span class="op">:</span>
 <section class="slide level1">
 
 <p>コンパイルしてアセンブルして実行</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">compile</span>(<span class="st">&quot;1+2&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>assemble <span class="op">%&gt;%</span><span class="st"> </span>execute
-[<span class="dv">1</span>] <span class="dv">3</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">compile</span>(<span class="st">&quot;1+2&quot;</span>) <span class="sc">%&gt;%</span> assemble <span class="sc">%&gt;%</span> execute</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>変数も使える</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> &quot;a &lt;- 2; a + 40&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>compile <span class="op">%&gt;%</span><span class="st"> </span>assemble <span class="op">%&gt;%</span><span class="st"> </span>execute
-[<span class="dv">1</span>] <span class="dv">42</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="st">&quot;a &lt;- 2; a + 40&quot;</span> <span class="sc">%&gt;%</span> compile <span class="sc">%&gt;%</span> assemble <span class="sc">%&gt;%</span> execute</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">42</span></span></code></pre></div>
 <div class="fragment">
 <p>代入演算子は <code>&lt;-</code> (今のところ唯一のRっぽさ)</p>
 </div>
@@ -208,18 +232,19 @@ main<span class="op">:</span>
 <li>スコープ規則</li>
 </ul>
 </section>
-<section id="しくみ" class="slide level1">
-<h1>しくみ</h1>
+<section class="slide level1">
+
+<h2 id="しくみ">しくみ</h2>
 </section>
 <section class="slide level1">
 
 <p>コンパイルの流れ</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compile &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
-    s <span class="op">%&gt;%</span>
-<span class="st">        </span>tokenize <span class="op">%&gt;%</span>
-<span class="st">        </span>parse <span class="op">%&gt;%</span>
-<span class="st">        </span>generate
-}</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>compile <span class="ot">&lt;-</span> <span class="cf">function</span>(s) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    s <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        tokenize <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        parse <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        generate</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -229,21 +254,21 @@ main<span class="op">:</span>
 <section class="slide level1">
 
 <p>正規表現を使って雑に実装</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; @import stringr</span>
-
-tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
-    s <span class="op">%&gt;%</span>
-<span class="st">        </span><span class="kw">str_replace_all</span>(<span class="st">&quot;(&lt;-|==|!=|[()+</span><span class="ch">\\</span><span class="st">-*/=;])&quot;</span>,
-                        <span class="st">&quot; </span><span class="ch">\\</span><span class="st">1 &quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">        </span>str_trim <span class="op">%&gt;%</span>
-<span class="st">        </span><span class="kw">str_split</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s+&quot;</span>)
-}</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import stringr</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tokenize <span class="ot">&lt;-</span> <span class="cf">function</span>(s) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    s <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_replace_all</span>(<span class="st">&quot;(&lt;-|==|!=|[()+</span><span class="sc">\\</span><span class="st">-*/=;])&quot;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot; </span><span class="sc">\\</span><span class="st">1 &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        str_trim <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_split</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </section>
 <section class="slide level1">
 
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">tokenize</span>(<span class="st">&quot;a=2;a+40&quot;</span>)
-[[<span class="dv">1</span>]]
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>  <span class="st">&quot;=&quot;</span>  <span class="st">&quot;2&quot;</span>  <span class="st">&quot;;&quot;</span>  <span class="st">&quot;a&quot;</span>  <span class="st">&quot;+&quot;</span>  <span class="st">&quot;40&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">tokenize</span>(<span class="st">&quot;a=2;a+40&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>  <span class="st">&quot;=&quot;</span>  <span class="st">&quot;2&quot;</span>  <span class="st">&quot;;&quot;</span>  <span class="st">&quot;a&quot;</span>  <span class="st">&quot;+&quot;</span>  <span class="st">&quot;40&quot;</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -253,16 +278,12 @@ tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
 <section class="slide level1">
 
 <p><code>(1 + 2) * 3</code></p>
-<figure>
-<img src="images/ast1.svg" />
-</figure>
+<p><img data-src="images/ast1.svg" /></p>
 </section>
 <section class="slide level1">
 
 <p><code>a = 40 + 2</code></p>
-<figure>
-<img src="images/ast2.svg" />
-</figure>
+<p><img data-src="images/ast2.svg" /></p>
 </section>
 <section class="slide level1">
 
@@ -284,30 +305,25 @@ tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
 <section class="slide level1">
 
 <p>実装が捗るやつ</p>
-<section>
-<img src="images/logo/pipe.png" style="width:20%; box-shadow:none"> <img src="images/logo/purrr.png" style="width:20%; box-shadow:none"> <img src="images/logo/stringr.png" style="width:20%; box-shadow:none">
-</section>
+<p><img data-src="images/logo/pipe.png" style="width:20.0%" /> <img data-src="images/logo/purrr.png" style="width:20.0%" /> <img data-src="images/logo/stringr.png" style="width:20.0%" /></p>
 </section>
 <section class="slide level1">
 
 <p>パッケージ作成が捗るやつ</p>
-<section>
-<img src="images/logo/devtools.png" style="width:20%; box-shadow:none"> <img src="images/logo/usethis.png" style="width:20%; box-shadow:none">
-</section>
+<p><img data-src="images/logo/devtools.png" style="width:20.0%" /> <img data-src="images/logo/usethis.png" style="width:20.0%" /></p>
 </section>
 <section class="slide level1">
 
 <p>楽をするためにテストを書く</p>
-<section>
-<img src="images/logo/testthat.png" style="width:20%; box-shadow:none">
-</section>
+<p><img data-src="images/logo/testthat.png" style="width:20.0%" /></p>
 </section>
 <section class="slide level1">
 
 <p>感想</p>
 </section>
-<section id="楽しい" class="slide level1">
-<h1>楽しい！</h1>
+<section class="slide level1">
+
+<h2 id="楽しい">楽しい！</h2>
 </section>
 <section class="slide level1">
 
@@ -318,15 +334,14 @@ tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="images/ss_30compiler.png" style="width:120.0%" />
-</figure>
+<p><img data-src="images/ss_30compiler.png" class="img-shadow" style="width:120.0%" /></p>
 <p class="text-small">
 <a href="https://docs.google.com/presentation/d/1p2iD4gRLFP_K0L7vUAhtP3NcSBhx-wK9v4R03oGyJSQ/edit">3(0)日でできる！ Cコンパイラ自作入門</a>
 </p>
 </section>
-<section id="まとめ" class="slide level1">
-<h1>まとめ</h1>
+<section class="slide level1">
+
+<h2 id="まとめ">まとめ</h2>
 </section>
 <section class="slide level1">
 
@@ -347,13 +362,17 @@ tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
     </div>
   </div>
 
-  <script src="../../../reveal.js/lib/js/head.min.js"></script>
-  <script src="../../../reveal.js/js/reveal.js"></script>
+  <script src="../../../reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../../../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js/plugin/search/search.js"></script>
+  <script src="../../../reveal.js/plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
         // Display the page number of the current slide
         slideNumber: true,
@@ -362,11 +381,11 @@ tokenize &lt;-<span class="st"> </span><span class="cf">function</span>(s) {
         // Transition style
         transition: 'none', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

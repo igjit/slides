@@ -10,6 +10,10 @@ transition: none
 history: true
 ---
 
+<style>
+.reveal pre code { font-size: 1em; }
+</style>
+
 ![](https://igjit.github.io/images/avatar.png){width=256}
 
 [\@igjit](https://twitter.com/igjit)
@@ -103,7 +107,9 @@ R言語について知る
 
 ## 自分でパイプ演算子を実装してみる
 
-# 1. 演算子
+---
+
+## 1. 演算子
 
 ---
 
@@ -250,7 +256,9 @@ chainもできる
 
 もう少し知識が必要
 
-# 2. 遅延評価
+---
+
+## 2. 遅延評価
 
 ---
 
@@ -261,7 +269,7 @@ Rの関数では
 <div class="fragment">
 つまり
 
-## 引数が使われた場合に初めて評価される
+[引数が使われた場合に初めて評価される]{.h2}
 </div>
 
 ---
@@ -281,7 +289,9 @@ f(0, stop("This is an error!"))  # 何も起きない
 ```
 </div>
 
-# 3. 非標準評価
+---
+
+## 3. 非標準評価
 
 ---
 
@@ -374,7 +384,9 @@ eval(quote(x + 2), e)
 # [1] 42
 ```
 
-# 4. メタプログラミング
+---
+
+## 4. メタプログラミング
 
 ---
 
@@ -596,11 +608,13 @@ library(magrittr)
 
 <https://github.com/tidyverse/magrittr>
 
-# 参考文献
+---
+
+## 参考文献
 
 ---
 
-![](https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg){height="600px"}
+![](https://images-na.ssl-images-amazon.com/images/I/81weJloOAnL.jpg){.img-shadow height=600px}
 
 ---
 

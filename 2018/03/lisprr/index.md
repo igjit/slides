@@ -3,7 +3,9 @@ title: (続 ((Rで) 書く (Lisp) インタプリタ))
 author: '<a href="https://twitter.com/igjit">@igjit</a>'
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal_large_code.css
+css:
+  - ../../../css/reveal.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true
@@ -14,7 +16,7 @@ history: true
 ---
 
 <https://igjit.github.io/slides/2018/01/tiny_pipe/>
-![](images/ss_pipe.png)
+![](images/ss_pipe.png){.img-shadow}
 
 ---
 
@@ -26,7 +28,7 @@ history: true
 
 ---
 
-# 演算子
+## 演算子
 
 ---
 
@@ -116,7 +118,9 @@ if (x < 0) -x else x
 
 ## !?
 
-# 遅延評価
+---
+
+## 遅延評価
 
 ---
 
@@ -127,7 +131,7 @@ Rの関数では
 <div class="fragment">
 つまり
 
-## 引数が使われた場合に初めて評価される
+[引数が使われた場合に初めて評価される]{.h2}
 </div>
 
 ---
@@ -147,7 +151,9 @@ f(0, stop("This is an error!"))  # 何も起きない
 ```
 </div>
 
-# メタプログラミング
+---
+
+## メタプログラミング
 
 ---
 
@@ -185,7 +191,7 @@ ast(1 + 2 * 3)
 
 ## Lispっぽい
 
-<figure><img src="images/alien.png" style="box-shadow: none;"></figure>
+![](images/alien.png)
 
 ---
 
@@ -256,7 +262,9 @@ expr
 devtools::install_github("igjit/lisprr")
 ```
 
-# あそびかた
+---
+
+## あそびかた
 
 ---
 
@@ -346,7 +354,7 @@ lisprr> (plot iris)
 
 ## 楽しい！
 
-<figure><img src="images/alien.png" style="box-shadow: none;"></figure>
+![](images/alien.png)
 
 ---
 
@@ -367,4 +375,4 @@ lisprr> (plot iris)
 
 ## Enjoy!
 
-<figure><img src="images/alien.png" style="box-shadow: none;"></figure>
+![](images/alien.png)

@@ -9,7 +9,9 @@ author: |
   [\@igjit](https://twitter.com/igjit)
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal_large_code.css
+css:
+  - ../../../css/reveal.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true
@@ -86,7 +88,7 @@ twitterで見かけた感想
 Shinyで作ったLightroomっぽいアプリなので
 
 <div class="fragment">
-## shinyroom
+[shinyroom]{.h2}
 </div>
 
 ---
@@ -127,7 +129,7 @@ docker run -it --rm -p 8000:8000 -e PORT=8000 shinyroom
 正直
 
 <div class="fragment">
-### 今のところ実用性はない
+[今のところ実用性はない]{.h3}
 </div>
 
 ---
@@ -203,13 +205,13 @@ outputの色が薄くなる
 
 画像処理の結果を待っているときに
 
-<img src="images/ss-image1.png" style="box-shadow:none">
+![](images/ss-image1.png)
 
 ---
 
 こうなるのですごくうざい
 
-<img src="images/ss-image2.png" style="box-shadow:none">
+![](images/ss-image2.png)
 
 ---
 
@@ -224,13 +226,13 @@ outputの色が薄くなる
 
 処理中に
 
-<img src="images/ss-image1.png" style="box-shadow:none">
+![](images/ss-image1.png)
 
 ---
 
 メッセージをかぶせる
 
-<img src="images/ss-image3.png" style="box-shadow:none">
+![](images/ss-image3.png)
 
 ---
 

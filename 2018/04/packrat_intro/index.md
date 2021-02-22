@@ -3,7 +3,9 @@ title: 'Packrat: パッケージ管理入門'
 author: '<a href="https://twitter.com/igjit">@igjit</a>'
 theme: white
 revealjs-url: ../../../reveal.js
-css: ../../../css/reveal.css
+css:
+  - ../../../css/reveal.css
+  - ../../../css/fix_highlight_zenburn.css
 slideNumber: true
 transition: none
 history: true
@@ -24,7 +26,7 @@ history: true
 原因はいろいろあるけど特に
 
 <div class="fragment">
-## パッケージ
+[パッケージ]{.h2}
 </div>
 
 ---
@@ -53,7 +55,9 @@ Rのコードだけでなく
 
 RStudio製のパッケージ管理システム
 
-# パッケージ管理を始める
+---
+
+## パッケージ管理を始める
 
 ---
 
@@ -170,7 +174,9 @@ Snapshot written to '/home/igjit/sample_proj/packrat/packrat.lock'
 
 ## 簡単
 
-# パッケージの復元
+---
+
+## パッケージの復元
 
 ---
 
@@ -234,7 +240,9 @@ Installing dplyr (0.7.4) ...
 
 ## 簡単
 
-# RStudioで使う
+---
+
+## RStudioで使う
 
 ---
 
@@ -270,7 +278,9 @@ Snapshotを取得
 
 ## 簡単
 
-# デプロイ
+---
+
+## デプロイ
 
 ---
 
@@ -303,7 +313,7 @@ R --vanilla --slave -f .Rprofile --args --bootstrap-packrat &&
 
 ---
 
-# 参考
+## 参考
 
 ---
 
@@ -313,7 +323,7 @@ R --vanilla --slave -f .Rprofile --args --bootstrap-packrat &&
 
 ---
 
-# まとめ
+## まとめ
 
 ---
 
