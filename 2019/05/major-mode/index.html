@@ -10,65 +10,88 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="初めてのmajor-mode" />
   <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
-  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
-td.sourceCode { padding-left: 5px; }
-pre, code { color: #cccccc; background-color: #303030; }
-code > span.kw { color: #f0dfaf; } /* Keyword */
-code > span.dt { color: #dfdfbf; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
-code > span.bn { color: #dca3a3; } /* BaseN */
-code > span.fl { color: #c0bed1; } /* Float */
-code > span.ch { color: #dca3a3; } /* Char */
-code > span.st { color: #cc9393; } /* String */
-code > span.co { color: #7f9f7f; } /* Comment */
-code > span.ot { color: #efef8f; } /* Other */
-code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
-code > span.er { color: #c3bf9f; } /* Error */
-code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code > span.sc { color: #dca3a3; } /* SpecialChar */
-code > span.vs { color: #cc9393; } /* VerbatimString */
-code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
-code > span.op { color: #f0efd0; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code > span.at { } /* Attribute */
-code > span.do { color: #7f9f7f; } /* Documentation */
-code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  <link rel="stylesheet" href="../../../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
-  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="../../../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <link rel="stylesheet" href="../../../css/fix_highlight_zenburn.css"/>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-<section>
+<section id="title-slide">
   <h1 class="title"><p>初めての<br />
 major-mode</p></h1>
   <p class="subtitle"><p><a href="https://tokyo-emacs.connpass.com/event/128038/">東京Emacs勉強会 端午の節句</a></p></p>
@@ -77,9 +100,7 @@ major-mode</p></h1>
 
 <section class="slide level1">
 
-<figure>
-<img src="https://igjit.github.io/images/avatar.png" width="256" />
-</figure>
+<p><img data-src="https://igjit.github.io/images/avatar.png" width="256" /></p>
 <p><a href="https://twitter.com/igjit">@igjit</a></p>
 <ul>
 <li>Webアプリケーションエンジニア</li>
@@ -99,9 +120,7 @@ major-mode</p></h1>
 <p class="text-small">
 <a href="https://igjit.github.io/posts/2019/04/emacs-lisp-for-copl/" class="uri">https://igjit.github.io/posts/2019/04/emacs-lisp-for-copl/</a>
 </p>
-<figure>
-<img src="images/ss-blog.png" />
-</figure>
+<p><img data-src="images/ss-blog.png" class="img-shadow" /></p>
 </section>
 <section class="slide level1">
 
@@ -114,9 +133,7 @@ major-mode</p></h1>
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="../../04/typrr/images/copl.jpg" style="width:40.0%" />
-</figure>
+<p><img data-src="../../04/typrr/images/copl.jpg" style="width:40.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -126,16 +143,12 @@ major-mode</p></h1>
 <section class="slide level1">
 
 <p>オンライン演習システムで</p>
-<figure>
-<img src="images/ss-cgi1.png" />
-</figure>
+<p><img data-src="images/ss-cgi1.png" /></p>
 </section>
 <section class="slide level1">
 
 <p>回答があっているか確認</p>
-<figure>
-<img src="images/ss-cgi2.png" />
-</figure>
+<p><img data-src="images/ss-cgi2.png" /></p>
 </section>
 <section class="slide level1">
 
@@ -158,9 +171,7 @@ major-mode</p></h1>
 <p class="text-small">
 <a href="http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/" class="uri">http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/</a>
 </p>
-<figure>
-<img src="images/ss-new-language.png" />
-</figure>
+<p><img data-src="images/ss-new-language.png" class="img-shadow" /></p>
 </section>
 <section class="slide level1">
 
@@ -181,9 +192,7 @@ major-mode</p></h1>
 <section class="slide level1">
 
 <p><a href="https://github.com/igjit/copl-mode">igjit/copl-mode</a></p>
-<figure>
-<img src="images/copl-mode.png" />
-</figure>
+<p><img data-src="images/copl-mode.png" /></p>
 </section>
 <section class="slide level1">
 
@@ -202,8 +211,8 @@ major-mode</p></h1>
 <section class="slide level1">
 
 <p>こういう複数行コメントの対応</p>
-<div class="sourceCode"><pre class="sourceCode ml"><code class="sourceCode ocaml"><span class="co">(* 複数行の</span>
-<span class="co"> * コメント *)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* 複数行の</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * コメント *)</span></span></code></pre></div>
 <div class="fragment">
 <p><a href="http://emacs.rubikitch.com/syntax-table-beginner/" class="uri">http://emacs.rubikitch.com/syntax-table-beginner/</a> が参考になる</p>
 </div>
@@ -229,16 +238,12 @@ major-mode</p></h1>
 <section class="slide level1">
 
 <p><a href="https://github.com/igjit/flycheck-copl">igjit/flycheck-copl</a></p>
-<figure>
-<img src="images/flycheck.png" />
-</figure>
+<p><img data-src="images/flycheck.png" /></p>
 </section>
 <section class="slide level1">
 
 <p>書いてる最中にエラーがわかる</p>
-<figure>
-<img src="images/flycheck.png" />
-</figure>
+<p><img data-src="images/flycheck.png" /></p>
 </section>
 <section class="slide level1">
 
@@ -252,10 +257,10 @@ major-mode</p></h1>
 <section class="slide level1">
 
 <p>構文チェッカーの標準出力を</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="bu">echo</span> <span class="st">&#39;Z plus Z is Z ?&#39;</span> <span class="kw">|</span> <span class="ex">docker</span> run --rm -i copl-tools checker -game Nat
-
-<span class="ex">line</span> 1, character 14 -- line 1, character 15
-<span class="ex">Incomplete</span> derivation</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">&#39;Z plus Z is Z ?&#39;</span> <span class="kw">|</span> <span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-i</span> copl-tools checker <span class="at">-game</span> Nat</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">line</span> 1, character 14 <span class="at">--</span> line 1, character 15</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Incomplete</span> derivation</span></code></pre></div>
 <p>Flycheckでparseするだけ</p>
 </section>
 <section class="slide level1">
@@ -282,23 +287,17 @@ major-mode</p></h1>
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="images/ss-rank1.png" />
-</figure>
+<p><img data-src="images/ss-rank1.png" /></p>
 </section>
 <section class="slide level1">
 
 <p>問題たくさん解いた。(57 / 431 位)</p>
-<figure>
-<img src="images/ss-rank2.png" />
-</figure>
+<p><img data-src="images/ss-rank2.png" /></p>
 </section>
 <section class="slide level1">
 
 <p>extensible, customizable</p>
-<figure>
-<img src="images/ss-gnu-emacs.png" />
-</figure>
+<p><img data-src="images/ss-gnu-emacs.png" /></p>
 <p class="text-small">
 <a href="https://www.gnu.org/software/emacs/" class="uri">https://www.gnu.org/software/emacs/</a>
 </p>
@@ -310,13 +309,17 @@ major-mode</p></h1>
     </div>
   </div>
 
-  <script src="../../../reveal.js/lib/js/head.min.js"></script>
-  <script src="../../../reveal.js/js/reveal.js"></script>
+  <script src="../../../reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../../../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js/plugin/search/search.js"></script>
+  <script src="../../../reveal.js/plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
         // Display the page number of the current slide
         slideNumber: true,
@@ -325,11 +328,11 @@ major-mode</p></h1>
         // Transition style
         transition: 'none', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

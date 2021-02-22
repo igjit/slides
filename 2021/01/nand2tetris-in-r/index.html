@@ -10,65 +10,88 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="nand2tetris in R" />
   <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
-  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
-td.sourceCode { padding-left: 5px; }
-pre, code { color: #cccccc; background-color: #303030; }
-code > span.kw { color: #f0dfaf; } /* Keyword */
-code > span.dt { color: #dfdfbf; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
-code > span.bn { color: #dca3a3; } /* BaseN */
-code > span.fl { color: #c0bed1; } /* Float */
-code > span.ch { color: #dca3a3; } /* Char */
-code > span.st { color: #cc9393; } /* String */
-code > span.co { color: #7f9f7f; } /* Comment */
-code > span.ot { color: #efef8f; } /* Other */
-code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
-code > span.er { color: #c3bf9f; } /* Error */
-code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code > span.sc { color: #dca3a3; } /* SpecialChar */
-code > span.vs { color: #cc9393; } /* VerbatimString */
-code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
-code > span.op { color: #f0efd0; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code > span.at { } /* Attribute */
-code > span.do { color: #7f9f7f; } /* Documentation */
-code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  <link rel="stylesheet" href="../../../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
-  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="../../../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <link rel="stylesheet" href="../../../css/fix_highlight_zenburn.css"/>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-<section>
+<section id="title-slide">
   <h1 class="title"><p>nand2tetris in R</p></h1>
   <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/200591/">Tokyo.R #89</a></p></p>
   <p class="author"><p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p></p>
@@ -81,9 +104,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 .reveal .bordered-table table tbody tr:last-child td { border: 1px solid; }
 .reveal .hidden-del del { visibility: hidden; }
 </style>
-<figure>
-<img src="https://igjit.github.io/images/avatar.png" width="256" />
-</figure>
+<p><img data-src="https://igjit.github.io/images/avatar.png" width="256" /></p>
 <p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p>
 <ul>
 <li>Webアプリケーションエンジニア</li>
@@ -101,18 +122,16 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>あなたの書いたコードは単なる文字に過ぎない</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">40</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">40</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>どういう仕組みで解釈され、計算されるのか</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">40</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">40</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="images/nand2tetris.jpg" style="width:40.0%" />
-</figure>
+<p><img data-src="images/nand2tetris.jpg" style="width:40.0%" /></p>
 <p class="text-small" style="margin-top:0">
 <a href="https://www.oreilly.co.jp/books/9784873117126/" class="uri">https://www.oreilly.co.jp/books/9784873117126/</a>
 </p>
@@ -140,12 +159,12 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p><a href="https://ja.wikipedia.org/wiki/NAND%E3%82%B2%E3%83%BC%E3%83%88">NANDゲート</a>から始まって</p>
-<p><img src="images/nand-symbol.png" style="width:25%; box-shadow:none"></p>
+<p><img data-src="images/nand-symbol.png" style="width:25.0%" /></p>
 </section>
 <section class="slide level1">
 
 <p>最終的にゲームが動くようになるよ</p>
-<p><img src="images/pong.gif" style="width:65%"></p>
+<p><img data-src="images/pong.gif" style="width:65.0%" /></p>
 <div class="fragment">
 <p class="text-muted">
 (Nand to Tetrisと言いつつテトリスではない)
@@ -399,13 +418,13 @@ add</code></pre>
 <section class="slide level1">
 
 <p>Jack言語のコード</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">class</span> Main {
-   function <span class="dt">void</span> <span class="fu">main</span>() {
-      <span class="kw">do</span> Output.<span class="fu">printString</span>(<span class="st">&quot;Hello world!&quot;</span>);
-      <span class="kw">do</span> Output.<span class="fu">println</span>();
-      <span class="kw">return</span>;
-   }
-}</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Main <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   function <span class="dt">void</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      <span class="cf">do</span> Output<span class="op">.</span><span class="fu">printString</span><span class="op">(</span><span class="st">&quot;Hello world!&quot;</span><span class="op">);</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">do</span> Output<span class="op">.</span><span class="fu">println</span><span class="op">();</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="fragment">
 <p>普通に読める</p>
 </div>
@@ -427,41 +446,41 @@ add</code></pre>
 <section class="slide level1">
 
 <p><code>a = 40 + 2</code> をトークンに分割</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>jackanalyzer<span class="op">::</span><span class="kw">tokenize</span>(<span class="st">&quot;a = 40 + 2&quot;</span>)
-[[<span class="dv">1</span>]]
-<span class="op">$</span>identifier
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
-
-<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
-[<span class="dv">1</span>] <span class="st">&quot;identifier_token&quot;</span> <span class="st">&quot;token&quot;</span>           
-
-[[<span class="dv">2</span>]]
-<span class="op">$</span>symbol
-[<span class="dv">1</span>] <span class="st">&quot;=&quot;</span>
-
-<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
-[<span class="dv">1</span>] <span class="st">&quot;symbol_token&quot;</span> <span class="st">&quot;token&quot;</span>       
-
-[[<span class="dv">3</span>]]
-<span class="op">$</span>int_val
-[<span class="dv">1</span>] <span class="dv">40</span>
-
-<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
-[<span class="dv">1</span>] <span class="st">&quot;int_const_token&quot;</span> <span class="st">&quot;token&quot;</span>          
-
-[[<span class="dv">4</span>]]
-<span class="op">$</span>symbol
-[<span class="dv">1</span>] <span class="st">&quot;+&quot;</span>
-
-<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
-[<span class="dv">1</span>] <span class="st">&quot;symbol_token&quot;</span> <span class="st">&quot;token&quot;</span>       
-
-[[<span class="dv">5</span>]]
-<span class="op">$</span>int_val
-[<span class="dv">1</span>] <span class="dv">2</span>
-
-<span class="kw">attr</span>(,<span class="st">&quot;class&quot;</span>)
-[<span class="dv">1</span>] <span class="st">&quot;int_const_token&quot;</span> <span class="st">&quot;token&quot;</span>          </code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> jackanalyzer<span class="sc">::</span><span class="fu">tokenize</span>(<span class="st">&quot;a = 40 + 2&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>identifier</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;class&quot;</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;identifier_token&quot;</span> <span class="st">&quot;token&quot;</span>           </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>symbol</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;=&quot;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;class&quot;</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;symbol_token&quot;</span> <span class="st">&quot;token&quot;</span>       </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>int_val</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">40</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;class&quot;</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;int_const_token&quot;</span> <span class="st">&quot;token&quot;</span>          </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>symbol</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;+&quot;</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;class&quot;</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;symbol_token&quot;</span> <span class="st">&quot;token&quot;</span>       </span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">5</span>]]</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>int_val</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;class&quot;</span>)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;int_const_token&quot;</span> <span class="st">&quot;token&quot;</span>          </span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -471,7 +490,7 @@ add</code></pre>
 <section class="slide level1">
 
 <p><code>a = 40 + 2</code> の構文木</p>
-<p><img src="../../../2018/12/nrc/images/ast2.svg" style="box-shadow:none"></p>
+<p><img data-src="../../../2018/12/nrc/images/ast2.svg" /></p>
 </section>
 <section class="slide level1">
 
@@ -492,7 +511,7 @@ add</code></pre>
 <section class="slide level1">
 
 <p>コンパイル結果のVMコードは、<a href="https://www.nand2tetris.org/">公式サイト</a>で公開されているVMエミュレータで実行できる</p>
-<p><img src="images/ss-vm-emulator.png" style="width:60%; box-shadow:none"></p>
+<p><img data-src="images/ss-vm-emulator.png" style="width:60.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -561,7 +580,7 @@ add</code></pre>
 <section class="slide level1">
 
 <h3 id="テストを書こう">テストを書こう</h3>
-<p><img src="../../../2018/12/nrc/images/logo/testthat.png" style="width:25%; box-shadow:none"></p>
+<p><img data-src="../../../2018/12/nrc/images/logo/testthat.png" style="width:25.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -576,7 +595,7 @@ add</code></pre>
 <section class="slide level1">
 
 <h3 id="パッケージを作ろう">パッケージを作ろう</h3>
-<p><img src="../../../2018/12/nrc/images/logo/devtools.png" style="width:25%; box-shadow:none"> <img src="../../../2018/12/nrc/images/logo/usethis.png" style="width:25%; box-shadow:none"></p>
+<p><img data-src="../../../2018/12/nrc/images/logo/devtools.png" style="width:25.0%" /> <img data-src="../../../2018/12/nrc/images/logo/usethis.png" style="width:25.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -591,9 +610,9 @@ add</code></pre>
 <section class="slide level1">
 
 <p>namespaceを分離できる</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assembler<span class="op">::</span><span class="kw">parse</span>()
-vmtranslator<span class="op">::</span><span class="kw">parse</span>()
-jackanalyzer<span class="op">::</span><span class="kw">parse</span>()</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>assembler<span class="sc">::</span><span class="fu">parse</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>vmtranslator<span class="sc">::</span><span class="fu">parse</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>jackanalyzer<span class="sc">::</span><span class="fu">parse</span>()</span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -634,13 +653,17 @@ jackanalyzer<span class="op">::</span><span class="kw">parse</span>()</code></pr
     </div>
   </div>
 
-  <script src="../../../reveal.js/lib/js/head.min.js"></script>
-  <script src="../../../reveal.js/js/reveal.js"></script>
+  <script src="../../../reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../../../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js/plugin/search/search.js"></script>
+  <script src="../../../reveal.js/plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
         // Display the page number of the current slide
         slideNumber: true,
@@ -649,11 +672,11 @@ jackanalyzer<span class="op">::</span><span class="kw">parse</span>()</code></pr
         // Transition style
         transition: 'none', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

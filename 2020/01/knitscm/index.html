@@ -10,65 +10,88 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Schemeをknitする" />
   <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
-  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
-td.sourceCode { padding-left: 5px; }
-pre, code { color: #cccccc; background-color: #303030; }
-code > span.kw { color: #f0dfaf; } /* Keyword */
-code > span.dt { color: #dfdfbf; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
-code > span.bn { color: #dca3a3; } /* BaseN */
-code > span.fl { color: #c0bed1; } /* Float */
-code > span.ch { color: #dca3a3; } /* Char */
-code > span.st { color: #cc9393; } /* String */
-code > span.co { color: #7f9f7f; } /* Comment */
-code > span.ot { color: #efef8f; } /* Other */
-code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
-code > span.er { color: #c3bf9f; } /* Error */
-code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code > span.sc { color: #dca3a3; } /* SpecialChar */
-code > span.vs { color: #cc9393; } /* VerbatimString */
-code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
-code > span.op { color: #f0efd0; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code > span.at { } /* Attribute */
-code > span.do { color: #7f9f7f; } /* Documentation */
-code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  <link rel="stylesheet" href="../../../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
-  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="../../../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <link rel="stylesheet" href="../../../css/fix_highlight_zenburn.css"/>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-<section>
+<section id="title-slide">
   <h1 class="title"><p>Schemeをknitする</p></h1>
   <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/161709/">Tokyo.R #83</a></p></p>
   <p class="author"><p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p></p>
@@ -76,9 +99,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 
 <section class="slide level1">
 
-<figure>
-<img src="https://igjit.github.io/images/avatar.png" width="256" />
-</figure>
+<p><img data-src="https://igjit.github.io/images/avatar.png" width="256" /></p>
 <p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p>
 <ul>
 <li>Webアプリケーションエンジニア</li>
@@ -91,9 +112,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="images/adv-r-j.jpg" style="width:40.0%" />
-</figure>
+<p><img data-src="images/adv-r-j.jpg" class="img-shadow" style="width:40.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -101,9 +120,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="images/sicp.jpg" />
-</figure>
+<p><img data-src="images/sicp.jpg" /></p>
 </section>
 <section class="slide level1">
 
@@ -131,9 +148,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section>
 <section class="slide level1">
 
-<figure>
-<img src="images/little-schemer-j.jpg" style="width:40.0%" />
-</figure>
+<p><img data-src="images/little-schemer-j.jpg" style="width:40.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -169,7 +184,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section>
 <section class="slide level1">
 
-<p><img src="images/rmarkdown.png" style="width:25%; box-shadow:none"></p>
+<p><img data-src="images/rmarkdown.png" style="width:25.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -179,25 +194,25 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 
 <p>R Markdownは<a href="https://bookdown.org/yihui/rmarkdown/language-engines.html">いろんな言語に対応</a>している</p>
 <div style="font-size: 0.8em">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">names</span>(knitr<span class="op">::</span>knit_engines<span class="op">$</span><span class="kw">get</span>())
- [<span class="dv">1</span>] <span class="st">&quot;awk&quot;</span>       <span class="st">&quot;bash&quot;</span>      <span class="st">&quot;coffee&quot;</span>    <span class="st">&quot;gawk&quot;</span>     
- [<span class="dv">5</span>] <span class="st">&quot;groovy&quot;</span>    <span class="st">&quot;haskell&quot;</span>   <span class="st">&quot;lein&quot;</span>      <span class="st">&quot;mysql&quot;</span>    
- [<span class="dv">9</span>] <span class="st">&quot;node&quot;</span>      <span class="st">&quot;octave&quot;</span>    <span class="st">&quot;perl&quot;</span>      <span class="st">&quot;psql&quot;</span>     
-[<span class="dv">13</span>] <span class="st">&quot;Rscript&quot;</span>   <span class="st">&quot;ruby&quot;</span>      <span class="st">&quot;sas&quot;</span>       <span class="st">&quot;scala&quot;</span>    
-[<span class="dv">17</span>] <span class="st">&quot;sed&quot;</span>       <span class="st">&quot;sh&quot;</span>        <span class="st">&quot;stata&quot;</span>     <span class="st">&quot;zsh&quot;</span>      
-[<span class="dv">21</span>] <span class="st">&quot;highlight&quot;</span> <span class="st">&quot;Rcpp&quot;</span>      <span class="st">&quot;tikz&quot;</span>      <span class="st">&quot;dot&quot;</span>      
-[<span class="dv">25</span>] <span class="st">&quot;c&quot;</span>         <span class="st">&quot;fortran&quot;</span>   <span class="st">&quot;fortran95&quot;</span> <span class="st">&quot;asy&quot;</span>      
-[<span class="dv">29</span>] <span class="st">&quot;cat&quot;</span>       <span class="st">&quot;asis&quot;</span>      <span class="st">&quot;stan&quot;</span>      <span class="st">&quot;block&quot;</span>    
-[<span class="dv">33</span>] <span class="st">&quot;block2&quot;</span>    <span class="st">&quot;js&quot;</span>        <span class="st">&quot;css&quot;</span>       <span class="st">&quot;sql&quot;</span>      
-[<span class="dv">37</span>] <span class="st">&quot;go&quot;</span>        <span class="st">&quot;python&quot;</span>    <span class="st">&quot;julia&quot;</span>     <span class="st">&quot;sass&quot;</span>     
-[<span class="dv">41</span>] <span class="st">&quot;scss&quot;</span>     </code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(knitr<span class="sc">::</span>knit_engines<span class="sc">$</span><span class="fu">get</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;awk&quot;</span>       <span class="st">&quot;bash&quot;</span>      <span class="st">&quot;coffee&quot;</span>    <span class="st">&quot;gawk&quot;</span>     </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;groovy&quot;</span>    <span class="st">&quot;haskell&quot;</span>   <span class="st">&quot;lein&quot;</span>      <span class="st">&quot;mysql&quot;</span>    </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;node&quot;</span>      <span class="st">&quot;octave&quot;</span>    <span class="st">&quot;perl&quot;</span>      <span class="st">&quot;psql&quot;</span>     </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;Rscript&quot;</span>   <span class="st">&quot;ruby&quot;</span>      <span class="st">&quot;sas&quot;</span>       <span class="st">&quot;scala&quot;</span>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">17</span>] <span class="st">&quot;sed&quot;</span>       <span class="st">&quot;sh&quot;</span>        <span class="st">&quot;stata&quot;</span>     <span class="st">&quot;zsh&quot;</span>      </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">21</span>] <span class="st">&quot;highlight&quot;</span> <span class="st">&quot;Rcpp&quot;</span>      <span class="st">&quot;tikz&quot;</span>      <span class="st">&quot;dot&quot;</span>      </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">25</span>] <span class="st">&quot;c&quot;</span>         <span class="st">&quot;fortran&quot;</span>   <span class="st">&quot;fortran95&quot;</span> <span class="st">&quot;asy&quot;</span>      </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">29</span>] <span class="st">&quot;cat&quot;</span>       <span class="st">&quot;asis&quot;</span>      <span class="st">&quot;stan&quot;</span>      <span class="st">&quot;block&quot;</span>    </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">33</span>] <span class="st">&quot;block2&quot;</span>    <span class="st">&quot;js&quot;</span>        <span class="st">&quot;css&quot;</span>       <span class="st">&quot;sql&quot;</span>      </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">37</span>] <span class="st">&quot;go&quot;</span>        <span class="st">&quot;python&quot;</span>    <span class="st">&quot;julia&quot;</span>     <span class="st">&quot;sass&quot;</span>     </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">41</span>] <span class="st">&quot;scss&quot;</span>     </span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <p>でもSchemeには対応してない</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>knitr<span class="op">::</span>knit_engines<span class="op">$</span><span class="kw">get</span>(<span class="st">&quot;scm&quot;</span>)
-<span class="ot">NULL</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> knitr<span class="sc">::</span>knit_engines<span class="sc">$</span><span class="fu">get</span>(<span class="st">&quot;scm&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -211,8 +226,8 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>インストール</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;remotes&quot;)</span>
-remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;igjit/knitscm&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;igjit/knitscm&quot;</span>)</span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -223,11 +238,11 @@ remotes<span class="op">::</span><span class="kw">install_github</span>(<span cl
 <p style="margin-bottom:0">
 Mac
 </p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">brew</span> install gauche</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install gauche</span></code></pre></div>
 <p style="margin-bottom:0">
 Ubuntu
 </p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="fu">sudo</span> apt install gauche</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install gauche</span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -236,20 +251,20 @@ Ubuntu
 <section class="slide level1">
 
 <p>こんなR Markdownを書くと</p>
-<div class="sourceCode"><pre class="sourceCode md"><code class="sourceCode markdown">```{r setup, include=FALSE}
-library(knitscm)
-handle &lt;- run_gauche()
-knitr::opts_chunk$set(handle = handle)
-```
-
-```{scm}
-(+ 40 2)
-```</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">library(knitscm)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">handle &lt;- run_gauche()</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(handle = handle)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{scm}</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">(+ 40 2)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>実行結果がrenderされる</p>
-<div class="sourceCode"><pre class="sourceCode scm"><code class="sourceCode scheme">(<span class="kw">+</span> <span class="dv">40</span> <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode scm"><code class="sourceCode scheme"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="op">+</span> <span class="dv">40</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>;; 42</code></pre>
 </section>
 <section class="slide level1">
@@ -264,31 +279,31 @@ code chunkはそれぞれ別のセッションで実行される。</p>
 <section class="slide level1">
 
 <p>つまり</p>
-<div class="sourceCode"><pre class="sourceCode md"><code class="sourceCode markdown">```{bash}
-name=foo    # この変数が
-```
-
-```{bash}
-echo $name  # ここで参照できない
-```</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="in">name=foo    # この変数が</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="in">echo $name  # ここで参照できない</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>knitscmではSchemeのプロセスをchunk間で共有することで</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">handle &lt;-<span class="st"> </span><span class="kw">run_gauche</span>()
-knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">handle =</span> handle)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>handle <span class="ot">&lt;-</span> <span class="fu">run_gauche</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">handle =</span> handle)</span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>chunkをまたいで実行できる</p>
-<div class="sourceCode"><pre class="sourceCode md"><code class="sourceCode markdown">```{scm}
-(define (add2 x)
-  (+ x 2))
-```
-
-```{scm}
-(add2 40)
-```</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{scm}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="in">(define (add2 x)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">  (+ x 2))</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="in">```{scm}</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="in">(add2 40)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -297,7 +312,7 @@ knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="k
 <section class="slide level1">
 
 <p>Scheme手習いを写経してGFMで<a href="https://github.com/igjit/sandbox/tree/master/little-schemer">共有</a>できるように</p>
-<p><img src="images/ss-gfm.png" style="width:80%; box-shadow:none"></p>
+<p><img data-src="images/ss-gfm.png" style="width:80.0%" /></p>
 </section>
 <section class="slide level1">
 
@@ -322,13 +337,17 @@ knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="k
     </div>
   </div>
 
-  <script src="../../../reveal.js/lib/js/head.min.js"></script>
-  <script src="../../../reveal.js/js/reveal.js"></script>
+  <script src="../../../reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../../../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js/plugin/search/search.js"></script>
+  <script src="../../../reveal.js/plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
         // Display the page number of the current slide
         slideNumber: true,
@@ -337,11 +356,11 @@ knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="k
         // Transition style
         transition: 'none', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

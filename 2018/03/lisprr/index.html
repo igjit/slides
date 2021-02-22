@@ -11,65 +11,88 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="(続 ((Rで) 書く (Lisp) インタプリタ))" />
   <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
-  <link rel="stylesheet" href="../../../reveal.js/css/reveal.css">
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
-td.sourceCode { padding-left: 5px; }
-pre, code { color: #cccccc; background-color: #303030; }
-code > span.kw { color: #f0dfaf; } /* Keyword */
-code > span.dt { color: #dfdfbf; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
-code > span.bn { color: #dca3a3; } /* BaseN */
-code > span.fl { color: #c0bed1; } /* Float */
-code > span.ch { color: #dca3a3; } /* Char */
-code > span.st { color: #cc9393; } /* String */
-code > span.co { color: #7f9f7f; } /* Comment */
-code > span.ot { color: #efef8f; } /* Other */
-code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
-code > span.er { color: #c3bf9f; } /* Error */
-code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code > span.sc { color: #dca3a3; } /* SpecialChar */
-code > span.vs { color: #cc9393; } /* VerbatimString */
-code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
-code > span.op { color: #f0efd0; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code > span.at { } /* Attribute */
-code > span.do { color: #7f9f7f; } /* Documentation */
-code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  <link rel="stylesheet" href="../../../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme">
-  <link rel="stylesheet" href="../../../css/reveal_large_code.css"/>
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../../reveal.js/css/print/pdf.css' : '../../../reveal.js/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="../../../reveal.js/lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="../../../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <link rel="stylesheet" href="../../../css/fix_highlight_zenburn.css"/>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-<section>
+<section id="title-slide">
   <h1 class="title">(続 ((Rで) 書く (Lisp) インタプリタ))</h1>
   <p class="author"><a href="https://twitter.com/igjit"><span class="citation" data-cites="igjit">@igjit</span></a></p>
 </section>
@@ -80,7 +103,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section>
 <section class="slide level1">
 
-<p><a href="https://igjit.github.io/slides/2018/01/tiny_pipe/" class="uri">https://igjit.github.io/slides/2018/01/tiny_pipe/</a> <img src="images/ss_pipe.png" /></p>
+<p><a href="https://igjit.github.io/slides/2018/01/tiny_pipe/" class="uri">https://igjit.github.io/slides/2018/01/tiny_pipe/</a> <img data-src="images/ss_pipe.png" class="img-shadow" /></p>
 </section>
 <section class="slide level1">
 
@@ -90,15 +113,16 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 
 <h2 id="rはすごく不思議な言語">Rはすごく不思議な言語</h2>
 </section>
-<section id="演算子" class="slide level1">
-<h1>演算子</h1>
+<section class="slide level1">
+
+<h2 id="演算子">演算子</h2>
 </section>
 <section class="slide level1">
 
 <p>中置演算子</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
 <p>関数呼び出し</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -108,45 +132,46 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p>これは</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
 <div class="fragment">
 <p>これと等価</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <p>これは</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
 <div class="fragment">
 <p>これと等価</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <p>代入も</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
 <div class="fragment">
 <p>関数呼び出し</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">&lt;-</span><span class="st">`</span>(x, <span class="dv">10</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">&lt;-</span><span class="st">`</span>(x, <span class="dv">10</span>)</span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <p>制御構文も</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">-</span>x <span class="cf">else</span> x</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) <span class="sc">-</span>x <span class="cf">else</span> x</span></code></pre></div>
 <div class="fragment">
 <p>関数呼び出し</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">if</span><span class="st">`</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>, <span class="op">-</span>x, x)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">if</span><span class="st">`</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="sc">-</span>x, x)</span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <h2 id="section">!?</h2>
 </section>
-<section id="遅延評価" class="slide level1">
-<h1>遅延評価</h1>
+<section class="slide level1">
+
+<h2 id="遅延評価">遅延評価</h2>
 </section>
 <section class="slide level1">
 
@@ -154,29 +179,30 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <h2 id="引数は遅延評価される">引数は遅延評価される</h2>
 <div class="fragment">
 <p>つまり</p>
-<h2 id="引数が使われた場合に初めて評価される">引数が使われた場合に初めて評価される</h2>
+<p><span class="h2">引数が使われた場合に初めて評価される</span></p>
 </div>
 </section>
 <section class="slide level1">
 
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {
-    <span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) b
-}</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (a <span class="sc">&gt;</span> <span class="dv">0</span>) b</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="fragment">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">1</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))
-<span class="co"># f(1, stop(&quot;This is an error!&quot;)) でエラー (#1 から) : This is an error!</span>
-
-<span class="kw">f</span>(<span class="dv">0</span>, <span class="kw">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))  <span class="co"># 何も起きない</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">1</span>, <span class="fu">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># f(1, stop(&quot;This is an error!&quot;)) でエラー (#1 から) : This is an error!</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">0</span>, <span class="fu">stop</span>(<span class="st">&quot;This is an error!&quot;</span>))  <span class="co"># 何も起きない</span></span></code></pre></div>
 </div>
 </section>
-<section id="メタプログラミング" class="slide level1">
-<h1>メタプログラミング</h1>
+<section class="slide level1">
+
+<h2 id="メタプログラミング">メタプログラミング</h2>
 </section>
 <section class="slide level1">
 
 <p><code>quote()</code> は表現式を返す</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
-<span class="co"># 1 + 2</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quote</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 + 2</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -187,48 +213,46 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <section class="slide level1">
 
 <p><code>pryr::ast()</code> で木構造を見ることができる</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ast</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)
-<span class="co"># \- ()</span>
-<span class="co">#   \- `+</span>
-<span class="co">#   \-  1</span>
-<span class="co">#   \- ()</span>
-<span class="co">#     \- `*</span>
-<span class="co">#     \-  2</span>
-<span class="co">#     \-  3 </span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ast</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># \- ()</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   \- `+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   \-  1</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   \- ()</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     \- `*</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     \-  2</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     \-  3 </span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <h2 id="lispっぽい">Lispっぽい</h2>
-<figure>
-<img src="images/alien.png" style="box-shadow: none;">
-</figure>
+<p><img data-src="images/alien.png" /></p>
 </section>
 <section class="slide level1">
 
 <p>表現式はlistのように扱える</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
-
-<span class="kw">as.list</span>(expr)
-<span class="co"># [[1]]</span>
-<span class="co"># `+`</span>
-<span class="co"># </span>
-<span class="co"># [[2]]</span>
-<span class="co"># [1] 1</span>
-<span class="co"># </span>
-<span class="co"># [[3]]</span>
-<span class="co"># [1] 2</span>
-
-expr[[<span class="dv">1</span>]]
-<span class="co"># `+`</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>expr <span class="ot">&lt;-</span> <span class="fu">quote</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.list</span>(expr)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [[1]]</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># `+`</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [[2]]</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [[3]]</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>expr[[<span class="dv">1</span>]]</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># `+`</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>表現式は修正できる</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">quote</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
-expr[[<span class="dv">1</span>]] &lt;-<span class="st">  </span><span class="kw">quote</span>(<span class="st">`</span><span class="dt">*</span><span class="st">`</span>)
-
-expr
-<span class="co"># 1 * 2</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>expr <span class="ot">&lt;-</span> <span class="fu">quote</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>expr[[<span class="dv">1</span>]] <span class="ot">&lt;-</span>  <span class="fu">quote</span>(<span class="st">`</span><span class="at">*</span><span class="st">`</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>expr</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 * 2</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -260,61 +284,62 @@ expr
 <section class="slide level1">
 
 <p>インストール</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;igjit/lisprr&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;igjit/lisprr&quot;</span>)</span></code></pre></div>
 </section>
-<section id="あそびかた" class="slide level1">
-<h1>あそびかた</h1>
+<section class="slide level1">
+
+<h2 id="あそびかた">あそびかた</h2>
 </section>
 <section class="slide level1">
 
 <p>S式をRの表現式に変換する</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">translate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
-<span class="co">#&gt; 1 + 2</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lisprr<span class="sc">::</span><span class="fu">translate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 + 2</span></span></code></pre></div>
 <div class="fragment">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">translate</span>(<span class="st">&quot;(lambda (x) (+ x 2))&quot;</span>)
-<span class="co">#&gt; function(x = NULL) {</span>
-<span class="co">#&gt;     x + 2</span>
-<span class="co">#&gt; }</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lisprr<span class="sc">::</span><span class="fu">translate</span>(<span class="st">&quot;(lambda (x) (+ x 2))&quot;</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function(x = NULL) {</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     x + 2</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <p>S式を実行</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">evaluate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lisprr<span class="sc">::</span><span class="fu">evaluate</span>(<span class="st">&quot;(+ 1 2)&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Lispで書いた関数を</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lisprr<span class="op">::</span><span class="kw">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>,
-                 <span class="kw">parent.frame</span>())</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lisprr<span class="sc">::</span><span class="fu">evaluate</span>(<span class="st">&quot;(define add2 (lambda (x) (+ x 2)))&quot;</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">parent.frame</span>())</span></code></pre></div>
 <div class="fragment">
 <p>Rで使える</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">add2</span>(<span class="dv">40</span>)
-<span class="co">#&gt; [1] 42</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add2</span>(<span class="dv">40</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42</span></span></code></pre></div>
 </div>
 </section>
 <section class="slide level1">
 
 <p>REPLを起動すると</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>lisprr<span class="op">::</span><span class="kw">repl</span>()</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lisprr<span class="sc">::</span><span class="fu">repl</span>()</span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Rコンソール上でLispが動く</p>
-<div class="sourceCode"><pre class="sourceCode lisp"><code class="sourceCode commonlisp">lisprr&gt; (<span class="op">+</span> <span class="dv">1</span> <span class="dv">2</span>)
-<span class="dv">3</span>
-lisprr&gt; (define add2 (<span class="kw">lambda</span> (x) (<span class="op">+</span> x <span class="dv">2</span>)))
-#&lt;closure&gt;
-lisprr&gt; (add2 <span class="dv">40</span>)
-<span class="dv">42</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lisprr&gt; (<span class="op">+</span> <span class="dv">1</span> <span class="dv">2</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>lisprr&gt; (define add2 (<span class="kw">lambda</span> (x) (<span class="op">+</span> x <span class="dv">2</span>)))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>#&lt;closure&gt;</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>lisprr&gt; (add2 <span class="dv">40</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span></span></code></pre></div>
 </section>
 <section class="slide level1">
 
 <p>Rの関数も使える</p>
-<div class="sourceCode"><pre class="sourceCode lisp"><code class="sourceCode commonlisp">lisprr&gt; (: <span class="dv">1</span> <span class="dv">10</span>)
-<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>
-lisprr&gt; (plot iris)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lisprr&gt; (: <span class="dv">1</span> <span class="dv">10</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>lisprr&gt; (plot iris)</span></code></pre></div>
 </section>
 <section class="slide level1">
 
@@ -327,9 +352,7 @@ lisprr&gt; (plot iris)</code></pre></div>
 <section class="slide level1">
 
 <h2 id="楽しい">楽しい！</h2>
-<figure>
-<img src="images/alien.png" style="box-shadow: none;">
-</figure>
+<p><img data-src="images/alien.png" /></p>
 </section>
 <section class="slide level1">
 
@@ -351,20 +374,22 @@ lisprr&gt; (plot iris)</code></pre></div>
 <section class="slide level1">
 
 <h2 id="enjoy">Enjoy!</h2>
-<figure>
-<img src="images/alien.png" style="box-shadow: none;">
-</figure>
+<p><img data-src="images/alien.png" /></p>
 </section>
     </div>
   </div>
 
-  <script src="../../../reveal.js/lib/js/head.min.js"></script>
-  <script src="../../../reveal.js/js/reveal.js"></script>
+  <script src="../../../reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../../../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js/plugin/search/search.js"></script>
+  <script src="../../../reveal.js/plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
         // Display the page number of the current slide
         slideNumber: true,
@@ -373,11 +398,11 @@ lisprr&gt; (plot iris)</code></pre></div>
         // Transition style
         transition: 'none', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: '../../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '../../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-              { src: '../../../reveal.js/plugin/notes/notes.js', async: true }
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>
