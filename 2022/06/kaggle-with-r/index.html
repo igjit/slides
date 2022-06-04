@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Kaggle初コンペにRで挑戦した話</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kaggle初コンペにRで挑戦した話" />
+  <meta name="twitter:image" content="https://igjit.github.io/images/avatar.png" />
+  <link rel="stylesheet" href="../../../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../../../css/reveal.css"/>
+  <link rel="stylesheet" href="../../../css/fix_highlight_zenburn.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title"><p>Kaggle初コンペに<br />
+Rで挑戦した話</p></h1>
+  <p class="subtitle"><p><a href="https://tokyor.connpass.com/event/249096/">Tokyo.R #99</a></p></p>
+  <p class="author"><p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p></p>
+</section>
+
+<section class="slide level1">
+
+<style type="text/css" rel="stylesheet">
+.reveal .bordered-table table td { border: 1px solid; }
+.reveal .bordered-table table tbody tr:last-child td { border: 1px solid; }
+</style>
+<p><img data-src="https://igjit.github.io/images/avatar.png" width="256" /></p>
+<p><a href="https://twitter.com/igjit" class="name"><span class="citation" data-cites="igjit">@igjit</span></a></p>
+<ul>
+<li>ソフトウェアエンジニア</li>
+<li><a href="https://igjit.github.io/slides/">Rで変なものを作る</a> 人</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>共著で本を書きました。</p>
+<p><img data-src="images/r-efficiency-book.jpg" style="width:30.0%" /></p>
+<p class="text-small" style="margin-top:0">
+<a href="https://gihyo.jp/book/2022/978-4-297-12524-0" class="uri">https://gihyo.jp/book/2022/978-4-297-12524-0</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>本題</p>
+</section>
+<section class="slide level1">
+
+<p>Kaggleコンペに初挑戦して</p>
+<div class="fragment">
+<p>銅メダルを獲りました！ <img data-src="images/ss-leaderboard.png" /></p>
+</div>
+</section>
+<section class="slide level1">
+
+<h3 id="概要">概要</h3>
+</section>
+<section class="slide level1">
+
+<p><a href="https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations/overview">H&amp;M Personalized Fashion Recommendations</a></p>
+<p><img data-src="images/ss-h-and-m-title.png" /></p>
+<p class="text-small">
+過去の購買履歴を元にファッションアイテムを推薦する
+</p>
+</section>
+<section class="slide level1">
+
+<h3 id="チーム">チーム</h3>
+</section>
+<section class="slide level1">
+
+<p><img data-src="images/ss-team.png" style="width:70.0%" /></p>
+<ul>
+<li>会社の同僚</li>
+<li>データエンジニア2人、データアナリスト2人</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>やったこと</p>
+</section>
+<section class="slide level1">
+
+<h3 id="まずは評価指標を確認">まずは評価指標を確認</h3>
+</section>
+<section class="slide level1">
+
+<p><img data-src="images/ss-evaluation.png" class="img-shadow" style="width:100.0%" /></p>
+<p style="font-size: 0.4em">
+<a href="https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations/overview/evaluation" class="uri">https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations/overview/evaluation</a>
+</p>
+</section>
+<section class="slide level1">
+
+<p>なるほどわからん</p>
+</section>
+<section class="slide level1">
+
+<p><a href="https://gihyo.jp/book/2019/978-4-297-10843-4">Kaggleで勝つデータ分析の技術</a> を読む</p>
+<p><img data-src="images/kaggle-book.jpg" class="img-shadow" style="width:30.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>2.3.6 レコメンデーションにおける評価指標</p>
+<p>で MAP@K がくわしく説明されている。</p>
+</section>
+<section class="slide level1">
+
+<h3 id="とりあえずfirst-submit">とりあえずfirst submit</h3>
+</section>
+<section class="slide level1">
+
+<p>Kaggle NotebookでR, Pythonのコードを実行、共有できる。</p>
+<p><a href="https://www.kaggle.com/code/igjit1/my-first-h-m-submission-with-r">Rでコードを書いて</a>submit</p>
+<p><img data-src="images/ss-first-submit.png" class="img-shadow" style="width:80.0%" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="他の人のnotebookを読む">他の人のNotebookを読む</h3>
+</section>
+<section class="slide level1">
+
+<p>有用なNotebookが多数公開されているので読んで参考にする</p>
+<p><img data-src="images/ss-notebooks.png" class="img-shadow" style="width:75.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>私は</p>
+<ul>
+<li><a href="https://www.kaggle.com/code/cdeotte/recommend-items-purchased-together-0-021">Recommend Items Purchased Together - [0.021]</a></li>
+<li><a href="https://www.kaggle.com/code/byfone/h-m-trending-products-weekly">H&amp;M Trending Products Weekly</a></li>
+<li><a href="https://www.kaggle.com/code/hechtjp/h-m-eda-rule-base-by-customer-age">H&amp;M EDA &amp; Rule Base by Customer Age</a></li>
+</ul>
+<p>を参考にして</p>
+</section>
+<section class="slide level1">
+
+<p>ルールベースの推薦を<a href="https://www.kaggle.com/code/igjit1/lb-0-0235-h-m-rule-base-solution-in-r">Rで実装</a></p>
+<p><img data-src="images/ss-my-solution.png" class="img-shadow" style="width:80.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>個々のスコアはメダル圏に達しなかったけど</p>
+</section>
+<section class="slide level1">
+
+<p>最終日にチームみんなの予測をアンサンブルさせた結果、</p>
+<div class="fragment">
+<p>銅メダルを獲得できた！ <img data-src="images/ss-leaderboard.png" /></p>
+</div>
+</section>
+<section class="slide level1">
+
+<p>後日</p>
+</section>
+<section class="slide level1">
+
+<p>上位のチームの解法が多数公開されていて</p>
+<ul>
+<li><a href="https://yng87.github.io/blog/2022/05/kaggle_hm/">実務でレコメンドをやっているのでKaggle H&amp;Mコンペに参加しました</a></li>
+<li><a href="https://zenn.dev/zerebom/articles/9e6bad764d3f97">【Kaggle】H&amp;Mコンペ参加記(133rd/2952🥈)</a></li>
+<li><a href="https://speakerdeck.com/kuto5046/denamot-aiji-shu-gong-you-hui-fa-biao-zi-liao-h-and-mkonpefalsezhen-rifan-ri">DeNA・MoT AI技術共有会発表資料 H&amp;Mコンペの振り返り</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<ul>
+<li>1st stage: 質の高い複数のcandidate generation</li>
+<li>2nd stage: GBDTでreranking</li>
+</ul>
+<p>の2-stageレコメンドが一般的だった模様</p>
+</section>
+<section class="slide level1">
+
+<p>Rでも<a href="https://www.tidymodels.org/">Tidymodels</a>で<a href="https://lightgbm.readthedocs.io/en/latest/R/index.html">LightGBM</a>を使えるし、<br />
+Rで上位を目指せたかもしれない。</p>
+</section>
+<section class="slide level1">
+
+<p>Q: RでKaggleを戦えるのか</p>
+</section>
+<section class="slide level1">
+
+<p>A: コンペによってはいけるかも</p>
+</section>
+<section class="slide level1">
+
+<p>ただ、現時点では、Pythonを読む必要がある</p>
+</section>
+<section class="slide level1">
+
+<p>H&amp;Mコンペで公開されたNotebokの数</p>
+<div class="fragment">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Python</td>
+<td style="text-align: right;">405</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level1">
+
+<p>そのうち4件は私</p>
+<p><img data-src="images/ss-notebooks-r.png" class="img-shadow" style="width:90.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>みんなRでKaggleやろうな！</p>
+</section>
+<section class="slide level1">
+
+<h3 id="rで良かったところ">Rで良かったところ</h3>
+</section>
+<section class="slide level1">
+
+<p>圧倒的に快適なデータ整形</p>
+<p><img data-src="images/logo/dplyr.png" style="width:25.0%" /> <img data-src="images/logo/tidyr.png" style="width:25.0%" /> <img data-src="images/logo/pipe.png" style="width:25.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>purrrで書いたリスト処理をfurrrでらくらく並列化</p>
+<p><img data-src="images/logo/purrr.png" style="width:25.0%" /> <img data-src="images/logo/furrr.png" style="width:25.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>ほかにも便利なパッケージたくさん</p>
+<p><img data-src="images/logo/lubridate.png" style="width:25.0%" /> <img data-src="images/logo/stringr.png" style="width:25.0%" /></p>
+</section>
+<section class="slide level1">
+
+<p>みんなRでKaggleやろうな！</p>
+</section>
+<section class="slide level1">
+
+<p>Kaggleは楽しい</p>
+<div style="margin-top:1.2em">
+<ul>
+<li>real worldの課題</li>
+<li>世界中のエキスパートが同じ問題を解く</li>
+<li>チームメイトと友情・努力・勝利</li>
+</ul>
+</div>
+</section>
+<section class="slide level1">
+
+<h2 id="enjoy">Enjoy!</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="../../../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js/plugin/search/search.js"></script>
+  <script src="../../../reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
