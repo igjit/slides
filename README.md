@@ -1,5 +1,6 @@
 # slides
 
+- [ゼロから作るDeep Learning in R](https://igjit.github.io/slides/2022/12/deep-learning-from-scratch-r/#/) ([Japan.R 2022](https://japanr.connpass.com/event/265366/) ショートセッション)
 - [Kaggle初コンペにRで挑戦した話](https://igjit.github.io/slides/2022/06/kaggle-with-r/#/) ([Tokyo.R #99](https://tokyor.connpass.com/event/249096/) LT)
 - [nand2tetris in R](https://igjit.github.io/slides/2021/01/nand2tetris-in-r/#/) ([Tokyo.R #89](https://tokyor.connpass.com/event/200591/) 応用セッション)
 - [Schemeをknitする](https://igjit.github.io/slides/2020/01/knitscm/#/) ([Tokyo.R #83](https://tokyor.connpass.com/event/161709/) LT)
