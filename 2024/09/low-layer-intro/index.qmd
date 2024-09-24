@@ -1,0 +1,750 @@
+---
+pagetitle: "好きな言語ではじめる 低レイヤゆるっと入門"
+title: |
+  <div style="font-size: 0.7em">
+  好きな言語ではじめる \
+  低レイヤゆるっと入門
+  </div>
+author: "@igjit"
+format: revealjs
+slide-level: 0
+---
+
+<style type="text/css" rel="stylesheet">
+.reveal .text-muted { color: #888; }
+.reveal .text-small { font-size: 0.6em; }
+.reveal .name { font-weight: bold; font-family: Helvetica,Arial,sans-serif; }
+.reveal .img-shadow { box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
+.reveal .bordered-table table td { border: 1px solid; }
+.reveal .bordered-table table tbody tr:last-child td { border: 1px solid; }
+.reveal .hidden-del del { visibility: hidden; }
+</style>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+![](https://igjit.github.io/images/avatar.png){width=256}
+:::
+
+::: {.column width="70%"}
+<a href="https://twitter.com/igjit" class="name">@igjit</a>
+
+- ソフトウェアエンジニア
+- [Rで変なものを作る](https://igjit.github.io/slides/)人
+- 共著「[Rが生産性を高める](https://gihyo.jp/book/2022/978-4-297-12524-0)」
+:::
+
+::::
+
+---
+
+[R言語 - Wikipedia](https://ja.wikipedia.org/wiki/R%E8%A8%80%E8%AA%9E)
+
+---
+
+低レイヤゆるっと入門
+
+---
+
+今日紹介するもの
+
+- コンパイラ
+- Java VM
+- nand2tetris
+
+---
+
+私はRで実装したけど、他の言語でもできるはず。
+
+みんな好きな言語でチャレンジしてほしい。
+
+---
+
+# コンパイラ
+
+---
+
+![](images/ss_compilerbook.png){.img-shadow}
+
+<p class="text-small">
+<https://www.sigbus.info/compilerbook/>
+</p>
+
+---
+
+コンパイラ作るのってすごく難しそうなイメージだったけど
+
+---
+
+Cのソースコードを
+
+```c
+int main() {
+  return 42;
+}
+```
+
+<br/>
+
+::: {.fragment}
+x86-64アセンブリに変換する
+
+```asm
+.intel_syntax noprefix
+.global main
+main:
+        mov rax, 42
+        ret
+```
+
+<p class="text-small">
+(アセンブリから実行ファイルの変換はGCCでやる)
+</p>
+:::
+
+---
+
+文字列を読んで文字列を書ければコンパイラは作れる
+
+---
+
+## じゃあどの言語でもできるんじゃね？
+
+---
+
+どの言語でどの言語のコンパイラを書いても良いはず
+
+---
+
+私は
+
+## RでRのコンパイラを書いてみた。
+
+---
+
+## nrc
+
+<https://github.com/igjit/nrc>
+
+---
+
+packageを読み込むと
+
+```r
+> library(nrc)
+```
+
+---
+
+Rのコードをコンパイルできる
+
+```r
+> compile("1+2")
+.intel_syntax noprefix
+.global main
+main:
+  push rbp
+  mov rbp, rsp
+  sub rsp, 208
+  push 1
+  push 2
+  pop rdi
+  pop rax
+  add rax, rdi
+  push rax
+  pop rax
+  mov rsp, rbp
+  pop rbp
+  ret
+```
+
+---
+
+コンパイルしてアセンブル
+
+```r
+> compile("1+2") %>% assemble
+[1] "/tmp/RtmpW7m1KT/file760c7d79428b"
+```
+
+<p class="text-small">
+実行ファイルが出力される
+</p>
+
+---
+
+コンパイルしてアセンブルして実行
+
+```r
+> compile("1+2") %>% assemble %>% execute
+[1] 3
+```
+
+---
+
+変数も使える
+
+```r
+> "a <- 2; a + 40" %>% compile %>% assemble %>% execute
+[1] 42
+```
+
+---
+
+四則演算が動くようになったけど
+
+ここから先はCとRで乖離がある
+
+---
+
+## 関数
+
+---
+
+Rの関数はファーストクラスオブジェクト
+
+```r
+add2 <- function(x) x + 2
+
+add2(40)
+```
+
+---
+
+単なる値
+
+```r
+add2 <- function(x) x + 2
+
+add2(40)
+```
+
+---
+
+どうやってコンパイルすれば良いんだ？
+
+---
+
+![](images/ss_functional_compiler.png){.img-shadow}
+
+<p class="text-small">
+<https://github.com/andycraig/functional-compiler-presentation>
+</p>
+
+---
+
+おかげで関数オブジェクトの生成、関数呼び出しを実装できた。
+
+```r
+> compile("add2 <- function(x) x + 2; add2(40)") %>% assemble %>% execute
+[1] 42
+```
+
+<br/>
+
+Thanks [@andrew_cb2](https://x.com/andrew_cb2)!
+
+---
+
+テキストと違う言語を実装しようとしてつまづいたが、それも含めて楽しかった。
+
+---
+
+Rでもコンパイラを作れるし低レイヤを学べる。
+
+みんなも好きな言語で実装しよう。
+
+---
+
+# Java VM
+
+---
+
+きっかけ
+
+---
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日の「PHP で JVM を実装して Hello World を出力するまで」の登壇資料です。PHP だけには限らず、 JS や Go など、他の言語でも JVM は実装可能なので、ぜひ試してみてくださいね！🙆 <a href="https://twitter.com/hashtag/builderscon?src=hash&amp;ref_src=twsrc%5Etfw">#builderscon</a> <a href="https://t.co/sUgQNIAzi4">https://t.co/sUgQNIAzi4</a></p>&mdash; めもりー (@m3m0r7) <a href="https://twitter.com/m3m0r7/status/1167629306664603648?ref_src=twsrc%5Etfw">August 31, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+## 「他の言語でも JVM は実装可能」
+
+---
+
+公式ドキュメントにも書いてある
+
+> To implement the Java Virtual Machine correctly, you need only be able to read the class file format and correctly perform the operations specified therein. 
+
+<https://docs.oracle.com/javase/specs/jvms/se23/html/jvms-2.html>
+
+
+---
+
+「クラスファイルを読めて、そこに書いてある命令を実行できればJVMを実装できるよ」
+
+---
+
+私はRで実装した。
+
+---
+
+## jvmrr
+
+<https://github.com/igjit/jvmrr>
+
+---
+
+Javaのコードを
+
+```java
+public class Hello {
+  public static void main (String[] args) {
+    System.out.println("Hello, world.");
+  }
+}
+```
+
+---
+
+コンパイルしたら
+
+```sh
+$ javac Hello.java
+```
+
+---
+
+Rで読み込んで
+
+```r
+> library(jvmrr)
+> java_class <- read_class("Hello.class")
+```
+
+---
+
+実行できる
+
+```r
+> java_class %>% execute
+Hello, world.
+```
+
+---
+
+Fizz Buzzも
+
+```java
+class FizzBuzz {
+  public static void main(String[] args) {
+    for (int i = 1; i <= 20; i++) {
+      if (i % 15 == 0) {
+        System.out.println("FizzBuzz");
+      } else if (i % 3 == 0) {
+        System.out.println("Fizz");
+      } else if (i % 5 == 0) {
+        System.out.println("Buzz");
+      } else {
+        System.out.println(i);
+      }
+    }
+  }
+}
+```
+
+---
+
+コンパイルしたら
+
+```sh
+$ javac FizzBuzz.java
+```
+
+---
+
+R上で動く
+
+```r
+> read_class("FizzBuzz.class") %>% execute
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+```
+
+---
+
+詳細は
+
+[Java VM 自作 方法](https://igjit.github.io/posts/2019/12/building-your-own-java-vm/)
+
+---
+
+みんなも好きな言語で実装しよう。
+
+---
+
+# nand2tetris
+
+---
+
+![](images/nand2tetris.jpg){width="40%"}
+
+<p class="text-small" style="margin-top:0">
+<https://www.oreilly.co.jp/books/9784873117126/>
+</p>
+
+---
+
+「コンピュータを理解するための最善の方法はゼロからコンピュータを作ることです。」
+
+---
+
+コンピュータシステムの理論と実装
+
+通称 [nand2tetris](https://www.nand2tetris.org/) (Nand to Tetris)
+
+---
+
+コンピュータの構成要素
+
+- ハードウェア
+- ソフトウェア
+- コンパイラ
+- OS
+
+をひとつずつ実装していく
+
+---
+
+[NANDゲート](https://ja.wikipedia.org/wiki/NAND%E3%82%B2%E3%83%BC%E3%83%88)から始まって
+
+![](images/nand-symbol.png){height=10%}
+
+---
+
+最終的にゲームが動くようになるよ
+
+![](images/pong.gif)
+
+::: {.fragment}
+<p class="text-muted">
+(Nand to Tetrisと言いつつテトリスではない)
+</p>
+:::
+
+
+---
+
+この本で実装する階層
+
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+
+-----------------------
+ アプリケーション
+ OS
+ コンパイラ
+ バーチャルマシン
+ アセンブラ
+ 機械語
+ ハードウェア
+-----------------------
+
+</div>
+
+---
+
+ハードウェアはHDLで記述
+
+<div class="bordered-table hidden-del" style="font-size: 0.7em; margin-top:2em">
+
+-----------------------
+ ~~アプリケーション~~
+ ~~OS~~
+ ~~コンパイラ~~
+ ~~バーチャルマシン~~
+ ~~アセンブラ~~
+ ~~機械語~~
+ ハードウェア
+-----------------------
+
+</div>
+
+---
+
+これらは好きな言語で実装できる
+
+<div class="bordered-table hidden-del" style="font-size: 0.7em; margin-top:2em">
+
+-----------------------
+ ~~アプリケーション~~
+ ~~OS~~
+ コンパイラ
+ バーチャルマシン
+ アセンブラ
+ ~~機械語~~
+ ~~ハードウェア~~
+-----------------------
+
+</div>
+
+---
+
+私はRで実装した。
+
+---
+
+順に紹介します。
+
+---
+
+## 1. アセンブラ
+
+---
+
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+
+-----------------------
+ アプリケーション
+ OS
+ コンパイラ
+ バーチャルマシン
+ **アセンブラ**
+ 機械語
+ ハードウェア
+-----------------------
+
+</div>
+
+---
+
+### アセンブラ
+
+アセンブリ言語をバイナリに変換する
+
+---
+
+アセンブリ言語を
+
+```txt
+@2
+D=A
+@3
+D=D+A
+@0
+M=D
+```
+
+---
+
+バイナリに変換
+
+```txt
+0000000000000010
+1110110000010000
+0000000000000011
+1110000010010000
+0000000000000000
+1110001100001000
+```
+
+---
+
+ハードウェアに対する命令なので低水準
+
+```txt
+@2
+D=A
+@3
+D=D+A
+@0
+M=D
+```
+
+::: {.fragment}
+ちなみにこれは `2 + 3` を計算するコード
+:::
+
+---
+
+Rによるアセンブラの実装
+
+[assembler](https://github.com/igjit/nand2tetris/tree/master/r/assembler)
+
+---
+
+## 2. バーチャルマシン
+
+---
+
+Virtual Machine (VM)
+
+抽象化されたコンピュータ
+
+---
+
+この本で作るのはVM変換器 (VM translator)
+
+---
+
+VMコードをアセンブリコードに変換する
+
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+
+-----------------------
+ アプリケーション
+ OS
+ コンパイラ
+ **バーチャルマシン**
+ アセンブラ
+ 機械語
+ ハードウェア
+-----------------------
+
+</div>
+
+---
+
+`2 + 3` を計算するVMコード
+
+```txt
+push constant 2
+push constant 3
+add
+```
+
+::: {.fragment}
+アセンブリより読みやすい
+:::
+
+---
+
+### [スタックマシン](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%83%9E%E3%82%B7%E3%83%B3) (stack machine)
+
+という計算モデル
+
+---
+
+RによるVM変換器の実装
+
+[vmtranslator](https://github.com/igjit/nand2tetris/tree/master/r/vmtranslator)
+
+---
+
+## 3. コンパイラ
+
+---
+
+高級言語をVMコードに変換する
+
+<div class="bordered-table" style="font-size: 0.7em; margin-top:2em">
+
+-----------------------
+ アプリケーション
+ OS
+ **コンパイラ**
+ バーチャルマシン
+ アセンブラ
+ 機械語
+ ハードウェア
+-----------------------
+
+</div>
+
+---
+
+Jack言語のコード
+
+```java
+class Main {
+   function void main() {
+      do Output.printString("Hello world!");
+      do Output.println();
+      return;
+   }
+}
+```
+
+::: {.fragment}
+普通に読める
+:::
+
+---
+
+RによるJackコンパイラの実装
+
+[jackanalyzer](https://github.com/igjit/nand2tetris/tree/master/r/jackanalyzer)
+
+---
+
+実装にかかった行数
+
+<div style="font-size: 0.8em; margin-top:2em">
+|           | 行数|
+|:----------|----:|
+|アセンブラ |  206|
+|VM変換器   |  323|
+|コンパイラ |  788|
+</div>
+
+---
+
+強力な抽象は実装が大変
+
+<div style="font-size: 0.8em; margin-top:2em">
+|           | 行数|
+|:----------|----:|
+|アセンブラ |  206|
+|VM変換器   |  323|
+|コンパイラ |  788|
+</div>
+
+---
+
+でも楽しい。
+
+---
+
+みんなも好きな言語で実装しよう。
+
+---
+
+## まとめ
+
+---
+
+低レイヤの入り口を紹介
+
+- コンパイラ
+- Java VM
+- nand2tetris
+
+---
+
+動くものを作るのは楽しい。
+
+---
+
+ものが動く仕組みを知ることは楽しい。
+
+---
+
+### Happy hacking!
