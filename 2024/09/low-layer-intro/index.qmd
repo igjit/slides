@@ -1,0 +1,45 @@
+---
+pagetitle: "好きな言語ではじめる 低レイヤゆるっと入門"
+title: |
+  <div style="font-size: 0.7em">
+  好きな言語ではじめる \
+  低レイヤゆるっと入門
+  </div>
+author: "@igjit"
+format: revealjs
+slide-level: 0
+---
+
+![](https://igjit.github.io/images/avatar.png){width=256}
+
+<a href="https://twitter.com/igjit" class="name">@igjit</a>
+
+- ソフトウェアエンジニア
+- [Rで変なものを作る](https://igjit.github.io/slides/)人
+- 共著「[Rが生産性を高める](https://gihyo.jp/book/2022/978-4-297-12524-0)」
+
+---
+
+今日紹介するもの
+
+- コンパイラ
+- Java VM
+- nand2tetris
+
+---
+
+私はRで実装したけど、他の言語でもできるはず。
+
+みんな好きな言語でチャレンジしてほしい。
+
+---
+
+## コンパイラ
+
+---
+
+## Java VM
+
+---
+
+## nand2tetris
