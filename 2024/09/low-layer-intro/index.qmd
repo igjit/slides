@@ -277,8 +277,9 @@ Rでもコンパイラを作れるし低レイヤを学べる。
 
 > To implement the Java Virtual Machine correctly, you need only be able to read the class file format and correctly perform the operations specified therein. 
 
+<p class="text-small">
 <https://docs.oracle.com/javase/specs/jvms/se23/html/jvms-2.html>
-
+</p>
 
 ---
 
