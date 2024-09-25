@@ -578,6 +578,11 @@
 </section>
 <section class="slide level0">
 
+<p>無名関数もあり得る</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>(<span class="cf">function</span>(x) x <span class="sc">+</span> <span class="dv">2</span>)(<span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level0">
+
 <p>どうやってコンパイルすれば良いんだ？</p>
 </section>
 <section class="slide level0">
@@ -590,8 +595,8 @@
 <section class="slide level0">
 
 <p>おかげで関数オブジェクトの生成、関数呼び出しを実装できた。</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="sc">&gt;</span> <span class="fu">compile</span>(<span class="st">"add2 &lt;- function(x) x + 2; add2(40)"</span>) <span class="sc">%&gt;%</span> assemble <span class="sc">%&gt;%</span> execute</span>
-<span id="cb10-2"><a href=""></a>[<span class="dv">1</span>] <span class="dv">42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="sc">&gt;</span> <span class="fu">compile</span>(<span class="st">"add2 &lt;- function(x) x + 2; add2(40)"</span>) <span class="sc">%&gt;%</span> assemble <span class="sc">%&gt;%</span> execute</span>
+<span id="cb11-2"><a href=""></a>[<span class="dv">1</span>] <span class="dv">42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <p>Thanks <a href="https://x.com/andrew_cb2"><span class="citation" data-cites="andrew_cb2">@andrew_cb2</span></a>!</p>
 </section>
@@ -652,77 +657,77 @@
 <section class="slide level0">
 
 <p>Javaのコードを</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb11-1"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> Hello <span class="op">{</span></span>
-<span id="cb11-2"><a href=""></a>  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span> <span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-3"><a href=""></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Hello, world."</span><span class="op">);</span></span>
-<span id="cb11-4"><a href=""></a>  <span class="op">}</span></span>
-<span id="cb11-5"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb12-1"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> Hello <span class="op">{</span></span>
+<span id="cb12-2"><a href=""></a>  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span> <span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href=""></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Hello, world."</span><span class="op">);</span></span>
+<span id="cb12-4"><a href=""></a>  <span class="op">}</span></span>
+<span id="cb12-5"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>コンパイルしたら</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="ex">$</span> javac Hello.java</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="ex">$</span> javac Hello.java</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>Rで読み込んで</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="sc">&gt;</span> <span class="fu">library</span>(jvmrr)</span>
-<span id="cb13-2"><a href=""></a><span class="sc">&gt;</span> java_class <span class="ot">&lt;-</span> <span class="fu">read_class</span>(<span class="st">"Hello.class"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="sc">&gt;</span> <span class="fu">library</span>(jvmrr)</span>
+<span id="cb14-2"><a href=""></a><span class="sc">&gt;</span> java_class <span class="ot">&lt;-</span> <span class="fu">read_class</span>(<span class="st">"Hello.class"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>実行できる</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="sc">&gt;</span> java_class <span class="sc">%&gt;%</span> execute</span>
-<span id="cb14-2"><a href=""></a>Hello, world.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="sc">&gt;</span> java_class <span class="sc">%&gt;%</span> execute</span>
+<span id="cb15-2"><a href=""></a>Hello, world.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>Fizz Buzzも</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb15-1"><a href=""></a><span class="kw">class</span> FizzBuzz <span class="op">{</span></span>
-<span id="cb15-2"><a href=""></a>  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb15-3"><a href=""></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">20</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb15-4"><a href=""></a>      <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">15</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb15-5"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"FizzBuzz"</span><span class="op">);</span></span>
-<span id="cb15-6"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb15-7"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Fizz"</span><span class="op">);</span></span>
-<span id="cb15-8"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb15-9"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Buzz"</span><span class="op">);</span></span>
-<span id="cb15-10"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb15-11"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
-<span id="cb15-12"><a href=""></a>      <span class="op">}</span></span>
-<span id="cb15-13"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb15-14"><a href=""></a>  <span class="op">}</span></span>
-<span id="cb15-15"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb16-1"><a href=""></a><span class="kw">class</span> FizzBuzz <span class="op">{</span></span>
+<span id="cb16-2"><a href=""></a>  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-3"><a href=""></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">20</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb16-4"><a href=""></a>      <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">15</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-5"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"FizzBuzz"</span><span class="op">);</span></span>
+<span id="cb16-6"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-7"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Fizz"</span><span class="op">);</span></span>
+<span id="cb16-8"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-9"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Buzz"</span><span class="op">);</span></span>
+<span id="cb16-10"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb16-11"><a href=""></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb16-12"><a href=""></a>      <span class="op">}</span></span>
+<span id="cb16-13"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb16-14"><a href=""></a>  <span class="op">}</span></span>
+<span id="cb16-15"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>コンパイルしたら</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="ex">$</span> javac FizzBuzz.java</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href=""></a><span class="ex">$</span> javac FizzBuzz.java</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>R上で動く</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="sc">&gt;</span> <span class="fu">read_class</span>(<span class="st">"FizzBuzz.class"</span>) <span class="sc">%&gt;%</span> execute</span>
-<span id="cb17-2"><a href=""></a><span class="dv">1</span></span>
-<span id="cb17-3"><a href=""></a><span class="dv">2</span></span>
-<span id="cb17-4"><a href=""></a>Fizz</span>
-<span id="cb17-5"><a href=""></a><span class="dv">4</span></span>
-<span id="cb17-6"><a href=""></a>Buzz</span>
-<span id="cb17-7"><a href=""></a>Fizz</span>
-<span id="cb17-8"><a href=""></a><span class="dv">7</span></span>
-<span id="cb17-9"><a href=""></a><span class="dv">8</span></span>
-<span id="cb17-10"><a href=""></a>Fizz</span>
-<span id="cb17-11"><a href=""></a>Buzz</span>
-<span id="cb17-12"><a href=""></a><span class="dv">11</span></span>
-<span id="cb17-13"><a href=""></a>Fizz</span>
-<span id="cb17-14"><a href=""></a><span class="dv">13</span></span>
-<span id="cb17-15"><a href=""></a><span class="dv">14</span></span>
-<span id="cb17-16"><a href=""></a>FizzBuzz</span>
-<span id="cb17-17"><a href=""></a><span class="dv">16</span></span>
-<span id="cb17-18"><a href=""></a><span class="dv">17</span></span>
-<span id="cb17-19"><a href=""></a>Fizz</span>
-<span id="cb17-20"><a href=""></a><span class="dv">19</span></span>
-<span id="cb17-21"><a href=""></a>Buzz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="sc">&gt;</span> <span class="fu">read_class</span>(<span class="st">"FizzBuzz.class"</span>) <span class="sc">%&gt;%</span> execute</span>
+<span id="cb18-2"><a href=""></a><span class="dv">1</span></span>
+<span id="cb18-3"><a href=""></a><span class="dv">2</span></span>
+<span id="cb18-4"><a href=""></a>Fizz</span>
+<span id="cb18-5"><a href=""></a><span class="dv">4</span></span>
+<span id="cb18-6"><a href=""></a>Buzz</span>
+<span id="cb18-7"><a href=""></a>Fizz</span>
+<span id="cb18-8"><a href=""></a><span class="dv">7</span></span>
+<span id="cb18-9"><a href=""></a><span class="dv">8</span></span>
+<span id="cb18-10"><a href=""></a>Fizz</span>
+<span id="cb18-11"><a href=""></a>Buzz</span>
+<span id="cb18-12"><a href=""></a><span class="dv">11</span></span>
+<span id="cb18-13"><a href=""></a>Fizz</span>
+<span id="cb18-14"><a href=""></a><span class="dv">13</span></span>
+<span id="cb18-15"><a href=""></a><span class="dv">14</span></span>
+<span id="cb18-16"><a href=""></a>FizzBuzz</span>
+<span id="cb18-17"><a href=""></a><span class="dv">16</span></span>
+<span id="cb18-18"><a href=""></a><span class="dv">17</span></span>
+<span id="cb18-19"><a href=""></a>Fizz</span>
+<span id="cb18-20"><a href=""></a><span class="dv">19</span></span>
+<span id="cb18-21"><a href=""></a>Buzz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
@@ -922,32 +927,32 @@
 <section class="slide level0">
 
 <p>アセンブリ言語を</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb18-1"><a href=""></a>@2</span>
-<span id="cb18-2"><a href=""></a>D=A</span>
-<span id="cb18-3"><a href=""></a>@3</span>
-<span id="cb18-4"><a href=""></a>D=D+A</span>
-<span id="cb18-5"><a href=""></a>@0</span>
-<span id="cb18-6"><a href=""></a>M=D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb19-1"><a href=""></a>@2</span>
+<span id="cb19-2"><a href=""></a>D=A</span>
+<span id="cb19-3"><a href=""></a>@3</span>
+<span id="cb19-4"><a href=""></a>D=D+A</span>
+<span id="cb19-5"><a href=""></a>@0</span>
+<span id="cb19-6"><a href=""></a>M=D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>バイナリに変換</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb19-1"><a href=""></a>0000000000000010</span>
-<span id="cb19-2"><a href=""></a>1110110000010000</span>
-<span id="cb19-3"><a href=""></a>0000000000000011</span>
-<span id="cb19-4"><a href=""></a>1110000010010000</span>
-<span id="cb19-5"><a href=""></a>0000000000000000</span>
-<span id="cb19-6"><a href=""></a>1110001100001000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb20-1"><a href=""></a>0000000000000010</span>
+<span id="cb20-2"><a href=""></a>1110110000010000</span>
+<span id="cb20-3"><a href=""></a>0000000000000011</span>
+<span id="cb20-4"><a href=""></a>1110000010010000</span>
+<span id="cb20-5"><a href=""></a>0000000000000000</span>
+<span id="cb20-6"><a href=""></a>1110001100001000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level0">
 
 <p>ハードウェアに対する命令なので低水準</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb20-1"><a href=""></a>@2</span>
-<span id="cb20-2"><a href=""></a>D=A</span>
-<span id="cb20-3"><a href=""></a>@3</span>
-<span id="cb20-4"><a href=""></a>D=D+A</span>
-<span id="cb20-5"><a href=""></a>@0</span>
-<span id="cb20-6"><a href=""></a>M=D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb21-1"><a href=""></a>@2</span>
+<span id="cb21-2"><a href=""></a>D=A</span>
+<span id="cb21-3"><a href=""></a>@3</span>
+<span id="cb21-4"><a href=""></a>D=D+A</span>
+<span id="cb21-5"><a href=""></a>@0</span>
+<span id="cb21-6"><a href=""></a>M=D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>ちなみにこれは <code>2 + 3</code> を計算するコード</p>
 </div>
@@ -1004,9 +1009,9 @@
 <section class="slide level0">
 
 <p><code>2 + 3</code> を計算するVMコード</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb21-1"><a href=""></a>push constant 2</span>
-<span id="cb21-2"><a href=""></a>push constant 3</span>
-<span id="cb21-3"><a href=""></a>add</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb22-1"><a href=""></a>push constant 2</span>
+<span id="cb22-2"><a href=""></a>push constant 3</span>
+<span id="cb22-3"><a href=""></a>add</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>アセンブリより読みやすい</p>
 </div>
@@ -1059,13 +1064,13 @@
 <section class="slide level0">
 
 <p>Jack言語のコード</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb22-1"><a href=""></a><span class="kw">class</span> Main <span class="op">{</span></span>
-<span id="cb22-2"><a href=""></a>   function <span class="dt">void</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb22-3"><a href=""></a>      <span class="cf">do</span> Output<span class="op">.</span><span class="fu">printString</span><span class="op">(</span><span class="st">"Hello world!"</span><span class="op">);</span></span>
-<span id="cb22-4"><a href=""></a>      <span class="cf">do</span> Output<span class="op">.</span><span class="fu">println</span><span class="op">();</span></span>
-<span id="cb22-5"><a href=""></a>      <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb22-6"><a href=""></a>   <span class="op">}</span></span>
-<span id="cb22-7"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb23-1"><a href=""></a><span class="kw">class</span> Main <span class="op">{</span></span>
+<span id="cb23-2"><a href=""></a>   function <span class="dt">void</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb23-3"><a href=""></a>      <span class="cf">do</span> Output<span class="op">.</span><span class="fu">printString</span><span class="op">(</span><span class="st">"Hello world!"</span><span class="op">);</span></span>
+<span id="cb23-4"><a href=""></a>      <span class="cf">do</span> Output<span class="op">.</span><span class="fu">println</span><span class="op">();</span></span>
+<span id="cb23-5"><a href=""></a>      <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb23-6"><a href=""></a>   <span class="op">}</span></span>
+<span id="cb23-7"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>普通に読める</p>
 </div>
