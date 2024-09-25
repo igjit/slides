@@ -27,7 +27,7 @@ slide-level: 0
 :::
 
 ::: {.column width="70%"}
-<a href="https://twitter.com/igjit" class="name">@igjit</a>
+<a href="https://x.com/igjit" class="name">@igjit</a>
 
 - ソフトウェアエンジニア
 - [Rで変なものを作る](https://igjit.github.io/slides/)人
