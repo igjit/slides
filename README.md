@@ -1,5 +1,6 @@
 # slides
 
+- [好きな言語ではじめる 低レイヤゆるっと入門](https://igjit.github.io/slides/2024/09/low-layer-intro/#/) ([好きな言語で作る！低レイヤゆるっとLT大会](https://connpass.com/event/327833/))
 - [ゼロから作るDeep Learning in R](https://igjit.github.io/slides/2022/12/deep-learning-from-scratch-r/#/) ([Japan.R 2022](https://japanr.connpass.com/event/265366/) ショートセッション)
 - [Kaggle初コンペにRで挑戦した話](https://igjit.github.io/slides/2022/06/kaggle-with-r/#/) ([Tokyo.R #99](https://tokyor.connpass.com/event/249096/) LT)
 - [nand2tetris in R](https://igjit.github.io/slides/2021/01/nand2tetris-in-r/#/) ([Tokyo.R #89](https://tokyor.connpass.com/event/200591/) 応用セッション)
