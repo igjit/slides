@@ -1,0 +1,7 @@
+services:
+  quarto:
+    build: ./docker/quarto/
+    volumes:
+      - .:/opt/work
+    working_dir: /opt/work
+    user: rstudio
