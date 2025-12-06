@@ -7,3 +7,6 @@ RUN apt update && apt install -y \
 
 RUN install2.r --error \
     reticulate
+
+RUN installGithub.r --update=FALSE \
+    igjit/rm1@4115c80
