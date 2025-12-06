@@ -1,6 +1,8 @@
 services:
   quarto:
     build: ./docker/quarto/
+    environment:
+      - RETICULATE_PYTHON=/usr/bin/python3
     volumes:
       - .:/opt/work
     working_dir: /opt/work
