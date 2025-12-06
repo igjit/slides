@@ -1,0 +1,391 @@
+---
+title: selfをめぐる冒険
+subtitle: Japan.R 2025
+author: "@igjit"
+format:
+  revealjs:
+    code-line-numbers: false
+slide-level: 0
+execute:
+  echo: true
+---
+
+<style type="text/css" rel="stylesheet">
+.reveal .text-muted { color: #888; }
+.reveal .text-small { font-size: 0.6em; }
+.reveal .name { font-weight: bold; font-family: Helvetica,Arial,sans-serif; }
+.reveal .img-shadow { box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
+.reveal .bordered-table table td { border: 1px solid; }
+.reveal .bordered-table table tbody tr:last-child td { border: 1px solid; }
+.reveal .hidden-del del { visibility: hidden; }
+</style>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+![](https://igjit.github.io/images/avatar.png){width=256}
+:::
+
+::: {.column width="70%"}
+<a href="https://x.com/igjit" class="name">@igjit</a>
+
+- ソフトウェアエンジニア
+- [Rで変なものを作る](https://igjit.github.io/slides/)人
+- 共著「[Rが生産性を高める](https://gihyo.jp/book/2022/978-4-297-12524-0)」
+:::
+
+::::
+
+---
+
+RユーザーもPythonを書く
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](images/reticulated_python.png)
+:::
+
+::::
+
+---
+
+たまにPythonを書くときに思うこと
+
+---
+
+::: {.fragment}
+メソッド定義の仮引数に`self`って書くのはなぜ
+:::
+
+```{python}
+class Counter:
+    def __init__(self):
+        self.n = 0
+    
+    def increase(self):
+        self.n += 1
+        return self.n
+```
+
+<br>
+
+```{python}
+counter = Counter()
+counter.increase()
+```
+
+---
+
+Rだとどうか
+
+---
+
+Rではオブジェクトシステムを[選べる](https://adv-r.hadley.nz/oo.html#oop-in-r)
+
+- base R
+  - S3
+  - S4
+  - RC (reference class)
+- CRAN package
+  - R6
+  - R.oo
+  - proto
+
+---
+
+[R6](https://r6.r-lib.org/)の場合
+
+```{r}
+Counter <- R6::R6Class("Counter", list(
+  n = 0,
+  increase = function() {
+    self$n <- self$n + 1
+    self$n
+  })
+)
+```
+
+<br>
+
+```{r}
+counter <- Counter$new()
+counter$increase()
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="45%"}
+Python
+
+```python
+class Counter:
+    def __init__(self):
+        self.n = 0
+    
+    def increase(self):
+        self.n += 1
+        return self.n
+```
+:::
+
+::: {.column width="55%"}
+R (R6)
+
+```{r}
+Counter <- R6::R6Class("Counter", list(
+  n = 0,
+  increase = function() {
+    self$n <- self$n + 1
+    self$n
+  })
+)
+```
+:::
+
+::::
+
+---
+
+Rでは
+
+R6パッケージが`self`に特別な意味を持たせている
+
+---
+
+Pythonでは
+
+> インスタンスオブジェクトが関数の第1引数として渡されます。  
+> `x.f()`という呼び出しは、`MyClass.f(x)`と厳密に等価なものです。
+
+::: {.fragment}
+> `self`という名前は、Pythonでは何ら特殊な意味を持ちません。
+:::
+
+<p class="text-small">
+<https://docs.python.org/ja/3/tutorial/classes.html>
+</p>
+
+---
+
+Pythonのselfは
+
+### 単なる慣習
+
+---
+
+つまりこれは
+
+```python
+class Counter:
+    def __init__(self):
+        self.n = 0
+    
+    def increase(self):
+        self.n += 1
+        return self.n
+```
+
+---
+
+こうしても動く
+
+```python
+class Counter:
+    def __init__(foo):
+        foo.n = 0
+    
+    def increase(bar):
+        bar.n += 1
+        return bar.n
+```
+
+<p class="text-small text-muted">
+(こんなコードは書くべきではない)
+</p>
+
+---
+
+### なにそれすごい
+
+---
+
+### Rでもやりたい
+
+---
+
+やってみた。
+
+---
+
+## rm1
+
+<https://github.com/igjit/rm1>
+
+<br>
+
+rm1は "R minus 1" の意
+
+---
+
+インストール
+
+```r
+# install.packages("pak")
+pak::pak("igjit/rm1")
+```
+
+---
+
+## あそびかた
+
+---
+
+パッケージを読み込んだら
+
+```{r}
+library(rm1)
+```
+
+---
+
+こんな感じで書ける
+
+```{r}
+Counter <- rm1_class(list(
+  .init = function(self) {
+      self$n <- 0
+  },
+  increase = function(self) {
+      self$n <- self$n + 1
+      self$n
+  }))
+```
+
+<br>
+
+```{r}
+counter <- Counter()
+counter$increase()
+```
+
+---
+
+もちろん`self`じゃなくても動く
+
+```{r}
+CounterB <- rm1_class(list(
+  .init = function(foo) {
+      foo$n <- 0
+  },
+  increase = function(bar) {
+      bar$n <- bar$n + 1
+      bar$n
+  }))
+```
+
+<br>
+
+```{r}
+counter_b <- CounterB()
+counter_b$increase()
+```
+
+---
+
+だいぶPythonっぽくなった
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Python
+
+```python
+class Counter:
+    def __init__(self):
+        self.n = 0
+    
+    def increase(self):
+        self.n += 1
+        return self.n
+```
+:::
+
+::: {.column width="50%"}
+R (igjit/rm1)
+
+```r
+Counter <- rm1_class(list(
+  .init = function(self) {
+      self$n <- 0
+  },
+  increase = function(self) {
+      self$n <- self$n + 1
+      self$n
+  }))
+```
+:::
+
+::::
+
+---
+
+## 実装
+
+---
+
+実装は簡単。
+
+今回紹介した機能は[これ](https://github.com/igjit/rm1/commit/8023a8d30a3d045ad5251359f20d5dbd80871afe)で動く。
+
+```r
+rm1_class <- function(methods) {
+  function(...) {
+    self <- new.env()
+    for (name in names(methods)) {
+      assign(name, function(...) methods[[name]](self, ...), self)
+    }
+
+    methods$.init(self, ...)
+    self
+  }
+}
+```
+
+---
+
+念のため言っておくと
+
+::: {.fragment}
+### 実用性は全く無い
+:::
+
+---
+
+単に**作るのが楽しいから**作っている。
+
+---
+
+作って動かして理解する
+
+---
+
+## まとめ
+
+---
+
+Pythonのselfは慣習
+
+---
+
+オブジェクトシステムは自作できる
+
+---
+
+プログラミングは楽しい
+
+---
+
+### Enjoy!
