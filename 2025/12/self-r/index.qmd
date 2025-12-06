@@ -91,6 +91,7 @@ Rではオブジェクトシステムを[選べる](https://adv-r.hadley.nz/oo.h
   - R6
   - R.oo
   - proto
+  - S7
 
 ---
 
